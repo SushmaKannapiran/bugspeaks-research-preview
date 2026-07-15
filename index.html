@@ -64,9 +64,11 @@
 
   /* MARQUEE */
   .marq{background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line);overflow:hidden;padding:26px 0;}
-  .marq .row{display:flex;gap:54px;width:max-content;align-items:center;animation:scroll 48s linear infinite;}
-  .clogo{height:40px;width:auto;object-fit:contain;filter:grayscale(1);opacity:.68;transition:filter .2s ease,opacity .2s ease;}
-  .clogo:hover{filter:none;opacity:1;}
+  .marq .row{display:flex;gap:46px;width:max-content;align-items:center;animation:scroll 55s linear infinite;}
+  .mitem{display:inline-flex;align-items:center;gap:10px;white-space:nowrap;}
+  .mitem img{height:28px;width:auto;object-fit:contain;filter:grayscale(1);opacity:.66;transition:filter .2s ease,opacity .2s ease;}
+  .mitem span{font-family:var(--serif);font-size:18px;color:#8290a2;}
+  .marq:hover .mitem img{filter:none;opacity:1;}
   @keyframes scroll{from{transform:translateX(0);}to{transform:translateX(-50%);}}
   .marq:hover .row{animation-play-state:paused;}
   .marqlabel{font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#8a94a4;text-align:center;padding-bottom:16px;}
@@ -302,8 +304,8 @@
 <div class="marq">
   <div class="marqlabel">Research clients &amp; institutions</div>
   <div class="row" id="marqrow">
-    <img class="clogo" src="assets/cl_ultrahuman.png" alt="Ultrahuman"><img class="clogo" src="assets/cl_iitk.png" alt="IIT Kanpur"><img class="clogo" src="assets/cl_indus.png" alt="Indus Biotech"><img class="clogo" src="assets/cl_advenzymes.png" alt="Advanced Enzymes"><img class="clogo" src="assets/cl_mdrf.png" alt="Madras Diabetes Research Foundation">
-    <img class="clogo" src="assets/cl_ultrahuman.png" alt="Ultrahuman"><img class="clogo" src="assets/cl_iitk.png" alt="IIT Kanpur"><img class="clogo" src="assets/cl_indus.png" alt="Indus Biotech"><img class="clogo" src="assets/cl_advenzymes.png" alt="Advanced Enzymes"><img class="clogo" src="assets/cl_mdrf.png" alt="Madras Diabetes Research Foundation">
+    <div class="mitem"><img src="assets/cl_ultrahuman.png" alt=""><span>Ultrahuman</span></div><div class="mitem"><img src="assets/cl_iitk.png" alt=""><span>IIT Kanpur</span></div><div class="mitem"><img src="assets/cl_indus.png" alt=""><span>Indus Biotech</span></div><div class="mitem"><img src="assets/cl_advenzymes.png" alt=""></div><div class="mitem"><img src="assets/cl_mdrf.png" alt=""></div><div class="mitem"><span>St John's Research Institute</span></div><div class="mitem"><span>JSS, Mysore</span></div><div class="mitem"><span>CARI</span></div><div class="mitem"><span>NovoBliss</span></div><div class="mitem"><span>TN Medical College</span></div><div class="mitem"><span>Advanced Enzymes</span></div>
+    <div class="mitem"><img src="assets/cl_ultrahuman.png" alt=""><span>Ultrahuman</span></div><div class="mitem"><img src="assets/cl_iitk.png" alt=""><span>IIT Kanpur</span></div><div class="mitem"><img src="assets/cl_indus.png" alt=""><span>Indus Biotech</span></div><div class="mitem"><img src="assets/cl_advenzymes.png" alt=""></div><div class="mitem"><img src="assets/cl_mdrf.png" alt=""></div><div class="mitem"><span>St John's Research Institute</span></div><div class="mitem"><span>JSS, Mysore</span></div><div class="mitem"><span>CARI</span></div><div class="mitem"><span>NovoBliss</span></div><div class="mitem"><span>TN Medical College</span></div><div class="mitem"><span>Advanced Enzymes</span></div>
   </div>
 </div>
 
@@ -488,8 +490,8 @@
     <div class="kicker reveal"><div class="eyebrow">Who's behind the work</div><h2 class="big">A team that has done this for over a decade.</h2></div>
     <div class="team reveal">
       <div class="member"><img class="mphoto" src="assets/kumar.png" alt="Kumar Sankaran"><h3>Kumar Sankaran</h3><p class="role">CEO</p><p class="bio">20+ years in biotechnology and healthcare innovation.</p></div>
-      <div class="member"><img class="mphoto" src="assets/deb.png" alt="Dr. Debojyoti Dhar"><h3>Dr. Debojyoti Dhar</h3><p class="role">Co-founder · Director, R&amp;D</p><p class="bio">PhD in molecular biology (IISc); postdoctoral research at UMass Medical School; 15+ years across academic and industry R&amp;D.</p></div>
-      <div class="member"><img class="mphoto" src="assets/prabhath.png" alt="Prabhath K M"><h3>Prabhath K M</h3><p class="role">Co-founder · Chief Product Officer</p><p class="bio">Leads product and microbiome science.</p></div>
+      <div class="member"><img class="mphoto" src="assets/deb.png" alt="Dr. Debojyoti Dhar"><h3>Dr. Debojyoti Dhar</h3><p class="role">Co-founder · Director, R&amp;D</p><p class="bio">PhD in molecular biology (IISc); postdoctoral research at UMass Medical School.</p></div>
+      <div class="member"><img class="mphoto" src="assets/prabhath.png" alt="Prabhath Manjappa Kamath"><h3>Prabhath Manjappa Kamath</h3><p class="role">Co-founder · Chief Product Officer</p><p class="bio">Leads product and microbiome science.</p></div>
       <div class="member"><img class="mphoto" src="assets/gopal.jpg" alt="Dr. Gopalakrishna Kallapura"><h3>Dr. Gopalakrishna Kallapura</h3><p class="role">Scientific Lead</p><p class="bio">PhD, University of Arkansas; leads the microbiome research domain and clinical studies.</p></div>
     </div>
     <div class="certs reveal">
@@ -509,22 +511,7 @@
 
 <!-- stats band removed -->
 
-<!-- PRICING + WHITEPAPER -->
-<section class="sec mist">
-  <div class="wrap two">
-    <div class="pricecard reveal">
-      <div class="eyebrow" style="color:var(--teal);margin-bottom:8px;">Pricing</div>
-      <h3>Per-sample, billed monthly.</h3>
-      <p>Priced per sample and billed against samples received, so a study that recruits slowly never means a large commitment up front. Typical turnaround is two to three weeks from sample receipt. A clear quote follows a short scoping call.</p>
-    </div>
-    <div class="wpcard reveal">
-      <div class="eyebrow" style="color:var(--spore);margin-bottom:8px;">Free resource</div>
-      <h3>Whitepaper: beyond a single tool.</h3>
-      <p>Why single-tool differential abundance is fragile, and how a six-method consensus produces results that survive review.</p>
-      <div style="margin-top:18px;"><a class="btn btn-primary" href="#contact">Download the whitepaper</a></div>
-    </div>
-  </div>
-</section>
+<!-- pricing/whitepaper section removed per request -->
 
 <!-- FAQ -->
 <section class="sec">

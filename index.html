@@ -171,6 +171,7 @@
   .checks li{list-style:none;padding-left:32px;position:relative;font-size:15.5px;color:var(--tx);}
   .checks li::before{content:"";position:absolute;left:0;top:4px;width:18px;height:18px;border-radius:5px;background:var(--spore);}
   .checks li::after{content:"✓";position:absolute;left:4px;top:3px;color:#0d1526;font-size:12px;font-weight:800;}
+  .sec.dark .checks li{color:#dbe3ee;}
 
   /* STATS */
   .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:28px;margin-top:8px;}
@@ -184,7 +185,8 @@
   @media(max-width:820px){.team{grid-template-columns:1fr 1fr;}}
   .member .ph{height:150px;margin-bottom:12px;}
   .member h3{font-family:var(--sans);font-weight:700;font-size:15.5px;}
-  .member p{font-family:var(--mono);font-size:11.5px;color:var(--slate2);margin-top:3px;}
+  .member .role{font-family:var(--mono);font-size:11px;letter-spacing:.04em;color:var(--teal);margin-top:5px;}
+  .member .bio{font-family:var(--sans);font-size:12.5px;color:var(--slate);margin-top:8px;line-height:1.45;}
   .certs{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:24px;}
   @media(max-width:820px){.certs{grid-template-columns:1fr 1fr;}}
   .certs .ph{height:78px;}
@@ -206,6 +208,13 @@
   .event-img{width:100%;height:330px;object-fit:cover;border-radius:14px;border:1px solid rgba(255,255,255,.1);}
   .event-stats{margin-top:24px;display:flex;gap:30px;flex-wrap:wrap;font-family:var(--mono);font-size:12.5px;color:#8b97ab;}
   .event-stats b{color:#fff;font-size:18px;display:block;font-family:var(--serif);}
+  .stack{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:16px;}
+  @media(max-width:820px){.stack{grid-template-columns:1fr;}}
+  .scard{display:flex;align-items:center;gap:14px;background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:18px 20px;}
+  .ont-logo{height:38px;width:auto;flex:none;}
+  .sdot{width:12px;height:12px;border-radius:50%;background:var(--spore);flex:none;}
+  .sinfo b{font-family:var(--sans);font-size:14.5px;display:block;color:var(--tx);}
+  .sinfo span{font-family:var(--mono);font-size:11.5px;color:var(--slate2);}
 
   /* PRICING + WP */
   .two{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:12px;}
@@ -291,10 +300,10 @@
 </header>
 
 <div class="marq">
-  <div class="marqlabel">Clients &amp; partners</div>
+  <div class="marqlabel">Research clients &amp; institutions</div>
   <div class="row" id="marqrow">
-    <img class="clogo" src="assets/client1.jpg" alt=""><img class="clogo" src="assets/client2.jpg" alt=""><img class="clogo" src="assets/client3.jpg" alt=""><img class="clogo" src="assets/client4.jpg" alt=""><img class="clogo" src="assets/client5.jpg" alt=""><img class="clogo" src="assets/client6.jpg" alt=""><img class="clogo" src="assets/client7.jpg" alt=""><img class="clogo" src="assets/client8.jpg" alt=""><img class="clogo" src="assets/client9.jpg" alt=""><img class="clogo" src="assets/client10.jpg" alt=""><img class="clogo" src="assets/client11.jpg" alt=""><img class="clogo" src="assets/client12.jpg" alt=""><img class="clogo" src="assets/p_redcliffe.png" alt=""><img class="clogo" src="assets/p_reliance.png" alt=""><img class="clogo" src="assets/p_agilus.jpg" alt=""><img class="clogo" src="assets/p_sova.png" alt=""><img class="clogo" src="assets/p_good.png" alt=""><img class="clogo" src="assets/p_human.jpg" alt="">
-    <img class="clogo" src="assets/client1.jpg" alt=""><img class="clogo" src="assets/client2.jpg" alt=""><img class="clogo" src="assets/client3.jpg" alt=""><img class="clogo" src="assets/client4.jpg" alt=""><img class="clogo" src="assets/client5.jpg" alt=""><img class="clogo" src="assets/client6.jpg" alt=""><img class="clogo" src="assets/client7.jpg" alt=""><img class="clogo" src="assets/client8.jpg" alt=""><img class="clogo" src="assets/client9.jpg" alt=""><img class="clogo" src="assets/client10.jpg" alt=""><img class="clogo" src="assets/client11.jpg" alt=""><img class="clogo" src="assets/client12.jpg" alt=""><img class="clogo" src="assets/p_redcliffe.png" alt=""><img class="clogo" src="assets/p_reliance.png" alt=""><img class="clogo" src="assets/p_agilus.jpg" alt=""><img class="clogo" src="assets/p_sova.png" alt=""><img class="clogo" src="assets/p_good.png" alt=""><img class="clogo" src="assets/p_human.jpg" alt="">
+    <img class="clogo" src="assets/cl_ultrahuman.png" alt="Ultrahuman"><img class="clogo" src="assets/cl_iitk.png" alt="IIT Kanpur"><img class="clogo" src="assets/cl_indus.png" alt="Indus Biotech"><img class="clogo" src="assets/cl_advenzymes.png" alt="Advanced Enzymes"><img class="clogo" src="assets/cl_mdrf.png" alt="Madras Diabetes Research Foundation">
+    <img class="clogo" src="assets/cl_ultrahuman.png" alt="Ultrahuman"><img class="clogo" src="assets/cl_iitk.png" alt="IIT Kanpur"><img class="clogo" src="assets/cl_indus.png" alt="Indus Biotech"><img class="clogo" src="assets/cl_advenzymes.png" alt="Advanced Enzymes"><img class="clogo" src="assets/cl_mdrf.png" alt="Madras Diabetes Research Foundation">
   </div>
 </div>
 
@@ -465,13 +474,9 @@
     <div class="kicker reveal"><div class="eyebrow">What you receive</div><h2 class="big">A reproducible package — and the raw data.</h2></div>
     <ul class="checks reveal">
       <li>One folder per comparison or group</li>
-      <li>All six taxonomic ranks, phylum to species</li>
       <li>Group-level and sample-level outputs</li>
       <li>Editable spreadsheets and publication-ready figures</li>
-      <li>Raw and host-filtered reads with count tables — yours to keep</li>
       <li>Methods text ready for your manuscript</li>
-      <li>A sample-tracking portal, from dispatch to sequenced</li>
-      <li>Your data remains confidential and yours — NDA-ready</li>
     </ul>
     <div class="reveal" style="margin-top:28px;background:var(--ink2);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:22px 26px;font-size:14.5px;color:#b8c2d1;max-width:70ch;"><b style="color:#fff;font-family:var(--sans);">Data &amp; confidentiality.</b> Samples and data are handled under NDA where required, stored securely, and never shared with third parties. You own the raw and processed data, and can request its deletion after delivery.</div>
   </div>
@@ -482,10 +487,10 @@
   <div class="wrap">
     <div class="kicker reveal"><div class="eyebrow">Who's behind the work</div><h2 class="big">A team that has done this for over a decade.</h2></div>
     <div class="team reveal">
-      <div class="member"><img class="mphoto" src="assets/kumar.png" alt="Kumar Sankaran"><h3>Kumar Sankaran</h3><p>CEO · 20+ years in biotech</p></div>
-      <div class="member"><img class="mphoto" src="assets/deb.png" alt="Dr. Debojyoti Dhar"><h3>Dr. Debojyoti Dhar</h3><p>Co-founder · Director, BD &amp; Innovation · PhD</p></div>
-      <div class="member"><img class="mphoto" src="assets/gopal.jpg" alt="Dr. Gopalakrishna Kallapura"><h3>Dr. Gopalakrishna Kallapura</h3><p>Scientific Lead · PhD, U. Arkansas</p></div>
-      <div class="member"><img class="mphoto" src="assets/prabhath.png" alt="Prabhath K M"><h3>Prabhath K M</h3><p>Chief Product Officer</p></div>
+      <div class="member"><img class="mphoto" src="assets/kumar.png" alt="Kumar Sankaran"><h3>Kumar Sankaran</h3><p class="role">CEO</p><p class="bio">20+ years in biotechnology and healthcare innovation.</p></div>
+      <div class="member"><img class="mphoto" src="assets/deb.png" alt="Dr. Debojyoti Dhar"><h3>Dr. Debojyoti Dhar</h3><p class="role">Co-founder · Director, R&amp;D</p><p class="bio">PhD in molecular biology (IISc); postdoctoral research at UMass Medical School; 15+ years across academic and industry R&amp;D.</p></div>
+      <div class="member"><img class="mphoto" src="assets/prabhath.png" alt="Prabhath K M"><h3>Prabhath K M</h3><p class="role">Co-founder · Chief Product Officer</p><p class="bio">Leads product and microbiome science.</p></div>
+      <div class="member"><img class="mphoto" src="assets/gopal.jpg" alt="Dr. Gopalakrishna Kallapura"><h3>Dr. Gopalakrishna Kallapura</h3><p class="role">Scientific Lead</p><p class="bio">PhD, University of Arkansas; leads the microbiome research domain and clinical studies.</p></div>
     </div>
     <div class="certs reveal">
       <div class="certbadge"><img src="assets/nabl.png" alt="NABL accredited"></div>
@@ -494,24 +499,15 @@
       <div class="certbadge award"><span>National Startup<br><b>Award 2021</b></span></div>
     </div>
     <div class="reveal" style="margin-top:16px;font-family:var(--mono);font-size:12.5px;letter-spacing:.04em;color:var(--slate2);text-align:center;">National Startup Award 2021 (Govt. of India) &nbsp;·&nbsp; Frost &amp; Sullivan APAC — Genomics (2016) &amp; Microbiome Diagnostics (2019)</div>
-    <div class="certs reveal" style="grid-template-columns:2fr 1fr 1fr;margin-top:16px;">
-      <div class="ph" style="height:160px;"><span class="pic">🔬</span>LAB PHOTO — sequencing floor / bench</div>
-      <div class="ph" style="height:160px;"><span class="pic">🧫</span>EQUIPMENT</div>
-      <div class="ph" style="height:160px;"><span class="pic">🧬</span>NANOPORE / EXTRACTION</div>
+    <div class="stack reveal">
+      <div class="scard"><img class="ont-logo" src="assets/ont_logo.png" alt="Oxford Nanopore"><div class="sinfo"><b>Oxford Nanopore PromethION</b><span>Long-read shotgun sequencing, to species level</span></div></div>
+      <div class="scard"><div class="sdot"></div><div class="sinfo"><b>Automated DNA extraction &amp; QC</b><span>Qubit and NanoDrop checks on every sample</span></div></div>
+      <div class="scard"><div class="sdot"></div><div class="sinfo"><b>~250,000-genome reference</b><span>Curated in-house, not a generic public database</span></div></div>
     </div>
   </div>
 </section>
 
-<section class="sec dark" style="padding:64px 0;">
-  <div class="wrap">
-    <div class="stats reveal">
-      <div class="stat"><div class="v" data-count="12">0</div><div class="k">years, since 2014</div></div>
-      <div class="stat"><div class="v"><span data-count="250">0</span><span class="u">k</span></div><div class="k">genomes in our database</div></div>
-      <div class="stat"><div class="v" data-count="6">0</div><div class="k">statistical methods, one consensus</div></div>
-      <div class="stat"><div class="v"><span data-count="10">0</span><span class="u">+</span></div><div class="k">countries served</div></div>
-    </div>
-  </div>
-</section>
+<!-- stats band removed -->
 
 <!-- PRICING + WHITEPAPER -->
 <section class="sec mist">

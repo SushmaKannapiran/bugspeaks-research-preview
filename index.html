@@ -201,6 +201,11 @@
   .psrc{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--teal);}
   .ptitle{font-family:var(--serif);font-size:17px;color:var(--tx);line-height:1.35;}
   .pmore{font-family:var(--sans);font-size:13px;font-weight:700;color:var(--spore-d);margin-top:auto;}
+  .event-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;}
+  @media(max-width:820px){.event-grid{grid-template-columns:1fr;gap:28px;}}
+  .event-img{width:100%;height:330px;object-fit:cover;border-radius:14px;border:1px solid rgba(255,255,255,.1);}
+  .event-stats{margin-top:24px;display:flex;gap:30px;flex-wrap:wrap;font-family:var(--mono);font-size:12.5px;color:#8b97ab;}
+  .event-stats b{color:#fff;font-size:18px;display:block;font-family:var(--serif);}
 
   /* PRICING + WP */
   .two{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:12px;}
@@ -404,6 +409,24 @@
       <a class="pcard" href="https://www.indiatvnews.com/health/think-probiotics-are-for-everyone-gut-health-expert-busts-5-popular-myths-2026-06-22-1045702" target="_blank" rel="noopener"><div class="psrc">India TV News</div><div class="ptitle">Gut health expert busts five popular probiotic myths</div><div class="pmore">Read →</div></a>
       <a class="pcard" href="https://www.hindustantimes.com/lifestyle/health/is-your-healthy-food-actually-harming-your-gut-doctor-explains-why-wellness-foods-may-cause-bloating-and-discomfort-101780575793060.html" target="_blank" rel="noopener"><div class="psrc">Hindustan Times</div><div class="ptitle">Is your healthy food actually harming your gut?</div><div class="pmore">Read →</div></a>
     </div>
+  </div>
+</section>
+
+<!-- EVENTS / CONFERENCE -->
+<section class="sec dark">
+  <div class="wrap event-grid">
+    <div class="reveal">
+      <div class="eyebrow">Thought leadership</div>
+      <h2 class="big" style="margin-top:12px;">We host South Asia's flagship microbiome conference.</h2>
+      <p class="lede">World of Microbiome™ brings researchers, clinicians and industry together each year — now in its third edition. The 2026 summit is on 21 August in Bengaluru, with speakers from IIT Roorkee, Unilever and across the field.</p>
+      <div class="event-stats">
+        <span><b>100+</b> clinical partners</span>
+        <span><b>50+</b> industry partners</span>
+        <span><b>15+</b> countries</span>
+      </div>
+      <div style="margin-top:28px;"><a class="btn btn-primary" href="https://womicrobiome.com" target="_blank" rel="noopener">Visit World of Microbiome →</a></div>
+    </div>
+    <div class="reveal"><img class="event-img" src="assets/wom.jpg" alt="World of Microbiome conference, Bengaluru"></div>
   </div>
 </section>
 

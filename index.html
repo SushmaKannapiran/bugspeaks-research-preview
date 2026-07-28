@@ -1,643 +1,884 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-</head>
-<body>
-<title>BugSpeaks — Metagenomics for research &amp; clinical studies</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>BugSpeaks | Accredited Microbiome Metagenomics for Research</title>
+<meta name="description" content="BugSpeaks runs your microbiome study end to end: long-read shotgun metagenomics to species level, the full six-method differential-abundance suite plus a consensus layer, and report-ready figures. NABL (ISO 15189) · ISO/IEC 17025 · NABH accredited." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=Fraunces:ital,opsz,wght@0,9..144,400;1,9..144,500&family=IBM+Plex+Mono:wght@400;500;600&family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root{
-    --ink:#0d1526; --ink2:#152039; --ink3:#1d2a49;
-    --paper:#ffffff; --mist:#eef1f4; --line:#e3e7ec;
-    --tx:#132038; --slate:#4a5568; --slate2:#6b7688;
-    --spore:#6fae2f; --spore-d:#3f6b1c; --teal:#2f8f9d; --amber:#d99a3b;
-    --serif:'Iowan Old Style','Palatino Linotype',Palatino,Georgia,'Times New Roman',serif;
-    --sans:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,Roboto,Helvetica,Arial,sans-serif;
-    --mono:ui-monospace,'SF Mono',Menlo,Consolas,monospace;
+    --chassis:#F7F2E5; --panel:#FFFFFF; --panel2:#F3ECDA;
+    --paper:#EFE7D4; --readout:#1C3226; --etched:#7A887C;
+    --assay:#1E8A5C; --amber:#E4792A; --lysate:#D85A3A; --reagent:#2E7FF1;
+    --body:#49554C; --line:#E6DDC8; --line-pap:#E1D8C2;
+    --display:'Archivo', system-ui, -apple-system, sans-serif;
+    --serif:'Fraunces', Georgia, serif;
+    --sans:'Public Sans', system-ui, -apple-system, sans-serif;
+    --mono:'IBM Plex Mono', ui-monospace, Menlo, monospace;
+    --wrap:1180px; --gap:clamp(46px,5.2vw,76px);
+    --ease:cubic-bezier(.16,1,.3,1);
   }
-  *{box-sizing:border-box;}
-  html{scroll-behavior:smooth;}
-  body{margin:0;font-family:var(--sans);color:var(--tx);background:var(--paper);line-height:1.6;-webkit-font-smoothing:antialiased;}
-  h1,h2,h3{margin:0;font-family:var(--serif);font-weight:600;line-height:1.12;letter-spacing:-0.015em;text-wrap:balance;}
-  p{margin:0;}
-  a{color:inherit;text-decoration:none;}
-  .wrap{max-width:1120px;margin:0 auto;padding:0 32px;}
-  .sec{padding:96px 0;}
-  .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--teal);font-weight:600;}
-  .lede{color:var(--slate);font-size:19px;max-width:62ch;margin-top:18px;}
-  .btn{display:inline-flex;align-items:center;gap:8px;font-family:var(--sans);font-weight:600;font-size:15px;padding:14px 24px;border-radius:8px;border:1px solid transparent;cursor:pointer;transition:transform .15s ease,background .15s ease,border-color .15s ease;}
-  .btn:focus-visible{outline:3px solid var(--spore);outline-offset:2px;}
-  .btn-primary{background:var(--spore);color:#0d1526;} .btn-primary:hover{transform:translateY(-2px);background:#7cbf37;}
-  .btn-ghost{border-color:rgba(255,255,255,.28);color:#eaf0f6;} .btn-ghost:hover{border-color:rgba(255,255,255,.6);}
-  .btn-dark{background:var(--ink);color:#fff;} .btn-dark:hover{transform:translateY(-2px);}
+  *,*::before,*::after{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--chassis);color:var(--body);font-family:var(--sans);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+  h1,h2,h3,h4{font-family:var(--display);font-weight:600;color:var(--readout);letter-spacing:-.02em;line-height:1.05;margin:0;text-wrap:balance}
+  h2{font-size:clamp(1.9rem,3.6vw,2.9rem)}
+  h3{font-size:clamp(1.15rem,1.6vw,1.4rem);letter-spacing:-.01em}
+  p{margin:0}
+  a{color:var(--assay);text-decoration:none}
+  img{max-width:100%;display:block}
+  i,em,.tx{font-family:var(--serif);font-style:italic;font-weight:400}
+  .wrap{max-width:var(--wrap);margin-inline:auto;padding-inline:clamp(20px,5vw,44px)}
+  .eyebrow{font-family:var(--mono);font-size:.78rem;font-weight:500;letter-spacing:.13em;text-transform:uppercase;color:var(--etched)}
+  section{padding-block:var(--gap);position:relative}
+  .paper{background:var(--paper);color:#3a423f}
+  .paper h2,.paper h3{color:#0B0F10}
+  .paper .eyebrow{color:#5c6b64}
+  .lede{font-size:clamp(1.02rem,1.3vw,1.18rem);max-width:60ch;color:var(--body)}
+  .paper .lede{color:#4a524e}
+  .mono{font-family:var(--mono)}
+  .num{font-variant-numeric:tabular-nums}
 
-  /* NAV */
-  nav.bar{position:sticky;top:0;z-index:50;background:rgba(13,21,38,.86);backdrop-filter:blur(10px);border-bottom:1px solid rgba(255,255,255,.08);}
-  nav.bar .wrap{display:flex;align-items:center;justify-content:space-between;height:66px;}
-  .logo{font-family:var(--serif);font-weight:600;font-size:21px;color:#fff;letter-spacing:-.01em;display:inline-flex;align-items:center;}
-  .logo b{color:var(--spore);font-weight:600;}
-  .logo-img{height:26px;width:auto;display:block;}
-  .nlinks{display:flex;gap:26px;font-size:13.5px;color:#b6c0d0;font-family:var(--sans);}
-  .nlinks a:hover{color:#fff;}
-  @media(max-width:860px){.nlinks{display:none;}}
+  .btn{display:inline-flex;align-items:center;gap:.5em;font-family:var(--mono);font-weight:500;font-size:.85rem;letter-spacing:.02em;
+    padding:.85em 1.3em;border-radius:2px;border:1px solid transparent;cursor:pointer;transition:.18s var(--ease);text-transform:uppercase}
+  .btn-primary{background:var(--amber);color:#2a1400;border-color:var(--amber)}
+  .btn-primary:hover{background:#ff9f52;box-shadow:0 0 0 4px rgba(240,135,47,.2)}
+  .btn-ghost{background:transparent;color:var(--readout);border-color:var(--line)}
+  .btn-ghost:hover{border-color:var(--assay);color:var(--assay)}
+  .paper .btn-ghost{color:#0B0F10;border-color:#c9cec6}
+  .paper .btn-ghost:hover{border-color:#0B0F10}
 
-  /* HERO */
-  header.hero{position:relative;background:var(--ink);color:#fff;overflow:hidden;}
-  header.hero canvas{position:absolute;inset:0;width:100%;height:100%;display:block;}
-  .hero-fade{position:absolute;inset:0;background:radial-gradient(120% 90% at 72% 30%,rgba(13,21,38,0) 0%,rgba(13,21,38,.55) 55%,var(--ink) 100%);}
-  .hero .wrap{position:relative;z-index:2;padding-top:104px;padding-bottom:110px;}
-  .hero h1{font-size:clamp(38px,5.4vw,62px);color:#fff;max-width:15ch;}
-  .hero .lede{color:#c3ccd9;font-size:20px;max-width:56ch;margin-top:26px;}
-  .hero .cta{display:flex;gap:14px;margin-top:36px;flex-wrap:wrap;}
-  .credline{margin-top:44px;font-family:var(--mono);font-size:12.5px;letter-spacing:.06em;color:#8b97ab;display:flex;flex-wrap:wrap;gap:8px 16px;}
-  .credline b{color:#dbe3ee;font-weight:600;}
-  .credline .g{color:var(--spore);}
-  .hero-grid{display:grid;grid-template-columns:1.12fr .88fr;gap:48px;align-items:center;}
-  @media(max-width:900px){.hero-grid{grid-template-columns:1fr;gap:36px;}}
-  .founder-card{background:rgba(13,21,38,.5);border:1px solid rgba(255,255,255,.14);border-radius:16px;padding:14px;backdrop-filter:blur(6px);box-shadow:0 24px 60px rgba(0,0,0,.4);}
-  .fc-media{position:relative;height:212px;border-radius:11px;background:linear-gradient(135deg,#16203a,#1d2a49);display:flex;align-items:center;justify-content:center;border:1px dashed rgba(255,255,255,.22);}
-  .fc-media .play{width:64px;height:64px;border-radius:50%;background:var(--spore);color:#0d1526;display:flex;align-items:center;justify-content:center;font-size:22px;padding-left:5px;box-shadow:0 8px 24px rgba(111,174,47,.4);}
-  .fc-cap{padding:14px 8px 6px;}
-  .fc-cap b{font-family:var(--sans);color:#fff;font-size:14.5px;display:block;}
-  .fc-cap span{font-family:var(--mono);font-size:11px;color:#8b97ab;}
+  /* header */
+  header.nav{position:sticky;top:0;z-index:60;background:rgba(247,242,229,.9);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+  .nav-in{display:flex;align-items:center;gap:22px;height:64px}
+  .brand{display:flex;align-items:center;gap:10px;margin-right:auto;text-decoration:none}
+  .brand img{height:26px;width:auto}
+  .brandtxt{font-family:var(--display);font-weight:700;color:var(--readout);font-size:1.15rem}
+  .brandtag{font-family:var(--mono);font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;color:var(--etched);border-left:1px solid var(--line);padding-left:10px}
+  nav.links{display:flex;gap:20px}
+  nav.links a{color:var(--body);font-family:var(--mono);font-size:.78rem;letter-spacing:.03em;text-transform:uppercase}
+  nav.links a:hover{color:var(--assay)}
+  .nav-cta{display:flex;align-items:center;gap:12px}
+  .menu-btn{display:none;background:none;border:0;color:var(--readout);cursor:pointer;padding:6px}
+  @keyframes hum{0%,100%{opacity:1}50%{opacity:.35}}
 
-  /* MARQUEE */
-  .marq{background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line);overflow:hidden;padding:26px 0;}
-  .marq .row{display:flex;gap:46px;width:max-content;align-items:center;animation:scroll 55s linear infinite;}
-  .mitem{display:inline-flex;align-items:center;gap:10px;white-space:nowrap;}
-  .mitem img{height:28px;width:auto;object-fit:contain;filter:grayscale(1);opacity:.66;transition:filter .2s ease,opacity .2s ease;}
-  .mitem span{font-family:var(--serif);font-size:18px;color:#8290a2;}
-  .marq:hover .mitem img{filter:none;opacity:1;}
-  @keyframes scroll{from{transform:translateX(0);}to{transform:translateX(-50%);}}
-  .marq:hover .row{animation-play-state:paused;}
-  .marqlabel{font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#8a94a4;text-align:center;padding-bottom:16px;}
+  .ticker{background:#0a1211;border-bottom:1px solid var(--line);overflow:hidden;white-space:nowrap}
+  .ticker .track{display:inline-block;padding:7px 0;font-family:var(--mono);font-size:.72rem;letter-spacing:.08em;color:var(--amber);animation:tick 44s linear infinite}
+  .ticker .track span{padding-inline:20px}
+  .ticker .track b{color:var(--assay);font-weight:500}
+  @keyframes tick{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 
-  /* SECTION HELPERS */
-  .sec.mist{background:var(--mist);}
-  .sec.dark{background:var(--ink);color:#fff;}
-  .sec.dark .lede{color:#b8c2d1;}
-  .sec.dark h2{color:#fff;}
-  h2.big{font-size:clamp(28px,3.4vw,40px);}
-  .kicker{display:flex;flex-direction:column;gap:10px;margin-bottom:14px;}
+  /* hero */
+  .hero{border-bottom:1px solid var(--line)}
+  .hero-stage{position:relative;min-height:clamp(520px,74vh,720px);display:flex;align-items:center;overflow:hidden}
+  .hero-bg{position:absolute;inset:0;width:100%;height:100%;z-index:0;opacity:1;display:block}
+  .hero-fade{position:absolute;inset:0;z-index:1;pointer-events:none;background:
+    linear-gradient(90deg,var(--chassis) 8%,rgba(247,242,229,.5) 48%,rgba(247,242,229,0) 100%),
+    linear-gradient(180deg,var(--chassis),transparent 22%,transparent 78%,var(--chassis))}
+  .hero-inner{position:relative;z-index:2;width:100%}
+  .hero-col{max-width:44rem}
+  .hero-corner{position:absolute;top:16px;right:clamp(20px,5vw,44px);z-index:2;font-family:var(--mono);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:var(--etched)}
+  .hero-corner b{color:var(--assay);font-weight:500}
+  .hero-corner b::before{content:"● ";animation:hum 1.6s infinite}
+  .hero h1{font-size:clamp(1.9rem,4.2vw,3.5rem);letter-spacing:-.02em;line-height:1.05;color:var(--readout);max-width:20ch}
+  .hero h1 .amberword{color:var(--assay)}
+  .hero .sub{font-size:clamp(1.02rem,1.35vw,1.2rem);color:var(--body);max-width:46ch;margin-top:22px}
+  .hero-cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+  .hero .plate{font-family:var(--mono);font-size:.72rem;color:var(--etched);letter-spacing:.05em;margin-top:26px}
+  .hero .plate b{color:var(--assay);font-weight:500}
 
-  /* two-col intro */
-  .split{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start;}
-  @media(max-width:820px){.split{grid-template-columns:1fr;gap:32px;}}
-  .split p{color:var(--slate);font-size:17px;margin-top:16px;}
+  .trust{border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line)}
+  .trust .cell{background:var(--chassis);padding:18px}
+  .trust .v{font-family:var(--display);font-weight:600;font-size:clamp(1.3rem,2vw,1.7rem);color:var(--readout);line-height:1}
+  .trust .v .u{color:var(--assay)}
+  .trust .l{font-family:var(--mono);font-size:.66rem;letter-spacing:.06em;color:var(--etched);text-transform:uppercase;margin-top:8px}
 
-  /* STEPS */
-  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:14px;overflow:hidden;margin-top:44px;}
-  @media(max-width:820px){.steps{grid-template-columns:1fr;}}
-  .step{background:var(--paper);padding:28px;}
-  .step .no{font-family:var(--mono);font-size:12px;color:var(--teal);letter-spacing:.1em;}
-  .step h3{font-family:var(--sans);font-weight:700;font-size:18px;margin:12px 0 8px;letter-spacing:-.01em;}
-  .step p{color:var(--slate);font-size:14.5px;}
-  .step .db{color:var(--spore-d);font-weight:600;}
+  /* accreditation (moved up) */
+  .accred{background:var(--panel)}
+  .arack{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+  .acard{background:var(--chassis);border:1px solid var(--line);border-radius:6px;padding:20px 18px;position:relative;overflow:hidden}
+  .acard::after{content:"";position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--assay),transparent)}
+  .acard .badge{height:38px;width:auto;margin-bottom:12px;opacity:.95}
+  .acard .badge-sp{height:46px}
+  .acard .std{font-family:var(--display);font-weight:600;color:#fff;font-size:1.05rem}
+  .acard .body{font-size:.86rem;color:var(--body);margin:8px 0 14px;min-height:2.6em}
+  .acard .meta{font-family:var(--mono);font-size:.72rem;color:var(--etched);line-height:1.7;border-top:1px solid var(--line);padding-top:10px}
+  .acard .meta b{color:var(--assay);font-weight:500}
+  .acard.pending .meta b{color:var(--amber)}
+  .acred-note{margin-top:18px;font-family:var(--mono);font-size:.76rem;color:var(--etched)}
+  .acred-note b{color:var(--assay);font-weight:500}
 
-  /* CONSENSUS */
-  .ctable{width:100%;border-collapse:collapse;margin-top:12px;font-family:var(--mono);font-size:13px;font-variant-numeric:tabular-nums;}
-  .ctable th{color:#8b97ab;font-weight:500;padding:8px 6px;text-align:center;font-size:11.5px;letter-spacing:.06em;}
-  .ctable td{padding:6px;text-align:center;}
-  .ctable .tx{text-align:left;font-family:var(--serif);font-style:italic;font-size:15px;color:#eaf0f6;white-space:nowrap;padding-right:14px;}
-  .dot{display:inline-flex;width:30px;height:30px;border-radius:7px;align-items:center;justify-content:center;font-weight:700;}
-  .dot.y{background:var(--spore);color:#0d1526;} .dot.t{background:var(--teal);color:#fff;} .dot.n{background:#1f2b48;color:#3c4a68;}
-  .verdict{font-family:var(--sans);font-size:12px;font-weight:700;}
-  .clabel{margin-top:16px;font-family:var(--mono);font-size:12px;color:#8b97ab;display:flex;gap:20px;flex-wrap:wrap;}
-  .clabel i{width:12px;height:12px;border-radius:3px;display:inline-block;margin-right:6px;vertical-align:-1px;}
-  .whyrow{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:40px;}
-  @media(max-width:820px){.whyrow{grid-template-columns:1fr;}}
-  .wcard{background:var(--ink2);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:22px;}
-  .wcard h3{font-family:var(--sans);font-weight:700;font-size:16px;color:#fff;}
-  .wcard p{color:#aeb9c9;font-size:14px;margin-top:7px;}
+  /* marquee */
+  .marquee{overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent)}
+  .marquee .row{display:flex;gap:0;width:max-content;animation:scrollx 40s linear infinite;align-items:center}
+  .marquee:hover .row{animation-play-state:paused}
+  .marquee .row span{font-family:var(--display);font-weight:600;font-size:1.1rem;color:#8a938c;padding-inline:34px;white-space:nowrap;transition:.2s;display:flex;align-items:center;gap:34px;min-height:44px}
+  .marquee .row span::after{content:"";width:5px;height:5px;border-radius:50%;background:#c7ccc4}
+  .marquee .row img{height:30px;width:auto;max-width:150px;object-fit:contain;transition:.25s;filter:grayscale(1);opacity:.55}
+  .marquee:hover .row img{opacity:.72}
+  .marquee .row img:hover{filter:none;opacity:1}
+  @keyframes scrollx{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 
-  /* MODULES */
-  .mods{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:40px;}
-  @media(max-width:820px){.mods{grid-template-columns:1fr;}}
-  .mod{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:22px;transition:box-shadow .18s ease,transform .18s ease;}
-  .mod:hover{box-shadow:0 12px 30px rgba(19,32,56,.08);transform:translateY(-3px);}
-  .mod .mno{font-family:var(--mono);font-size:12px;color:var(--slate2);}
-  .mod h3{font-family:var(--sans);font-weight:700;font-size:17px;margin:9px 0 6px;letter-spacing:-.01em;}
-  .mod p{color:var(--slate);font-size:14px;}
-  .mod.sig{border-color:var(--spore);}
-  .mod.sig .mno b{color:var(--spore-d);}
-  .panel-note{margin-top:26px;background:var(--ink);color:#dbe3ee;border-radius:12px;padding:20px 24px;font-size:15px;}
-  .panel-note b{color:var(--spore);}
+  .head{max-width:70ch;display:flex;flex-direction:column;gap:14px;margin-bottom:36px;align-items:flex-start;text-align:left}
+  .head.c{align-items:flex-start;text-align:left}
 
-  /* GENERIC placeholder */
-  .ph{border:1.5px dashed #c3ccd8;background:#f6f8fa;border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;color:#8a94a4;font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;text-align:center;padding:22px;}
-  .ph.d{background:rgba(255,255,255,.03);border-color:rgba(255,255,255,.18);color:#8b97ab;}
-  .ph .pic{font-size:24px;}
+  /* problem */
+  .prob{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:6px;overflow:hidden}
+  .prob .c{background:var(--panel);padding:24px 22px}
+  .prob .n{font-family:var(--mono);font-size:.72rem;color:var(--amber);letter-spacing:.1em}
+  .prob h3{margin:10px 0 8px;color:var(--readout)}
+  .prob p{font-size:.94rem;color:var(--body)}
+  .kicker{margin-top:22px;font-size:1.05rem;color:var(--readout);max-width:72ch}
+  .kicker b{color:var(--assay);font-weight:600}
 
-  /* CASE STUDIES */
-  .cases{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:40px;}
-  @media(max-width:820px){.cases{grid-template-columns:1fr;}}
-  .case{background:var(--paper);border:1px solid var(--line);border-radius:14px;overflow:hidden;}
-  .case .ph{border:none;border-bottom:1px solid var(--line);border-radius:0;height:120px;background:var(--mist);}
-  .case .body{padding:22px;}
-  .case .tag{font-family:var(--mono);font-size:11px;letter-spacing:.14em;color:var(--teal);}
-  .case h3{font-family:var(--sans);font-weight:700;font-size:18px;margin:8px 0 6px;}
-  .case p{color:var(--slate);font-size:14px;}
-  .case .todo{font-family:var(--mono);font-size:11.5px;color:#9aa4b3;margin-top:8px;}
+  /* consensus bench */
+  .methods-row{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 22px}
+  .methods-row span{font-family:var(--mono);font-size:.76rem;color:var(--assay);border:1px solid var(--line);background:#fff;padding:7px 11px;border-radius:2px}
+  .bench{background:var(--panel);border:1px solid var(--line);border-radius:8px;overflow:hidden}
+  .bench-top{display:flex;flex-wrap:wrap;gap:20px;justify-content:space-between;align-items:flex-end;padding:20px 22px;border-bottom:1px solid var(--line)}
+  .dials{display:flex;gap:24px;flex-wrap:wrap}
+  .dial{display:flex;flex-direction:column;gap:7px}
+  .dial label{font-family:var(--mono);font-size:.7rem;letter-spacing:.05em;text-transform:uppercase;color:var(--etched)}
+  .dial .val{color:var(--assay)}
+  .dial input[type=range]{-webkit-appearance:none;appearance:none;width:148px;height:3px;background:var(--line);border-radius:3px;outline:none}
+  .dial input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;height:16px;border-radius:50%;background:var(--assay);cursor:pointer;box-shadow:0 0 8px rgba(79,197,140,.5);border:2px solid #04120c}
+  .dial input[type=range]::-moz-range-thumb{width:16px;height:16px;border-radius:50%;background:var(--assay);cursor:pointer;border:2px solid #04120c}
+  .toggle{font-family:var(--mono);font-size:.72rem;letter-spacing:.04em;text-transform:uppercase;color:var(--body);background:transparent;border:1px solid var(--line);border-radius:2px;padding:9px 13px;cursor:pointer}
+  .toggle:hover{border-color:var(--assay);color:var(--assay)}
+  .bench-scroll{overflow-x:auto}
+  table.cons{border-collapse:collapse;width:100%;min-width:720px;font-size:.86rem}
+  table.cons th,table.cons td{padding:12px 10px;text-align:center;border-bottom:1px solid var(--line)}
+  table.cons thead th{font-family:var(--mono);font-size:.66rem;letter-spacing:.03em;text-transform:uppercase;color:var(--etched);font-weight:500}
+  table.cons th.taxon,table.cons td.taxon{text-align:left;font-family:var(--serif);font-style:italic;color:var(--readout);white-space:nowrap;padding-left:22px}
+  .chip{display:inline-block;width:15px;height:15px;border-radius:3px;background:#1e2a2c;transition:.2s var(--ease)}
+  .chip.pass{background:var(--assay);box-shadow:0 0 8px rgba(79,197,140,.45)}
+  td.cell{position:relative}
+  .robust{font-family:var(--mono);font-size:.72rem;color:var(--etched);white-space:nowrap}
+  tr.isrobust{background:rgba(79,197,140,.05)}
+  tr.isrobust .taxon{color:#fff;box-shadow:inset 3px 0 0 var(--assay)}
+  tr.isrobust .robust{color:var(--assay);font-weight:500}
+  tr.dimmed{opacity:.28}
+  .bench-foot{padding:15px 22px;border-top:1px solid var(--line);font-family:var(--mono);font-size:.8rem;color:var(--body);display:flex;flex-wrap:wrap;gap:8px 18px;justify-content:space-between;align-items:center}
+  .bench-foot b{color:var(--assay);font-weight:500}
+  .cons-quote{margin-top:28px;max-width:64ch}
+  .cons-quote .q{font-family:var(--display);font-weight:600;font-size:clamp(1.3rem,2.2vw,1.8rem);color:var(--readout);line-height:1.15}
+  .cons-quote .a{margin-top:10px;color:var(--body)}
+  .tooltip{position:fixed;z-index:99;pointer-events:none;background:#123226;border:1px solid var(--assay);border-radius:3px;padding:8px 10px;font-family:var(--mono);font-size:.7rem;color:#EDE7D6;opacity:0;transition:opacity .12s;max-width:240px}
+  .tooltip.on{opacity:1}
+  .tooltip b{color:#5FD6A8}
 
-  /* PUBLICATIONS */
-  .pub{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:18px 22px;margin-top:14px;display:flex;gap:16px;align-items:baseline;}
-  .pub .yr{font-family:var(--mono);font-size:12px;color:var(--teal);white-space:nowrap;}
-  .pub .t{font-size:15px;} .pub .t i{color:var(--slate);}
-  a.pub{text-decoration:none;color:inherit;transition:border-color .16s ease,box-shadow .16s ease;}
-  a.pub:hover{border-color:var(--spore);box-shadow:0 10px 26px rgba(19,32,56,.08);}
-  .pub .arr{color:var(--spore-d);font-weight:700;}
-  .pubgroup{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--teal);margin-top:34px;}
-  .awards{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:40px;}
-  @media(max-width:820px){.awards{grid-template-columns:1fr;}}
-  .acard{background:var(--paper);border:1px solid var(--line);border-top:3px solid var(--spore);border-radius:14px;padding:26px;}
-  .acard .ayear{font-family:var(--mono);font-size:12px;letter-spacing:.1em;color:var(--teal);}
-  .acard h3{font-family:var(--serif);font-size:19px;margin:8px 0 8px;line-height:1.22;}
-  .acard p{color:var(--slate);font-size:14px;}
+  /* who we serve (compact) */
+  .servegrid{display:grid;grid-template-columns:repeat(4,1fr);gap:26px}
+  .si{border-top:1px solid #c9cec6;padding-top:15px}
+  .si .t{font-family:var(--mono);font-size:.68rem;letter-spacing:.07em;text-transform:uppercase;color:#2b8a72;display:block;margin-bottom:9px}
+  .si p{font-size:.9rem;color:#4a524e;line-height:1.55}
+  .sampletags{display:flex;flex-wrap:wrap;gap:10px}
+  .sampletags span{font-family:var(--mono);font-size:.82rem;color:var(--assay);border:1px solid var(--line-pap);background:#fff;padding:10px 15px;border-radius:2px;transition:.15s}
+  .sampletags span:hover{border-color:var(--assay);background:#F4FBF7}
 
-  /* TESTIMONIALS */
-  .quotes{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:40px;}
-  @media(max-width:820px){.quotes{grid-template-columns:1fr;}}
-  .quote{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:26px;}
-  .quote .mark{font-family:var(--serif);font-size:44px;color:var(--spore);line-height:.6;height:22px;}
-  .quote p{font-family:var(--serif);font-size:17px;color:var(--tx);margin:10px 0 18px;font-style:italic;}
-  .quote .who{display:flex;gap:12px;align-items:center;}
-  .quote .av{width:40px;height:40px;border-radius:50%;background:var(--mist);border:1px dashed #c3ccd8;flex:none;}
-  .quote .who b{font-family:var(--sans);font-size:14px;display:block;}
-  .quote .who span{font-family:var(--mono);font-size:11px;color:var(--slate2);}
+  /* workflow */
+  .flow{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:6px;overflow:hidden}
+  .flow .s{background:var(--panel);padding:24px 22px;display:flex;flex-direction:column;gap:9px}
+  .flow .s .n{font-family:var(--mono);font-size:.72rem;color:var(--assay);letter-spacing:.06em}
+  .flow .s h3{color:var(--readout)}
+  .flow .s p{font-size:.9rem;color:var(--body)}
+  .flow-foot{margin-top:20px;font-family:var(--mono);font-size:.82rem;color:var(--etched);display:flex;flex-wrap:wrap;gap:8px 24px}
+  .flow-foot b{color:var(--assay);font-weight:500}
 
-  /* DESIGNS */
-  .chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px;}
-  .chip{font-family:var(--sans);font-size:14px;font-weight:600;background:var(--paper);border:1px solid var(--line);border-radius:30px;padding:10px 18px;}
-  .breadth{margin-top:28px;background:var(--ink);color:#dbe3ee;border-radius:14px;padding:26px 30px;font-family:var(--serif);font-size:19px;line-height:1.5;}
-  .breadth b{color:var(--spore);font-style:normal;}
-  .trio{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:22px;}
-  @media(max-width:820px){.trio{grid-template-columns:1fr;}}
-  .tcard{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:20px;}
-  .tcard h3{font-family:var(--sans);font-weight:700;font-size:15.5px;}
-  .tcard p{color:var(--slate);font-size:13.5px;margin-top:6px;}
+  /* modules */
+  .mods{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:38px}
+  .mod{background:var(--panel);border:1px solid var(--line);border-radius:5px;padding:16px;transition:.2s var(--ease)}
+  .mod:hover{border-color:var(--assay);background:var(--panel2)}
+  .mod .mn{font-family:var(--mono);font-size:.68rem;color:var(--amber);letter-spacing:.06em}
+  .mod h3{font-size:1rem;color:var(--readout);margin:7px 0 5px}
+  .mod p{font-size:.83rem;color:var(--body)}
 
-  /* DELIVERABLES */
-  .checks{display:grid;grid-template-columns:1fr 1fr;gap:14px 34px;margin-top:34px;}
-  @media(max-width:820px){.checks{grid-template-columns:1fr;}}
-  .checks li{list-style:none;padding-left:32px;position:relative;font-size:15.5px;color:var(--tx);}
-  .checks li::before{content:"";position:absolute;left:0;top:4px;width:18px;height:18px;border-radius:5px;background:var(--spore);}
-  .checks li::after{content:"✓";position:absolute;left:4px;top:3px;color:#0d1526;font-size:12px;font-weight:800;}
-  .sec.dark .checks li{color:#dbe3ee;}
+  /* figure carousel */
+  .viewer{border:1px solid var(--line);border-radius:8px;background:var(--panel);overflow:hidden}
+  .viewer-top{display:flex;justify-content:space-between;align-items:center;padding:14px 18px;border-bottom:1px solid var(--line);font-family:var(--mono);font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;color:var(--etched)}
+  .viewer-top .live{color:var(--assay)}
+  .viewer-top .live::before{content:"● ";animation:hum 1.6s infinite}
+  .vp{position:relative;overflow:hidden}
+  .vtrack{display:flex;transition:transform .5s var(--ease)}
+  .slide{min-width:100%;display:grid;grid-template-columns:1.35fr 1fr;gap:0}
+  .slide .screen{background:#fff;padding:22px;display:flex;align-items:center;justify-content:center;border-right:1px solid var(--line)}
+  .slide .screen img{max-height:340px;width:100%;height:auto;object-fit:contain}
+  .slide .meta{padding:28px 30px;display:flex;flex-direction:column;justify-content:center;gap:12px}
+  .slide .meta .k{font-family:var(--mono);font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;color:var(--assay)}
+  .slide .meta h3{color:var(--readout);font-size:1.35rem}
+  .slide .meta p{font-size:.92rem;color:var(--body)}
+  .slide .meta .stat{font-family:var(--mono);font-size:.76rem;color:var(--etched);border-top:1px solid var(--line);padding-top:12px}
+  .slide .meta .stat b{color:var(--assay);font-weight:500}
+  .viewer-nav{display:flex;justify-content:space-between;align-items:center;padding:14px 18px;border-top:1px solid var(--line)}
+  .dots{display:flex;gap:7px}
+  .dots button{width:8px;height:8px;border-radius:50%;border:0;background:var(--line);cursor:pointer;padding:0;transition:.2s}
+  .dots button.on{background:var(--assay);box-shadow:0 0 8px rgba(79,197,140,.5)}
+  .arrows{display:flex;gap:8px}
+  .arrows button{width:38px;height:38px;border:1px solid var(--line);background:transparent;color:var(--readout);border-radius:3px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.15s}
+  .arrows button:hover{border-color:var(--assay);color:var(--assay)}
+  .vcount{font-family:var(--mono);font-size:.76rem;color:var(--etched)}
+  .vcount b{color:var(--assay);font-weight:500}
+  .repnote{margin-top:14px;font-family:var(--mono);font-size:.72rem;color:var(--etched)}
 
-  /* STATS */
-  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:28px;margin-top:8px;}
-  @media(max-width:820px){.stats{grid-template-columns:1fr 1fr;gap:24px;}}
-  .stat .v{font-family:var(--serif);font-size:44px;color:#fff;font-variant-numeric:tabular-nums;}
-  .stat .v .u{color:var(--spore);}
-  .stat .k{font-family:var(--mono);font-size:12px;letter-spacing:.06em;color:#8b97ab;margin-top:4px;}
+  /* case studies */
+  .cases{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  .case{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:22px;display:flex;flex-direction:column;gap:11px}
+  .case .seg{font-family:var(--mono);font-size:.68rem;letter-spacing:.06em;text-transform:uppercase;color:var(--assay)}
+  .case h3{color:var(--readout);font-size:1.1rem}
+  .case p{font-size:.88rem;color:var(--body)}
+  .case .r{margin-top:auto;padding-top:11px;border-top:1px solid var(--line);font-family:var(--mono);font-size:.72rem;color:var(--etched)}
 
-  /* TEAM */
-  .team{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin-top:40px;}
-  @media(max-width:820px){.team{grid-template-columns:1fr 1fr;}}
-  .member .ph{height:150px;margin-bottom:12px;}
-  .member h3{font-family:var(--sans);font-weight:700;font-size:15.5px;}
-  .member .role{font-family:var(--mono);font-size:11px;letter-spacing:.04em;color:var(--teal);margin-top:5px;}
-  .member .bio{font-family:var(--sans);font-size:12.5px;color:var(--slate);margin-top:8px;line-height:1.45;}
-  .certs{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:24px;}
-  @media(max-width:820px){.certs{grid-template-columns:1fr 1fr;}}
-  .certs .ph{height:78px;}
-  .mphoto{width:100%;height:220px;object-fit:cover;object-position:center top;border-radius:12px;margin-bottom:12px;background:var(--mist);border:1px solid var(--line);}
-  .certbadge{background:#fff;border:1px solid var(--line);border-radius:12px;height:120px;display:flex;align-items:center;justify-content:center;padding:16px;}
-  .certbadge img{max-height:82px;max-width:92%;object-fit:contain;}
-  .certbadge.award{background:var(--ink);border-color:var(--ink);}
-  .certbadge.award span{font-family:var(--serif);color:#fff;font-size:15px;text-align:center;line-height:1.25;}
-  .certbadge.award b{color:var(--spore);}
-  .press{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:40px;}
-  @media(max-width:820px){.press{grid-template-columns:1fr;}}
-  .pcard{display:flex;flex-direction:column;gap:9px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:22px;transition:box-shadow .18s ease,transform .18s ease;min-height:150px;}
-  .pcard:hover{box-shadow:0 12px 30px rgba(19,32,56,.08);transform:translateY(-3px);}
-  .psrc{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--teal);}
-  .ptitle{font-family:var(--serif);font-size:17px;color:var(--tx);line-height:1.35;}
-  .pmore{font-family:var(--sans);font-size:13px;font-weight:700;color:var(--spore-d);margin-top:auto;}
-  .event-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;}
-  @media(max-width:820px){.event-grid{grid-template-columns:1fr;gap:28px;}}
-  .event-img{width:100%;height:330px;object-fit:cover;border-radius:14px;border:1px solid rgba(255,255,255,.1);}
-  .event-stats{margin-top:24px;display:flex;gap:30px;flex-wrap:wrap;font-family:var(--mono);font-size:12.5px;color:#8b97ab;}
-  .event-stats b{color:#fff;font-size:18px;display:block;font-family:var(--serif);}
-  .stack{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:16px;}
-  @media(max-width:820px){.stack{grid-template-columns:1fr;}}
-  .scard{display:flex;align-items:center;gap:14px;background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:18px 20px;}
-  .ont-logo{height:38px;width:auto;flex:none;}
-  .sdot{width:12px;height:12px;border-radius:50%;background:var(--spore);flex:none;}
-  .sinfo b{font-family:var(--sans);font-size:14.5px;display:block;color:var(--tx);}
-  .sinfo span{font-family:var(--mono);font-size:11.5px;color:var(--slate2);}
+  /* publications */
+  .pubbar{display:flex;flex-wrap:wrap;gap:26px;margin-bottom:26px;font-family:var(--mono);font-size:.78rem;color:#5c6b64}
+  .pubbar b{font-family:var(--display);font-size:1.5rem;color:#0B0F10;display:block;font-weight:700}
+  .pubgroup{margin-bottom:26px}
+  .pubgroup h4{font-family:var(--mono);font-size:.72rem;letter-spacing:.07em;text-transform:uppercase;color:#2b8a72;margin:0 0 4px;font-weight:500}
+  .pub{display:grid;grid-template-columns:44px 1fr auto auto;gap:16px;padding:15px 8px;border-bottom:1px solid var(--line-pap);align-items:baseline;transition:.15s;position:relative}
+  .pub::before{content:"";position:absolute;left:0;bottom:-1px;height:2px;width:0;background:var(--assay);transition:width .3s var(--ease)}
+  .pub:hover::before{width:100%}
+  .pub .idx{font-family:var(--mono);font-size:.74rem;color:#98a29a}
+  .pub .ti{color:#1a201e;font-size:.97rem;line-height:1.45}
+  .pub .ti .j{font-family:var(--mono);font-size:.7rem;color:#5c6b64;text-transform:uppercase;letter-spacing:.03em;display:block;margin-top:5px}
+  .pub .ti .col{color:#2b8a72}
+  .pub .yr{font-family:var(--mono);font-size:.82rem;color:#2b8a72;font-weight:500}
+  .pub .go{font-family:var(--mono);font-size:.9rem;color:#2b8a72}
 
-  /* PRICING + WP */
-  .two{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:12px;}
-  @media(max-width:820px){.two{grid-template-columns:1fr;}}
-  .pricecard{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:30px;}
-  .pricecard h3{font-family:var(--serif);font-size:22px;margin-bottom:10px;}
-  .pricecard p{color:var(--slate);font-size:15px;}
-  .wpcard{background:var(--ink);color:#fff;border-radius:14px;padding:30px;}
-  .wpcard h3{font-family:var(--serif);font-size:22px;color:#fff;margin-bottom:10px;}
-  .wpcard p{color:#b8c2d1;font-size:15px;}
+  /* recognition */
+  .rec-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(24px,4vw,48px);align-items:start}
+  .awards{display:flex;flex-direction:column;gap:10px}
+  .award{border:1px solid var(--line);background:var(--panel);border-radius:5px;padding:15px 18px;display:flex;gap:14px;align-items:center}
+  .award .yr{font-family:var(--mono);color:var(--amber);font-size:.82rem;flex:none;width:44px}
+  .award .t{color:var(--readout);font-size:.95rem}
+  .recstat{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:22px;margin-bottom:16px}
+  .recstat .big{font-family:var(--display);font-weight:700;font-size:clamp(2rem,3.4vw,2.8rem);color:var(--assay);line-height:1}
+  .recstat p{font-size:.86rem;color:var(--body);margin-top:8px}
+  .recstat .src{font-family:var(--mono);font-size:.68rem;color:var(--etched);margin-top:6px}
+  .presslabel{font-family:var(--mono);font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;color:var(--etched);margin-bottom:8px}
+  .presslist{display:flex;flex-direction:column}
+  .presslist a{padding:12px 0;border-bottom:1px solid var(--line);font-size:.9rem;color:var(--body);display:flex;gap:12px;align-items:baseline;transition:.15s}
+  .presslist a:hover{color:var(--readout)}
+  .presslist .po{font-family:var(--mono);font-size:.66rem;text-transform:uppercase;letter-spacing:.05em;color:var(--assay);min-width:112px;flex:none}
+  .presslist .pg{margin-left:auto;color:var(--assay)}
 
-  /* FAQ */
-  .faq{margin-top:24px;border-top:1px solid var(--line);}
-  details{border-bottom:1px solid var(--line);}
-  details summary{cursor:pointer;list-style:none;padding:20px 0;font-family:var(--sans);font-weight:600;font-size:18px;display:flex;justify-content:space-between;align-items:center;gap:16px;}
-  details summary::-webkit-details-marker{display:none;}
-  details summary::after{content:"+";font-family:var(--mono);font-size:22px;color:var(--teal);transition:transform .2s;}
-  details[open] summary::after{content:"–";}
-  details .ans{padding:0 0 22px;color:var(--slate);font-size:15.5px;max-width:70ch;}
+  /* conference */
+  .conf{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(26px,4vw,48px);align-items:center}
+  .conf .live-band{font-family:var(--mono);font-size:.72rem;letter-spacing:.09em;text-transform:uppercase;color:var(--assay);border:1px solid var(--line);border-radius:2px;padding:8px 12px;display:inline-block;margin-bottom:16px}
+  .conf .live-band::before{content:"● LIVE  ";color:var(--assay)}
+  .conf .stats{display:flex;gap:24px;margin:20px 0;flex-wrap:wrap}
+  .conf .stats .v{font-family:var(--display);font-weight:600;font-size:1.7rem;color:var(--readout)}
+  .conf .stats .l{font-family:var(--mono);font-size:.66rem;color:var(--etched);text-transform:uppercase;margin-top:2px}
+  .conf .imgwrap{border:1px solid var(--line);border-radius:6px;overflow:hidden;position:relative}
+  .conf .imgwrap img{width:100%;height:300px;object-fit:cover}
+  .conf .imgwrap .cap{position:absolute;bottom:0;left:0;right:0;padding:12px 14px;background:linear-gradient(transparent,rgba(11,15,16,.9));font-family:var(--mono);font-size:.7rem;color:var(--readout)}
 
-  /* CONTACT */
-  .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start;}
-  @media(max-width:820px){.contact-grid{grid-template-columns:1fr;}}
-  .field{margin-bottom:16px;}
-  .field label{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#8b97ab;display:block;margin-bottom:6px;}
-  .field input,.field select,.field textarea{width:100%;background:var(--ink2);border:1px solid rgba(255,255,255,.14);border-radius:8px;padding:12px 14px;color:#fff;font-family:var(--sans);font-size:15px;}
-  .field textarea{min-height:90px;resize:vertical;}
-  .field input:focus,.field select:focus,.field textarea:focus{outline:2px solid var(--spore);border-color:transparent;}
-  .contact .ln{font-family:var(--mono);font-size:14px;color:#c3ccd9;margin-top:12px;}
+  /* team */
+  .team{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+  .person{background:var(--panel);border:1px solid var(--line);border-radius:6px;overflow:hidden;transition:.2s var(--ease)}
+  .person:hover{transform:translateY(-3px);border-color:var(--assay)}
+  .person .ph{aspect-ratio:1/1;overflow:hidden;background:#0e1516;position:relative}
+  .person .ph img{width:100%;height:100%;object-fit:cover;filter:grayscale(.3) contrast(1.02)}
+  .person .ph .led{position:absolute;top:12px;right:12px;width:8px;height:8px;border-radius:50%;background:var(--assay);box-shadow:0 0 8px var(--assay);opacity:0;transition:.2s}
+  .person:hover .ph .led{opacity:1}
+  .person .b{padding:15px 16px 17px}
+  .person .nm{font-family:var(--display);font-weight:600;color:var(--readout);font-size:1rem}
+  .person .rl{font-family:var(--mono);font-size:.66rem;color:var(--assay);text-transform:uppercase;letter-spacing:.03em;margin:6px 0 8px}
+  .person .bio{font-size:.8rem;color:var(--body)}
+  .person .li{display:inline-flex;align-items:center;gap:5px;margin-top:11px;font-family:var(--mono);font-size:.64rem;letter-spacing:.05em;text-transform:uppercase;color:var(--assay)}
+  .person .li:hover{color:var(--amber)}
+  .person .li svg{width:13px;height:13px;fill:currentColor}
+  .teamphoto{margin:0 0 22px;border:1px solid var(--line);border-radius:8px;overflow:hidden;background:#fff}
+  .teamphoto img{width:100%;height:auto;max-height:420px;object-fit:cover;object-position:center 30%;display:block}
+  .teamphoto figcaption{font-family:var(--mono);font-size:.7rem;color:var(--etched);padding:11px 16px;border-top:1px solid var(--line)}
+  /* lab */
+  .labgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+  .labc{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:20px}
+  .labc .lk{font-family:var(--mono);font-size:.66rem;letter-spacing:.07em;text-transform:uppercase;color:var(--assay);display:block;margin-bottom:10px}
+  .labc h3{color:var(--readout);font-size:1.04rem;margin-bottom:7px}
+  .labc p{font-size:.85rem;color:var(--body)}
+  .labfeat{display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:stretch}
+  .labimg{margin:0;border:1px solid var(--line);border-radius:8px;overflow:hidden;background:#fff;display:flex;flex-direction:column}
+  .labimg img{width:100%;flex:1;min-height:220px;max-height:360px;object-fit:contain;background:#fff;padding:22px}
+  .labimg figcaption{font-family:var(--mono);font-size:.7rem;color:var(--etched);padding:11px 16px;border-top:1px solid var(--line)}
+  .labgrid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
 
-  footer{background:#0a1120;color:#8b97ab;padding:48px 0;font-size:13.5px;}
-  footer .grid{display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:28px;}
-  @media(max-width:820px){footer .grid{grid-template-columns:1fr;}}
-  footer h4{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#c3ccd9;margin:0 0 12px;}
-  footer a{display:block;margin-bottom:7px;color:#8b97ab;} footer a:hover{color:#fff;}
+  /* privacy */
+  .privacy{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:24px;max-width:760px}
+  .privacy h3{color:var(--readout);margin-bottom:12px}
+  .privacy p{font-size:.92rem;color:var(--body)}
 
-  /* reveal */
-  .reveal{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease;}
-  .reveal.in{opacity:1;transform:none;}
-  @media(prefers-reduced-motion:reduce){
-    *{animation:none!important;transition:none!important;}
-    .reveal{opacity:1;transform:none;}
-    html{scroll-behavior:auto;}
+  /* faq */
+  .faq{max-width:840px;margin-inline:auto;border-top:1px solid var(--line)}
+  details{border-bottom:1px solid var(--line)}
+  summary{cursor:pointer;list-style:none;padding:19px 4px;font-family:var(--mono);font-size:.96rem;color:var(--readout);display:flex;justify-content:space-between;gap:18px;align-items:center}
+  summary::-webkit-details-marker{display:none}
+  summary::after{content:"+";color:var(--assay);font-size:1.3rem}
+  details[open] summary::after{content:"-"}
+  details p{padding:0 4px 20px;color:var(--body);font-size:.96rem;max-width:74ch}
+
+  /* contact */
+  .contact{border-top:1px solid var(--line)}
+  .cgrid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(26px,5vw,56px);align-items:start}
+  .cgrid .direct{margin-top:24px;font-family:var(--mono);font-size:.84rem;color:var(--body);display:flex;flex-direction:column;gap:9px}
+  .cgrid .direct b{color:var(--assay);font-weight:500}
+  form{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:24px;display:flex;flex-direction:column;gap:14px}
+  .fld{display:flex;flex-direction:column;gap:6px}
+  .fld label{font-family:var(--mono);font-size:.66rem;letter-spacing:.06em;text-transform:uppercase;color:var(--etched)}
+  .fld input,.fld select,.fld textarea{font-family:var(--sans);font-size:.94rem;padding:11px 12px;border:1px solid var(--line);border-radius:3px;background:#0d1314;color:var(--readout);width:100%}
+  .fld input:focus,.fld select:focus,.fld textarea:focus{outline:none;border-color:var(--assay);box-shadow:0 0 0 3px rgba(79,197,140,.14);caret-color:var(--amber)}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .formnote{font-family:var(--mono);font-size:.68rem;color:var(--etched)}
+
+  footer{background:#12362A;border-top:1px solid #2b5641;padding-block:48px 26px;position:relative;overflow:hidden}
+  .fcanvas{position:absolute;inset:0;opacity:.14;pointer-events:none}
+  .fgrid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:32px;position:relative;z-index:1}
+  footer h4{font-family:var(--mono);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:#8FA595;margin:0 0 12px;font-weight:500}
+  footer a{color:#CBD8CD;display:block;padding:4px 0;font-size:.85rem}
+  footer a:hover{color:#5FD6A8}
+  .fbrand img{height:26px;margin-bottom:10px}
+  .fbrand p{color:#8FA595;font-size:.8rem;max-width:34ch}
+  .fbot{border-top:1px solid #2b5641;margin-top:32px;padding-top:18px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;font-family:var(--mono);font-size:.72rem;color:#7d9285;position:relative;z-index:1}
+
+  .draft{background:#1a1405;color:var(--amber);font-family:var(--mono);font-size:.72rem;text-align:center;padding:8px 16px;letter-spacing:.02em;border-bottom:1px solid #2a2410}
+
+  .rv{opacity:0;transform:translateY(12px);transition:opacity .6s var(--ease),transform .6s var(--ease)}
+  .rv.in{opacity:1;transform:none}
+  @media(prefers-reduced-motion:reduce){*{animation:none!important;scroll-behavior:auto!important;transition:none!important}.rv{opacity:1;transform:none}}
+
+  @media(max-width:940px){
+    .conf,.cgrid,.rec-grid,.labfeat{grid-template-columns:1fr}
+    .prob,.flow,.mods,.cases,.servegrid,.labgrid{grid-template-columns:1fr 1fr}
+    .arack{grid-template-columns:1fr 1fr}
+    .team{grid-template-columns:1fr 1fr}
+    .trust{grid-template-columns:1fr 1fr}
+    .fgrid{grid-template-columns:1fr 1fr}
+    .slide{grid-template-columns:1fr}
+    .slide .screen{border-right:0;border-bottom:1px solid var(--line)}
+    nav.links{display:none}.menu-btn{display:block}
+  }
+  @media(max-width:560px){
+    .prob,.flow,.mods,.cases,.servegrid,.labgrid,.labgrid2,.two,.team,.arack{grid-template-columns:1fr}
+    .fgrid{grid-template-columns:1fr}
+    .slide .screen img{max-height:250px}
+    body{font-size:16px}
   }
 </style>
+</head>
+<body id="top">
 
-<nav class="bar">
-  <div class="wrap">
-    <a class="logo" href="#" aria-label="BugSpeaks"><img src="data:image/png;base64,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" alt="BugSpeaks" class="logo-img" onerror="this.style.display='none';this.nextElementSibling.style.display='inline'"><span class="logo-text" style="display:none">Bug<b>Speaks</b></span></a>
-    <div class="nlinks">
-      <a href="#workflow">How it works</a>
-      <a href="#approach">Consensus</a>
-      <a href="#modules">Modules</a>
-      <a href="#studies">Case studies</a>
-      <a href="#publications">Publications</a>
-      <a href="#contact">Contact</a>
-    </div>
-    <a class="btn btn-primary" href="#contact">Book a scoping call</a>
-  </div>
-</nav>
-
-<header class="hero">
-  <canvas id="net" aria-hidden="true"></canvas>
-  <div class="hero-fade"></div>
-  <div class="wrap hero-grid">
-    <div class="hero-copy">
-      <div class="eyebrow reveal">Metagenomics research services · Leucine Rich Bio</div>
-      <h1 class="reveal">End-to-end metagenomics for research and clinical studies.</h1>
-      <p class="lede reveal">We manage the entire workflow — sample logistics, shotgun sequencing, analysis, and interpretation — and deliver results your study can stand on.</p>
-      <div class="cta reveal">
-        <a class="btn btn-primary" href="#contact">Book a scoping call</a>
-        <a class="btn btn-ghost" href="#studies">See our work</a>
-      </div>
-      <div class="credline reveal">
-        <b>Est. 2014</b> · <b>ISO 17025 certified</b> · <b>NABH accredited</b> · <b>NABL accredited</b> · <b>clients in 10+ countries</b>
-      </div>
-    </div>
-    <div class="founder-card reveal">
-      <div class="fc-media"><span class="play" aria-hidden="true">▶</span></div>
-      <div class="fc-cap"><b>A word from our founders</b><span>Kumar Sankaran, CEO &amp; Dr. Debojyoti Dhar · 60-second intro — [placeholder video]</span></div>
+<header class="nav">
+  <div class="wrap nav-in">
+    <a class="brand" href="#top">
+      <img src="https://www.bugspeaks.com/static/images/icons/bugspeaks-logo.jpg" alt="BugSpeaks" style="height:30px" onerror="this.replaceWith(Object.assign(document.createElement('b'),{textContent:'BugSpeaks®',className:'brandtxt'}))">
+      <span class="brandtag">Research</span>
+    </a>
+    <nav class="links">
+      <a href="#accred">Accreditation</a>
+      <a href="#method">The method</a>
+      <a href="#serve">Who we serve</a>
+      <a href="#analysis">Analysis</a>
+      <a href="#pubs">Publications</a>
+      <a href="#team">Team</a>
+    </nav>
+    <div class="nav-cta">
+      <a class="btn btn-primary" href="#contact">Book a scoping call</a>
+      <button class="menu-btn" aria-label="Menu" onclick="document.querySelector('nav.links').style.display='flex'">
+        <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
     </div>
   </div>
 </header>
 
-<div class="marq">
-  <div class="marqlabel">Research clients &amp; institutions</div>
-  <div class="row" id="marqrow">
-    <div class="mitem"><img src="assets/cl_ultrahuman.png" alt=""><span>Ultrahuman</span></div><div class="mitem"><img src="assets/cl_iitk.png" alt=""><span>IIT Kanpur</span></div><div class="mitem"><img src="assets/cl_indus.png" alt=""><span>Indus Biotech</span></div><div class="mitem"><img src="assets/cl_advenzymes.png" alt=""></div><div class="mitem"><img src="assets/cl_mdrf.png" alt=""></div><div class="mitem"><span>St John's Research Institute</span></div><div class="mitem"><span>JSS, Mysore</span></div><div class="mitem"><span>CARI</span></div><div class="mitem"><span>NovoBliss</span></div><div class="mitem"><span>TN Medical College</span></div><div class="mitem"><span>Advanced Enzymes</span></div>
-    <div class="mitem"><img src="assets/cl_ultrahuman.png" alt=""><span>Ultrahuman</span></div><div class="mitem"><img src="assets/cl_iitk.png" alt=""><span>IIT Kanpur</span></div><div class="mitem"><img src="assets/cl_indus.png" alt=""><span>Indus Biotech</span></div><div class="mitem"><img src="assets/cl_advenzymes.png" alt=""></div><div class="mitem"><img src="assets/cl_mdrf.png" alt=""></div><div class="mitem"><span>St John's Research Institute</span></div><div class="mitem"><span>JSS, Mysore</span></div><div class="mitem"><span>CARI</span></div><div class="mitem"><span>NovoBliss</span></div><div class="mitem"><span>TN Medical College</span></div><div class="mitem"><span>Advanced Enzymes</span></div>
-  </div>
-</div>
-
-<!-- ACCREDITATIONS -->
-<section class="sec mist" style="padding:58px 0;">
-  <div class="wrap">
-    <div class="eyebrow reveal" style="text-align:center;">Certifications &amp; accreditations</div>
-    <div class="certs reveal" style="margin-top:22px;grid-template-columns:repeat(3,1fr);max-width:760px;margin-left:auto;margin-right:auto;">
-      <div class="certbadge"><img src="assets/iso.png" alt="ISO/IEC 17025 certified"></div>
-      <div class="certbadge"><img src="assets/nabh.png" alt="NABH accredited"></div>
-      <div class="certbadge"><img src="assets/nabl.png" alt="NABL accredited"></div>
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-stage">
+    <canvas id="squiggle" class="hero-bg" aria-hidden="true"></canvas>
+    <div class="hero-fade"></div>
+    <div class="hero-corner"><b>Long-read</b> · shotgun metagenomics · species-level</div>
+    <div class="wrap hero-inner">
+      <div class="hero-col">
+        <p class="eyebrow">BugSpeaks · microbiome research services · est. 2014</p>
+        <h1 id="headline" style="margin-top:16px">Microbiome metagenomics for research and clinical studies.</h1>
+        <p class="sub">Long-read shotgun sequencing to species level, the full suite of differential-abundance methods, and report-ready figures, all from one accredited lab.</p>
+        <div class="hero-cta">
+          <a class="btn btn-primary" href="#contact">Book a scoping call</a>
+          <a class="btn btn-ghost" href="#contact">Download a sample report</a>
+        </div>
+        <p class="plate"><b>BugSpeaks®</b> · long-read shotgun metagenomics · South Asia's first microbiome lab</p>
+      </div>
     </div>
-    <div class="reveal" style="margin-top:16px;font-family:var(--mono);font-size:12.5px;letter-spacing:.04em;color:var(--slate2);text-align:center;">ISO/IEC 17025 certified &nbsp;·&nbsp; NABH accredited &nbsp;·&nbsp; NABL accredited</div>
+  </div>
+  <div class="wrap"><div class="trust">
+    <div class="cell"><div class="v">Est. 2014</div><div class="l">South Asia's first microbiome lab</div></div>
+    <div class="cell"><div class="v"><span class="num" data-count="4">0</span></div><div class="l">Independent accreditations</div></div>
+    <div class="cell"><div class="v">~<span class="num" data-count="250000">0</span></div><div class="l">Genome reference database</div></div>
+    <div class="cell"><div class="v">2 to 3 wks</div><div class="l">Typical turnaround</div></div>
+  </div></div>
+</section>
+
+<!-- ACCREDITATION (moved up) -->
+<section class="accred" id="accred">
+  <div class="wrap">
+    <div class="head rv"><p class="eyebrow">Accreditation, with the numbers to prove it</p><h2>The only microbiome lab in Asia accredited on all four.</h2></div>
+    <div class="arack rv">
+      <div class="acard">
+        <img class="badge" src="https://sushmakannapiran.github.io/bugspeaks-research-preview/assets/nabl.png" alt="NABL" onerror="this.style.display='none'">
+        <div class="std">NABL</div>
+        <div class="body">ISO 15189:2022, medical testing lab accreditation.</div>
+        <div class="meta">Cert <b>MC-7516</b><br>Valid to <b>Jul 2029</b><br>Field: Medical testing</div>
+      </div>
+      <div class="acard">
+        <div class="badge-sp" aria-hidden="true"></div>
+        <div class="std">ISO/IEC 17025:2017</div>
+        <div class="body">Competence of testing &amp; calibration laboratories.</div>
+        <div class="meta">Cert <b>IEC-LR-2024-0949</b><br>Valid to <b>Dec 2027</b><br>Issued by AQSC / UGAC</div>
+      </div>
+      <div class="acard">
+        <img class="badge" src="https://sushmakannapiran.github.io/bugspeaks-research-preview/assets/nabh.png" alt="NABH" onerror="this.style.display='none'">
+        <div class="std">NABH</div>
+        <div class="body">Medical laboratory, microbiology (QCI, ISQua).</div>
+        <div class="meta">Cert <b>MLP-2024-0246</b><br>Valid to <b>Nov 2026</b><br>Field: Microbiology</div>
+      </div>
+      <div class="acard">
+        <div class="badge-sp" aria-hidden="true"></div>
+        <div class="std">ISO 9001:2015</div>
+        <div class="body">Quality management system.</div>
+        <div class="meta">Cert <b>305022012143Q</b><br>Issued by QRO</div>
+      </div>
+    </div>
+    <p class="acred-note rv">First laboratory in India's microbiome space to earn <b>NABL</b> accreditation. Certificates available on request.</p>
   </div>
 </section>
 
-<!-- OPENING VALUE -->
-<section class="sec">
-  <div class="wrap split">
-    <div class="reveal">
-      <div class="eyebrow">The complete workflow</div>
-      <h2 class="big" style="margin-top:12px;">One accredited lab, from sample to publication.</h2>
+<!-- LOGOS MARQUEE -->
+<section class="paper" style="padding-block:44px" aria-label="Clients">
+  <div class="wrap" style="margin-bottom:22px">
+    <p class="eyebrow rv">Research institutes, hospitals &amp; brands who've run studies with us</p>
+  </div>
+  <div class="marquee">
+    <div class="row" id="logorow"></div>
+  </div>
+</section>
+
+<!-- PROBLEM -->
+<section id="problem">
+  <div class="wrap">
+    <div class="head rv"><p class="eyebrow">Method</p><h2>Three factors that determine whether microbiome findings replicate.</h2></div>
+    <div class="prob rv">
+      <div class="c"><div class="n">01</div><h3>Sequencing resolution</h3><p>16S amplicon sequencing resolves communities to genus level. Species identification and functional profiling require shotgun metagenomics.</p></div>
+      <div class="c"><div class="n">02</div><h3>Statistical method</h3><p>Differential-abundance methods often disagree. A taxon significant under one method may not hold under another, so single-method results are difficult to defend.</p></div>
+      <div class="c"><div class="n">03</div><h3>Chain of custody</h3><p>When sequencing, analysis and figures are split across vendors, no single party is accountable for the study and sources of variation are harder to control.</p></div>
     </div>
-    <div class="reveal">
-      <p>Running a microbiome study in-house means sequencing capability, bioinformatics, and the logistics of moving biological samples — infrastructure most research teams don't have, and shouldn't need to build.</p>
-      <p>We provide the entire workflow as a single service: collection kits and sample pickup, shotgun sequencing, a rigorous analysis pipeline, and a scientist who interprets the results with you. What you receive is a complete, defensible answer, ready to publish.</p>
+    <p class="kicker rv">Species-level resolution, statistics that hold across methods, and a single accredited lab responsible for the whole study.</p>
+  </div>
+</section>
+
+<!-- METHOD / CONSENSUS -->
+<section id="method">
+  <div class="wrap">
+    <div class="head rv">
+      <p class="eyebrow">Differential abundance</p>
+      <h2>Six methods, reported in full, with a consensus layer.</h2>
+      <p class="lede">Each of the six differential-abundance methods is run and its complete output is delivered. A consensus layer identifies the taxa found significant across methods, at the p-value and FDR thresholds you set.</p>
     </div>
+    <div class="methods-row rv">
+      <span>Mann-Whitney / Kruskal-Wallis</span><span>t-test / ANOVA</span><span>edgeR</span><span>DESeq2</span><span>MaAsLin2</span><span>LEfSe</span>
+    </div>
+    <div class="bench rv">
+      <div class="bench-top">
+        <div class="dials">
+          <div class="dial"><label>p ≤ <span class="val mono" id="pval">0.050</span></label><input type="range" id="pdial" min="1" max="100" value="50"></div>
+          <div class="dial"><label>FDR ≤ <span class="val mono" id="qval">0.050</span></label><input type="range" id="qdial" min="1" max="100" value="50"></div>
+          <div class="dial"><label>Agreement ≥ <span class="val mono" id="aval">3</span> / 6</label><input type="range" id="adial" min="1" max="6" value="3"></div>
+        </div>
+        <button class="toggle" id="modeToggle">Show all methods</button>
+      </div>
+      <div class="bench-scroll">
+        <table class="cons"><thead><tr>
+          <th class="taxon">Taxon</th><th>MW / KW</th><th>t / ANOVA</th><th>edgeR</th><th>DESeq2</th><th>MaAsLin2</th><th>LEfSe</th><th>Consensus</th>
+        </tr></thead><tbody id="consBody"></tbody></table>
+      </div>
+      <div class="bench-foot"><span id="robustCount"></span><span>drag the dials, the consensus recomputes live · nothing is hidden</span></div>
+    </div>
+    <div class="cons-quote rv">
+      <p class="q">The consensus is an overlay, not a black box.</p>
+      <p class="a">Full per-method result tables are delivered alongside it, and every figure is traceable to the method that produced it.</p>
+    </div>
+  </div>
+  <div class="tooltip" id="tip"></div>
+</section>
+
+<!-- WHO WE SERVE -->
+<section class="paper" id="serve" style="padding-block:clamp(38px,4vw,58px)">
+  <div class="wrap">
+    <div class="head rv" style="margin-bottom:0;max-width:64ch"><p class="eyebrow">Scope</p><h2>Human, animal and environmental microbiomes.</h2><p class="lede" style="margin-top:4px">If a sample carries a microbiome, we can sequence and analyse it, from study design through interpretation, under one accredited roof.</p></div>
   </div>
 </section>
 
 <!-- WORKFLOW -->
-<section class="sec mist" id="workflow">
+<section id="workflow">
   <div class="wrap">
-    <div class="kicker reveal"><div class="eyebrow">How it works</div><h2 class="big">Six steps, one point of contact.</h2></div>
-    <div class="steps reveal">
-      <div class="step"><div class="no">STEP 01</div><h3>Sample collection &amp; logistics</h3><p>We dispatch barcoded collection kits to your site and arrange sample pickup. Samples are stable at room temperature for up to two weeks — no cold chain required.</p></div>
-      <div class="step"><div class="no">STEP 02</div><h3>Sequencing</h3><p>Long-read shotgun metagenomic sequencing on Oxford Nanopore, resolved to species level.</p></div>
-      <div class="step"><div class="no">STEP 03</div><h3>Upstream analysis</h3><p>Quality control, human host-read removal, and taxonomic classification against <span class="db">our in-house curated database of ~250,000 genomes</span>.</p></div>
-      <div class="step"><div class="no">STEP 04</div><h3>Downstream analysis</h3><p>Normalisation, nine analysis modules, and six-method consensus differential abundance.</p></div>
-      <div class="step"><div class="no">STEP 05</div><h3>Interpretation</h3><p>A one-to-one session with our scientific team, translating the statistics into biological findings for your study.</p></div>
-      <div class="step"><div class="no">STEP 06</div><h3>Manuscript support</h3><p>Publication-ready figures and drafting support for your methods and results.</p></div>
+    <div class="head rv"><p class="eyebrow">How it works</p><h2>One accredited lab, end to end.</h2><p class="lede">Your study, your design. We handle sequencing and analysis, with one chain of custody and one accountable team.</p></div>
+    <div class="flow rv">
+      <div class="s"><span class="n">Step 1 · Scope</span><h3>Plan the run with you</h3><p>We advise on sample type, sequencing depth and the analysis plan. The study design and hypothesis stay yours.</p></div>
+      <div class="s"><span class="n">Step 2 · Collect</span><h3>RT-stable logistics</h3><p>Barcoded kits, room-temperature-stable for 15 days, so no cold chain or dry ice is needed.</p></div>
+      <div class="s"><span class="n">Step 3 · Sequence</span><h3>Long-read shotgun</h3><p>Long-read shotgun metagenomic sequencing, resolved to species level.</p></div>
+      <div class="s"><span class="n">Step 4 · Analyse</span><h3>Full suite and consensus</h3><p>All six differential-abundance methods and the consensus layer, against our ~250k-genome database.</p></div>
+      <div class="s"><span class="n">Step 5 · Deliver</span><h3>Report you can interrogate</h3><p>Figures, per-method tables and a report traceable back to the underlying method, in 2 to 3 weeks.</p></div>
+      <div class="s"><span class="n">Step 6 · Support</span><h3>Through your analysis</h3><p>We answer questions on the methods and data as you write up and respond to reviewers.</p></div>
     </div>
+    <div class="flow-foot rv"><span><b>2 to 3 week</b> turnaround</span><span><b>RT-stable</b> shipping</span><span><b>One</b> point of contact</span></div>
   </div>
 </section>
 
-<!-- APPROACH / CONSENSUS -->
-<section class="sec dark" id="approach">
+<!-- ANALYSIS: modules + figure carousel -->
+<section id="analysis">
   <div class="wrap">
-    <div class="kicker reveal"><div class="eyebrow">Our approach</div><h2 class="big">We report what six methods agree on.</h2></div>
-    <p class="lede reveal">Every statistical method normalises and tests differently — Mann–Whitney and LEfSe are rank-based, t-test and ANOVA parametric, edgeR and DESeq2 model counts, MaAsLin2 adjusts for covariates. A taxon reaches your results only when at least three agree, each at p&nbsp;&lt;&nbsp;0.05 and FDR&nbsp;&lt;&nbsp;0.05. A finding that survives three statistical families is not an artefact of one tool's assumptions.</p>
-    <div class="reveal" style="overflow-x:auto;margin-top:34px;">
-      <table class="ctable">
-        <thead><tr><th></th><th>MW</th><th>t/AOV</th><th>edgeR</th><th>DESeq2</th><th>MaAsLin2</th><th>LEfSe</th><th>Result</th></tr></thead>
-        <tbody>
-          <tr><td class="tx">Faecalibacterium prausnitzii</td><td><span class="dot y">✓</span></td><td><span class="dot y">✓</span></td><td><span class="dot y">✓</span></td><td><span class="dot y">✓</span></td><td><span class="dot y">✓</span></td><td><span class="dot n"></span></td><td><span class="verdict" style="color:var(--spore)">5/6 · reported</span></td></tr>
-          <tr><td class="tx">Roseburia intestinalis</td><td><span class="dot y">✓</span></td><td><span class="dot n"></span></td><td><span class="dot n"></span></td><td><span class="dot n"></span></td><td><span class="dot y">✓</span></td><td><span class="dot y">✓</span></td><td><span class="verdict" style="color:var(--spore)">3/6 · reported</span></td></tr>
-          <tr><td class="tx">Akkermansia muciniphila</td><td><span class="dot n"></span></td><td><span class="dot n"></span></td><td><span class="dot t">✓</span></td><td><span class="dot t">✓</span></td><td><span class="dot n"></span></td><td><span class="dot n"></span></td><td><span class="verdict" style="color:#8b97ab">2/6 · flagged</span></td></tr>
-        </tbody>
-      </table>
+    <div class="head rv"><p class="eyebrow">The analysis</p><h2>Every module in your report, in the order you read it.</h2></div>
+    <div class="mods rv">
+      <div class="mod"><div class="mn">01</div><h3>Composition</h3><p>Relative abundance, phylum to species.</p></div>
+      <div class="mod"><div class="mn">02</div><h3>Alpha diversity</h3><p>Within-sample diversity, with significance testing.</p></div>
+      <div class="mod"><div class="mn">03</div><h3>Beta diversity</h3><p>Between-group community structure by ordination.</p></div>
+      <div class="mod"><div class="mn">04</div><h3>Core microbiome</h3><p>Prevalence-based core across your cohort.</p></div>
+      <div class="mod"><div class="mn">05</div><h3>Heatmaps</h3><p>Clustered abundance across samples.</p></div>
+      <div class="mod"><div class="mn">06</div><h3>Differential abundance</h3><p>The full six-method suite, every method's output.</p></div>
+      <div class="mod"><div class="mn">07</div><h3>Consensus</h3><p>Robust taxa across methods; thresholds you set.</p></div>
+      <div class="mod"><div class="mn">08</div><h3>Correlation &amp; networks</h3><p>Taxon and metadata co-occurrence.</p></div>
+      <div class="mod"><div class="mn">09</div><h3>KEGG pathways</h3><p>Functional potential from the metagenome.</p></div>
+      <div class="mod"><div class="mn">10</div><h3>Resistome / AMR</h3><p>Antimicrobial-resistance gene profiling.</p></div>
     </div>
-    <div class="clabel reveal"><span><i style="background:var(--spore)"></i>Reaches consensus (≥3 methods)</span><span><i style="background:var(--teal)"></i>Significant in one family only — flagged, not reported</span></div>
-    <div class="whyrow reveal">
-      <div class="wcard"><h3>Our own reference database</h3><p>Reads are classified against a curated, in-house database of ~250,000 genomes — sharper calls than a generic public reference.</p></div>
-      <div class="wcard"><h3>Clinically validated</h3><p>The pipeline behind India's first microbiome-based clinical trial, and peer-reviewed studies.</p></div>
-      <div class="wcard"><h3>Nothing hidden</h3><p>Consensus is a filter, not a black box. Every method's full result is delivered, and the thresholds are yours to set.</p></div>
-    </div>
-  </div>
-</section>
 
-<!-- MODULES -->
-<section class="sec" id="modules">
-  <div class="wrap">
-    <div class="kicker reveal"><div class="eyebrow">What's included</div><h2 class="big">Nine analysis modules, phylum to species.</h2></div>
-    <p class="lede reveal">Community composition, diversity, differential abundance, functional pathways, and antimicrobial resistance. Each result is delivered as both a spreadsheet and a figure.</p>
-    <div class="mods reveal">
-      <div class="mod"><div class="mno">01</div><h3>Composition</h3><p>Outlier screening and normalised relative abundance across all ranks.</p></div>
-      <div class="mod"><div class="mno">02</div><h3>Diversity</h3><p>Alpha (richness and evenness) and beta diversity, tested for group differences.</p></div>
-      <div class="mod"><div class="mno">03</div><h3>Core microbiome</h3><p>Taxa consistently present across samples, by prevalence threshold.</p></div>
-      <div class="mod"><div class="mno">04</div><h3>Heatmaps</h3><p>Abundance patterns with hierarchical clustering across taxa and samples.</p></div>
-      <div class="mod"><div class="mno">05</div><h3>Differential abundance</h3><p>Six statistical methods, run in parallel — the input to consensus.</p></div>
-      <div class="mod sig"><div class="mno"><b>06 · signature</b></div><h3>Consensus</h3><p>Only findings supported by three or more methods reach your results.</p></div>
-      <div class="mod"><div class="mno">07</div><h3>Correlation</h3><p>Microbe–microbe and microbe–target networks and co-occurrence.</p></div>
-      <div class="mod"><div class="mno">08</div><h3>Pathways</h3><p>Functional shifts mapped to KEGG — what the community does, not only who is present.</p></div>
-      <div class="mod"><div class="mno">09</div><h3>Resistome</h3><p>Antimicrobial-resistance genes and mechanisms across the community.</p></div>
+    <div class="viewer rv">
+      <div class="viewer-top"><span class="live">Report viewer</span><span id="vlabel">Composition</span></div>
+      <div class="vp"><div class="vtrack" id="vtrack">
+        <div class="slide"><div class="screen"><img src="assets/plots/composition-stackedbar.png" alt="Composition stacked bar"></div><div class="meta"><span class="k">Module 01 · Composition</span><h3>Taxonomic composition</h3><p>Relative abundance from phylum down to species, per sample and per group.</p><div class="stat">Family-level relative abundance · <b>representative output</b></div></div></div>
+        <div class="slide"><div class="screen"><img src="assets/plots/alpha-diversity-shannon.png" alt="Shannon alpha diversity boxplot"></div><div class="meta"><span class="k">Module 02 · Alpha diversity</span><h3>Within-sample diversity</h3><p>Diversity indices compared between groups, with significance testing.</p><div class="stat">Shannon · Mann-Whitney <b>p = 0.011768</b> · representative</div></div></div>
+        <div class="slide"><div class="screen"><img src="assets/plots/beta-diversity-pcoa.png" alt="Beta diversity PCoA ordination"></div><div class="meta"><span class="k">Module 03 · Beta diversity</span><h3>Between-group structure</h3><p>Ordination of community composition, tested for group separation.</p><div class="stat">PCoA · PERMANOVA <b>F = 3.22, p = 0.025</b> · representative</div></div></div>
+        <div class="slide"><div class="screen"><img src="assets/plots/core-microbiome-heatmap.png" alt="Core microbiome prevalence heatmap"></div><div class="meta"><span class="k">Module 04 · Core microbiome</span><h3>Prevalence-based core</h3><p>Which taxa are consistently present across your cohort, by detection threshold.</p><div class="stat">Prevalence across thresholds · <b>representative output</b></div></div></div>
+        <div class="slide"><div class="screen"><img src="assets/plots/differential-heatmap.png" alt="Clustered species heatmap"></div><div class="meta"><span class="k">Module 05 · Heatmaps</span><h3>Clustered abundance</h3><p>Species × sample clustering, split by study group.</p><div class="stat">Clustered species heatmap · <b>representative output</b></div></div></div>
+        <div class="slide"><div class="screen"><img src="assets/plots/volcano-plot.png" alt="Volcano plot"></div><div class="meta"><span class="k">Module 06 · Differential abundance</span><h3>What moved, and by how much</h3><p>Effect size against significance, per method, before the consensus layer.</p><div class="stat">Volcano · log₂FC vs −log₁₀FDR · <b>representative output</b></div></div></div>
+      </div></div>
+      <div class="viewer-nav">
+        <div class="dots" id="vdots"></div>
+        <div style="display:flex;align-items:center;gap:16px">
+          <span class="vcount"><b id="vnum">01</b> / 06</span>
+          <div class="arrows"><button id="vprev" aria-label="Previous"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button><button id="vnext" aria-label="Next"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button></div>
+        </div>
+      </div>
     </div>
-    <div class="panel-note reveal"><b>On request:</b> functional &amp; translational panels — short-chain fatty acids (producer/quencher), gut–brain / neurotransmitter, probiotic, and pathogen profiling.</div>
+    <p class="repnote rv">Figures shown are representative outputs from the BugSpeaks report, not any single client's data.</p>
   </div>
 </section>
 
 <!-- CASE STUDIES -->
-<section class="sec mist" id="studies">
+<section id="cases">
   <div class="wrap">
-    <div class="kicker reveal"><div class="eyebrow">Selected work</div><h2 class="big">A sample of studies we've delivered.</h2></div>
-    <div class="cases reveal">
-      <div class="case"><div class="ph"><span class="pic">🖼️</span>CLIENT LOGO / FIGURE</div><div class="body"><div class="tag">ACADEMIC</div><h3>IIT Kanpur</h3><p>Dr. Sonowal study — completed.</p><div class="todo">To add: goal → approach → outcome + quote</div></div></div>
-      <div class="case"><div class="ph"><span class="pic">🖼️</span>CLIENT LOGO / FIGURE</div><div class="body"><div class="tag">NUTRACEUTICAL</div><h3>Ultrahuman</h3><p>Product-validation cohort.</p><div class="todo">To add: goal → approach → outcome + quote</div></div></div>
-      <div class="case"><div class="ph"><span class="pic">🖼️</span>CLIENT LOGO / FIGURE</div><div class="body"><div class="tag">CLINICAL</div><h3>NovoBliss</h3><p>Antibiotic-intervention study.</p><div class="todo">To add: goal → approach → outcome + quote</div></div></div>
+    <div class="head rv"><p class="eyebrow">Case studies</p><h2>Sequenced, analysed &amp; delivered end to end.</h2></div>
+    <div class="cases rv">
+      <div class="case"><span class="seg">Clinical · RCT · published</span><h3>Personalised-nutrition RCT</h3><p>A randomised, controlled proof-of-concept: microbiome-based personalised nutrition improved hyperglycaemia, blood pressure and inflammation markers, sequenced and analysed in-house.</p><div class="r">→ Published in PeerJ, 2024</div></div>
+      <div class="case"><span class="seg">Clinical · cohort · MDRF</span><h3>Diabetes nutrition supplement</h3><p>Metagenomic gut-health readouts on a diabetes-specific nutrition intervention, in collaboration with the Madras Diabetes Research Foundation (Dr. V. Mohan).</p><div class="r">→ Food &amp; Nutrition Sciences, 2025</div></div>
+      <div class="case"><span class="seg">Industry · efficacy</span><h3>Nutraceutical efficacy study</h3><p>Before/after shotgun profiling with consensus differential abundance for a listed enzymes &amp; probiotics manufacturer.</p><div class="r">→ Named case pending client sign-off</div></div>
     </div>
-    <div style="margin-top:28px;" class="reveal"><a class="btn btn-dark" href="#contact">Download a sample report</a></div>
   </div>
 </section>
 
 <!-- PUBLICATIONS -->
-<section class="sec" id="publications">
+<section class="paper" id="pubs">
   <div class="wrap">
-    <div class="kicker reveal"><div class="eyebrow">Publications &amp; clinical validation</div><h2 class="big">Our science is on the record.</h2></div>
-    <p class="lede reveal">Peer-reviewed work in journals including PeerJ, Frontiers, Virus Research and JCO Oncology Advances. Click any paper to read it.</p>
-    <div class="pubgroup reveal">Led by our team</div>
-    <div class="reveal">
-      <a class="pub" href="https://peerj.com/articles/17583/" target="_blank" rel="noopener"><span class="yr">2024</span><span class="t">Microbiota-based personalized nutrition improves hyperglycaemia and hypertension parameters and reduces inflammation — a randomized, controlled proof-of-concept study. <i>PeerJ.</i> <span class="arr">↗</span></span></a>
-      <a class="pub" href="https://doi.org/10.3389/fnins.2021.831193" target="_blank" rel="noopener"><span class="yr">2022</span><span class="t">Impending mental-health issues during COVID-19 — a case for personalized nutrition based on the gut microbiota. <i>Frontiers in Neuroscience.</i> <span class="arr">↗</span></span></a>
-      <a class="pub" href="https://doi.org/10.1016/j.virusres.2020.198018" target="_blank" rel="noopener"><span class="yr">2020</span><span class="t">Gut microbiota and COVID-19 — possible link and implications. <i>Virus Research.</i> <span class="arr">↗</span></span></a>
-    </div>
-    <div class="pubgroup reveal">In collaboration with leading institutions</div>
-    <div class="reveal">
-      <a class="pub" href="https://ascopubs.org/doi/10.1200/OA-25-00194" target="_blank" rel="noopener"><span class="yr">2026</span><span class="t">Translational implications of microbiome testing methodologies in lung cancer. <i>JCO Oncology Advances</i> · with Tata Memorial Hospital. <span class="arr">↗</span></span></a>
-      <a class="pub" href="https://www.frontiersin.org/journals/epigenetics-and-epigenomics/articles/10.3389/freae.2026.1857307/full" target="_blank" rel="noopener"><span class="yr">2026</span><span class="t">The microbiome and its impact on the epigenome in cancer. <i>Frontiers in Epigenetics &amp; Epigenomics</i> · with Tata Memorial Hospital. <span class="arr">↗</span></span></a>
-      <a class="pub" href="https://doi.org/10.4236/fns.2025.168056" target="_blank" rel="noopener"><span class="yr">2025</span><span class="t">Efficacy of a diabetes-specific nutrition supplement on CGM outcomes in adults with type 2 diabetes. <i>Food and Nutrition Sciences</i> · with MDRF (Dr. V. Mohan). <span class="arr">↗</span></span></a>
-      <a class="pub" href="https://link.springer.com/article/10.1007/s42452-024-05815-3" target="_blank" rel="noopener"><span class="yr">2024</span><span class="t">Metabolomics and gut metagenomics of healthy adults on whey protein with an enzymes–probiotics blend. <i>Discover Applied Sciences.</i> <span class="arr">↗</span></span></a>
-      <a class="pub" href="https://www.frontiersin.org/journals/nutrition/articles/10.3389/fnut.2024.1307734/full" target="_blank" rel="noopener"><span class="yr">2024</span><span class="t">Study of amino-acid absorption and gut microbiome on pea protein with an enzymes–probiotics supplement. <i>Frontiers in Nutrition.</i> <span class="arr">↗</span></span></a>
-    </div>
-  </div>
-</section>
-
-<!-- AWARDS -->
-<section class="sec mist">
-  <div class="wrap">
-    <div class="kicker reveal"><div class="eyebrow">Awards &amp; recognition</div><h2 class="big">Recognised for microbiome innovation.</h2></div>
-    <div class="awards reveal">
-      <div class="acard"><div class="ayear">2021</div><h3>National Startup Award</h3><p>Government of India — winner in Health &amp; Wellness (Life Sciences).</p></div>
-      <div class="acard"><div class="ayear">2021</div><h3>Best Microbiome Diagnostic Technology Company</h3><p>GHP International Life Sciences Awards — Global Health &amp; Pharma.</p></div>
-      <div class="acard"><div class="ayear">2019</div><h3>Microbiome Diagnostic Technology Innovation</h3><p>Frost &amp; Sullivan — India Best Practices Award.</p></div>
-    </div>
-  </div>
-</section>
-
-<!-- PRESS -->
-<section class="sec">
-  <div class="wrap">
-    <div class="kicker reveal"><div class="eyebrow">In the news</div><h2 class="big">Featured in the press.</h2></div>
-    <div class="press reveal">
-      <a class="pcard" href="https://startupsuccessstories.in/decoding-the-microbiome-how-this-startup-is-transforming-preventive-care-in-india/" target="_blank" rel="noopener"><div class="psrc">Startup Success Stories</div><div class="ptitle">Decoding the microbiome: transforming preventive care in India</div><div class="pmore">Read →</div></a>
-      <a class="pcard" href="https://www.bwwellbeingworld.com/article/can-your-gut-microbiome-predict-hypertension-risk-before-symptoms-appear-606857" target="_blank" rel="noopener"><div class="psrc">BW Wellbeing World</div><div class="ptitle">Can your gut microbiome predict hypertension risk before symptoms appear?</div><div class="pmore">Read →</div></a>
-      <a class="pcard" href="https://www.etvbharat.com/en/health/world-hypertension-day-2026-indians-30s-risk-enn26051604472" target="_blank" rel="noopener"><div class="psrc">ETV Bharat</div><div class="ptitle">Why even healthy-looking people in their 30s are at hypertension risk</div><div class="pmore">Read →</div></a>
-      <a class="pcard" href="https://www.hindustantimes.com/lifestyle/health/molecular-biologist-shares-three-food-categories-you-need-in-your-diet-to-improve-gut-microbiome-101777603037833.html" target="_blank" rel="noopener"><div class="psrc">Hindustan Times</div><div class="ptitle">Three food categories to improve your gut microbiome</div><div class="pmore">Read →</div></a>
-      <a class="pcard" href="https://www.indiatvnews.com/health/think-probiotics-are-for-everyone-gut-health-expert-busts-5-popular-myths-2026-06-22-1045702" target="_blank" rel="noopener"><div class="psrc">India TV News</div><div class="ptitle">Gut health expert busts five popular probiotic myths</div><div class="pmore">Read →</div></a>
-      <a class="pcard" href="https://www.hindustantimes.com/lifestyle/health/is-your-healthy-food-actually-harming-your-gut-doctor-explains-why-wellness-foods-may-cause-bloating-and-discomfort-101780575793060.html" target="_blank" rel="noopener"><div class="psrc">Hindustan Times</div><div class="ptitle">Is your healthy food actually harming your gut?</div><div class="pmore">Read →</div></a>
-    </div>
-  </div>
-</section>
-
-<!-- EVENTS / CONFERENCE -->
-<section class="sec dark">
-  <div class="wrap event-grid">
-    <div class="reveal">
-      <div class="eyebrow">Thought leadership</div>
-      <h2 class="big" style="margin-top:12px;">We host South Asia's flagship microbiome conference.</h2>
-      <p class="lede">World of Microbiome™ brings researchers, clinicians and industry together each year — now in its third edition. The 2026 summit is on 21 August in Bengaluru, with speakers from IIT Roorkee, Unilever and across the field.</p>
-      <div class="event-stats">
-        <span><b>100+</b> clinical partners</span>
-        <span><b>50+</b> industry partners</span>
-        <span><b>15+</b> countries</span>
+    <div class="head rv"><p class="eyebrow">Publications &amp; clinical validation</p><h2>Our science is on the record.</h2><p class="lede">Peer-reviewed work led by our team and with partners including Tata Memorial and MDRF. Every paper links out.</p></div>
+    <div class="rv">
+      <div class="pubgroup">
+        <h4>Led by our team</h4>
+        <a class="pub" href="https://peerj.com/articles/17583/" target="_blank" rel="noopener"><span class="idx">[01]</span><span class="ti">Microbiota-based personalized nutrition improves hyperglycaemia and hypertension parameters and reduces inflammation, a randomized, controlled proof-of-concept study<span class="j">PeerJ</span></span><span class="yr">2024</span><span class="go">↗</span></a>
+        <a class="pub" href="https://doi.org/10.3389/fnins.2021.831193" target="_blank" rel="noopener"><span class="idx">[02]</span><span class="ti">Impending mental-health issues during COVID-19, a case for personalized nutrition based on the gut microbiota<span class="j">Frontiers in Neuroscience</span></span><span class="yr">2022</span><span class="go">↗</span></a>
+        <a class="pub" href="https://doi.org/10.1016/j.virusres.2020.198018" target="_blank" rel="noopener"><span class="idx">[03]</span><span class="ti">Gut microbiota and COVID-19, possible link and implications<span class="j">Virus Research</span></span><span class="yr">2020</span><span class="go">↗</span></a>
       </div>
-      <div style="margin-top:28px;"><a class="btn btn-primary" href="https://womicrobiome.com" target="_blank" rel="noopener">Visit World of Microbiome →</a></div>
+      <div class="pubgroup">
+        <h4>In collaboration with leading institutions</h4>
+        <a class="pub" href="https://ascopubs.org/doi/10.1200/OA-25-00194" target="_blank" rel="noopener"><span class="idx">[04]</span><span class="ti">Translational implications of microbiome testing methodologies in lung cancer <span class="col">· with Tata Memorial Hospital</span><span class="j">JCO Oncology Advances</span></span><span class="yr">2026</span><span class="go">↗</span></a>
+        <a class="pub" href="https://www.frontiersin.org/journals/epigenetics-and-epigenomics/articles/10.3389/freae.2026.1857307/full" target="_blank" rel="noopener"><span class="idx">[05]</span><span class="ti">The microbiome and its impact on the epigenome in cancer <span class="col">· with Tata Memorial Hospital</span><span class="j">Frontiers in Epigenetics &amp; Epigenomics</span></span><span class="yr">2026</span><span class="go">↗</span></a>
+        <a class="pub" href="https://doi.org/10.4236/fns.2025.168056" target="_blank" rel="noopener"><span class="idx">[06]</span><span class="ti">Efficacy of a diabetes-specific nutrition supplement on CGM outcomes in adults with type 2 diabetes <span class="col">· with MDRF (Dr. V. Mohan)</span><span class="j">Food and Nutrition Sciences</span></span><span class="yr">2025</span><span class="go">↗</span></a>
+        <a class="pub" href="https://link.springer.com/article/10.1007/s42452-024-05815-3" target="_blank" rel="noopener"><span class="idx">[07]</span><span class="ti">Metabolomics and gut metagenomics of healthy adults on whey protein with an enzymes-probiotics blend<span class="j">Discover Applied Sciences</span></span><span class="yr">2024</span><span class="go">↗</span></a>
+        <a class="pub" href="https://www.frontiersin.org/journals/nutrition/articles/10.3389/fnut.2024.1307734/full" target="_blank" rel="noopener"><span class="idx">[08]</span><span class="ti">Study of amino-acid absorption and gut microbiome on pea protein with an enzymes-probiotics supplement<span class="j">Frontiers in Nutrition</span></span><span class="yr">2024</span><span class="go">↗</span></a>
+      </div>
     </div>
-    <div class="reveal"><img class="event-img" src="assets/wom.jpg" alt="World of Microbiome conference, Bengaluru"></div>
   </div>
 </section>
 
-<!-- TESTIMONIALS -->
-<section class="sec mist">
+<!-- RECOGNITION -->
+<section id="recognition">
   <div class="wrap">
-    <div class="kicker reveal"><div class="eyebrow">In their words</div><h2 class="big">What research teams say.</h2></div>
-    <div class="quotes reveal">
-      <div class="quote"><div class="mark">“</div><p>To add: a real quote from a named researcher — what they needed and how it went.</p><div class="who"><span class="av"></span><div><b>Researcher name</b><span>Title · Institution</span></div></div></div>
-      <div class="quote"><div class="mark">“</div><p>To add: a second testimonial, ideally from a different client type (nutra or clinical).</p><div class="who"><span class="av"></span><div><b>Researcher name</b><span>Title · Company</span></div></div></div>
-      <div class="quote"><div class="mark">“</div><p>To add: a third quote. Video testimonials can slot in here too, with a link to the client.</p><div class="who"><span class="av"></span><div><b>Researcher name</b><span>Title · Institution</span></div></div></div>
+    <div class="head rv"><p class="eyebrow">Recognition &amp; press</p><h2>Backed by awards, and covered by the national press.</h2></div>
+    <div class="rec-grid rv">
+      <div class="awards">
+        <div class="award"><span class="yr">2021</span><span class="t">National Startup Award, Health &amp; Wellness (Startup India)</span></div>
+        <div class="award"><span class="yr">2022</span><span class="t">Great Companies Global Business Award</span></div>
+        <div class="award"><span class="yr">2024</span><span class="t">First microbiome lab in India to earn NABL accreditation</span></div>
+        <div class="award"><span class="yr">2014</span><span class="t">South Asia's first microbiome company</span></div>
+      </div>
+      <div>
+        <p class="presslabel">Selected coverage</p>
+        <div class="presslist">
+          <a href="https://yourstory.com/2026/02/leucine-rich-bio-microbiome-science-to-personalise-preventive-healthcare" target="_blank" rel="noopener"><span class="po">YourStory</span> Using microbiome science to personalise preventive healthcare <span class="pg">↗</span></a>
+          <a href="https://thebetterindia.com/275359/bugspeak-microbiome-startup-test-kit-gut-health-diabetes-health-check-bengaluru/" target="_blank" rel="noopener"><span class="po">The Better India</span> A kit that "listens to your gut" for diabetes &amp; BP risk <span class="pg">↗</span></a>
+          <a href="https://www.siliconindia.com/news/leucine-rich-bio-launches-enhanced-bugspeaks-2026-report-nwid-53215.html" target="_blank" rel="noopener"><span class="po">SiliconIndia</span> The enhanced BugSpeaks 2026 report <span class="pg">↗</span></a>
+        </div>
+        <a class="btn btn-ghost" href="https://www.bugspeaks.com/blog/" target="_blank" rel="noopener" style="margin-top:18px">Read the blog →</a>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- WHO IT'S FOR -->
-<section class="sec">
+<!-- CONFERENCE -->
+<section class="paper" id="conference">
+  <div class="wrap conf">
+    <div class="rv">
+      <span class="live-band" style="border-color:#c9cec6;color:#2b8a72">World of Microbiome™ · 3rd edition</span>
+      <h2>We convene the field.</h2>
+      <p class="lede" style="margin-top:14px">Our flagship conference brings the microbiome community together, researchers, clinicians and industry, with speakers from IIT Roorkee, Unilever and beyond.</p>
+      <div class="stats">
+        <div><div class="v" style="color:#0B0F10"><span class="num" data-count="100">0</span>+</div><div class="l" style="color:#5c6b64">Clinical partners</div></div>
+        <div><div class="v" style="color:#0B0F10"><span class="num" data-count="50">0</span>+</div><div class="l" style="color:#5c6b64">Industry partners</div></div>
+        <div><div class="v" style="color:#0B0F10"><span class="num" data-count="15">0</span>+</div><div class="l" style="color:#5c6b64">Countries</div></div>
+      </div>
+      <p class="mono" style="font-size:.82rem;color:#4a524e">21 August 2026 · Bengaluru</p>
+      <div style="margin-top:20px"><a class="btn btn-ghost" href="https://womicrobiome.com" target="_blank" rel="noopener">Visit womicrobiome.com →</a></div>
+    </div>
+    <div class="imgwrap rv">
+      <img src="https://sushmakannapiran.github.io/bugspeaks-research-preview/assets/wom.jpg" alt="World of Microbiome conference, Bengaluru">
+      <div class="cap">World of Microbiome™ · Bengaluru</div>
+    </div>
+  </div>
+</section>
+
+<!-- TEAM (order: Kumar, Deb, Prabhath, Gopal) -->
+<section id="team">
   <div class="wrap">
-    <div class="kicker reveal"><div class="eyebrow">Study designs</div><h2 class="big">Built around your design, not a template.</h2></div>
-    <p class="lede reveal">We build the comparisons from your metadata. Common designs:</p>
-    <div class="chips reveal">
-      <span class="chip">Cohort / cross-sectional</span><span class="chip">Longitudinal (pre / mid / post)</span><span class="chip">Case–control</span><span class="chip">Multi-arm intervention</span><span class="chip">Age / sex-stratified</span><span class="chip">Custom combinations</span>
-    </div>
-    <div class="breadth reveal">Not only stool. In the past year we have run human gut, <b>skin and oral</b>, <b>sheep rumen</b>, <b>poultry caecal digesta</b>, <b>soil rhizosphere</b>, a <b>tribal-cohort</b> study, and <b>Ayurveda</b> trials.</div>
-    <div class="trio reveal">
-      <div class="tcard"><h3>Batch-effect control</h3><p>Samples are stored and sequenced together at study end, so group differences reflect biology, not sequencing batch.</p></div>
-      <div class="tcard"><h3>Covariate adjustment</h3><p>Age, sex and timepoint are modelled explicitly, so differences trace to the variable of interest.</p></div>
-      <div class="tcard"><h3>Sample-size guidance</h3><p>A minimum of 3–5 per group to run; 15–20 recommended for robust differential abundance. We advise at scoping.</p></div>
+    <div class="head rv"><p class="eyebrow">The team</p><h2>The scientists behind your study.</h2></div>
+    <figure class="teamphoto rv"><img src="https://www.bugspeaks.com/static/images/about-us/team.jpg" alt="The Leucine Rich Bio team" loading="lazy" onerror="this.style.display='none'"><figcaption>The Leucine Rich Bio team, celebrating ten years at World of Microbiome.</figcaption></figure>
+    <div class="team rv">
+      <div class="person"><div class="ph"><span class="led"></span><img src="https://sushmakannapiran.github.io/bugspeaks-research-preview/assets/kumar.png" alt="Kumar Sankaran" onerror="this.style.display='none'"></div><div class="b"><div class="nm">Kumar Sankaran</div><div class="rl">Founder &amp; CEO</div><div class="bio">Leads BugSpeaks' mission to make species-level microbiome science accessible and defensible.</div><a class="li" href="https://www.linkedin.com/in/kumarsank/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M4.98 3.5A2.5 2.5 0 0 0 2.5 6a2.5 2.5 0 0 0 2.48 2.5A2.5 2.5 0 0 0 7.5 6 2.5 2.5 0 0 0 4.98 3.5zM3 8.98h4V21H3zM9 8.98h3.8v1.64h.05c.53-.95 1.83-1.95 3.77-1.95 4.03 0 4.78 2.5 4.78 5.75V21h-4v-5.3c0-1.26-.02-2.9-1.77-2.9-1.77 0-2.04 1.38-2.04 2.8V21H9z"/></svg>LinkedIn</a></div></div>
+      <div class="person"><div class="ph"><span class="led"></span><img src="https://sushmakannapiran.github.io/bugspeaks-research-preview/assets/deb.png" alt="Dr. Debojyoti Dhar" onerror="this.style.display='none'"></div><div class="b"><div class="nm">Dr. Debojyoti Dhar</div><div class="rl">Co-founder · Director, R&amp;D</div><div class="bio">PhD, IISc; postdoctoral research, UMass. Drives the research and publication programme.</div><a class="li" href="https://www.linkedin.com/in/drdebojyotidhar/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M4.98 3.5A2.5 2.5 0 0 0 2.5 6a2.5 2.5 0 0 0 2.48 2.5A2.5 2.5 0 0 0 7.5 6 2.5 2.5 0 0 0 4.98 3.5zM3 8.98h4V21H3zM9 8.98h3.8v1.64h.05c.53-.95 1.83-1.95 3.77-1.95 4.03 0 4.78 2.5 4.78 5.75V21h-4v-5.3c0-1.26-.02-2.9-1.77-2.9-1.77 0-2.04 1.38-2.04 2.8V21H9z"/></svg>LinkedIn</a></div></div>
+      <div class="person"><div class="ph"><span class="led"></span><img src="https://sushmakannapiran.github.io/bugspeaks-research-preview/assets/prabhath.png" alt="Prabhath M. Kamath" onerror="this.style.display='none'"></div><div class="b"><div class="nm">Prabhath M. Kamath</div><div class="rl">Co-founder · Chief Product Officer</div><div class="bio">Leads product, turning metagenomic analysis into reports researchers can actually use.</div><a class="li" href="https://www.linkedin.com/in/prabhath-healthcare/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M4.98 3.5A2.5 2.5 0 0 0 2.5 6a2.5 2.5 0 0 0 2.48 2.5A2.5 2.5 0 0 0 7.5 6 2.5 2.5 0 0 0 4.98 3.5zM3 8.98h4V21H3zM9 8.98h3.8v1.64h.05c.53-.95 1.83-1.95 3.77-1.95 4.03 0 4.78 2.5 4.78 5.75V21h-4v-5.3c0-1.26-.02-2.9-1.77-2.9-1.77 0-2.04 1.38-2.04 2.8V21H9z"/></svg>LinkedIn</a></div></div>
+      <div class="person"><div class="ph"><span class="led"></span><img src="https://sushmakannapiran.github.io/bugspeaks-research-preview/assets/gopal.jpg" alt="Dr. Gopalakrishna Kallapura" onerror="this.style.display='none'"></div><div class="b"><div class="nm">Dr. Gopalakrishna Kallapura</div><div class="rl">Scientific Lead</div><div class="bio">PhD, University of Arkansas. Leads the microbiome research domain and clinical studies.</div><a class="li" href="https://www.linkedin.com/in/gopala-kallapura/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M4.98 3.5A2.5 2.5 0 0 0 2.5 6a2.5 2.5 0 0 0 2.48 2.5A2.5 2.5 0 0 0 7.5 6 2.5 2.5 0 0 0 4.98 3.5zM3 8.98h4V21H3zM9 8.98h3.8v1.64h.05c.53-.95 1.83-1.95 3.77-1.95 4.03 0 4.78 2.5 4.78 5.75V21h-4v-5.3c0-1.26-.02-2.9-1.77-2.9-1.77 0-2.04 1.38-2.04 2.8V21H9z"/></svg>LinkedIn</a></div></div>
     </div>
   </div>
 </section>
 
-<!-- DELIVERABLES -->
-<section class="sec dark">
+<!-- LAB -->
+<section id="lab">
   <div class="wrap">
-    <div class="kicker reveal"><div class="eyebrow">What you receive</div><h2 class="big">A reproducible package — and the raw data.</h2></div>
-    <ul class="checks reveal">
-      <li>One folder per comparison or group</li>
-      <li>Group-level and sample-level outputs</li>
-      <li>Editable spreadsheets and publication-ready figures</li>
-      <li>Methods text ready for your manuscript</li>
-    </ul>
-    <div class="reveal" style="margin-top:28px;background:var(--ink2);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:22px 26px;font-size:14.5px;color:#b8c2d1;max-width:70ch;"><b style="color:#fff;font-family:var(--sans);">Data &amp; confidentiality.</b> Samples and data are handled under NDA where required, stored securely, and never shared with third parties. You own the raw and processed data, and can request its deletion after delivery.</div>
-  </div>
-</section>
-
-<!-- TEAM + STATS -->
-<section class="sec" id="team">
-  <div class="wrap">
-    <div class="kicker reveal"><div class="eyebrow">Who's behind the work</div><h2 class="big">A team that has done this for over a decade.</h2></div>
-    <div class="team reveal">
-      <div class="member"><img class="mphoto" src="assets/kumar.png" alt="Kumar Sankaran"><h3>Kumar Sankaran</h3><p class="role">CEO</p><p class="bio">20+ years in biotechnology and healthcare innovation.</p></div>
-      <div class="member"><img class="mphoto" src="assets/deb.png" alt="Dr. Debojyoti Dhar"><h3>Dr. Debojyoti Dhar</h3><p class="role">Co-founder · Director, R&amp;D</p><p class="bio">PhD in molecular biology (IISc); postdoctoral research at UMass Medical School.</p></div>
-      <div class="member"><img class="mphoto" src="assets/prabhath.png" alt="Prabhath Manjappa Kamath"><h3>Prabhath Manjappa Kamath</h3><p class="role">Co-founder · Chief Product Officer</p><p class="bio">Leads product and microbiome science.</p></div>
-      <div class="member"><img class="mphoto" src="assets/gopal.jpg" alt="Dr. Gopalakrishna Kallapura"><h3>Dr. Gopalakrishna Kallapura</h3><p class="role">Scientific Lead</p><p class="bio">PhD, University of Arkansas; leads the microbiome research domain and clinical studies.</p></div>
+    <div class="head rv"><p class="eyebrow">Inside the lab</p><h2>Run in-house, end to end.</h2><p class="lede">No outsourcing, sequencing, extraction and QC happen under one accredited roof.</p></div>
+    <div class="labgrid rv">
+      <div class="labc"><span class="lk">Sequencing</span><h3>Long-read shotgun metagenomics</h3><p>Resolved to species level, run in-house.</p></div>
+      <div class="labc"><span class="lk">Extraction</span><h3>Automated DNA extraction</h3><p>Consistent, high-yield DNA from stool, skin, oral, soil and animal samples.</p></div>
+      <div class="labc"><span class="lk">Quality control</span><h3>Fluorometric &amp; spectrophotometric QC</h3><p>Every elute is checked for yield and purity before sequencing.</p></div>
+      <div class="labc"><span class="lk">Analysis</span><h3>In-house pipeline · ~250k genomes</h3><p>Taxonomic classification and the full analysis suite, run in-house.</p></div>
     </div>
   </div>
 </section>
 
-<!-- stats band removed -->
-
-<!-- pricing/whitepaper section removed per request -->
+<!-- PRIVACY -->
+<section id="privacy">
+  <div class="wrap">
+    <div class="head rv"><p class="eyebrow">Confidentiality</p><h2>Your data, your IP.</h2></div>
+    <div class="privacy rv">
+      <h3>How we handle your samples and data</h3>
+      <p>Your samples, sequences and results remain yours. We work under NDA, in line with India's DPDP Act and GDPR, with confidentiality and chain of custody maintained end to end. Nothing is repurposed, the study is yours.</p>
+    </div>
+  </div>
+</section>
 
 <!-- FAQ -->
-<section class="sec">
+<section class="paper" id="faq">
   <div class="wrap">
-    <div class="kicker reveal"><div class="eyebrow">Questions</div><h2 class="big">Frequently asked.</h2></div>
-    <div class="faq reveal">
-      <details><summary>Why shotgun sequencing instead of 16S?</summary><div class="ans">Shotgun sequencing reads all the DNA in a sample, so we identify bacteria, archaea, fungi and viruses to species level, and measure function — pathways and antibiotic-resistance genes. 16S profiles mainly bacteria to about genus level and infers function indirectly.</div></details>
-      <details><summary>What is the minimum sample size per group?</summary><div class="ans">The minimum is 3 samples per group. For robust, publication-grade differential abundance we recommend 15–20 per group; smaller cohorts are run and flagged as exploratory. We confirm the right number for your study during scoping.</div></details>
-      <details><summary>How long does it take?</summary><div class="ans">Typically two to three weeks from the day we receive your samples. Larger cohorts or additional panels can extend this; a firm timeline is agreed at scoping.</div></details>
-      <details><summary>Do you only work with stool samples?</summary><div class="ans">No. Stool is our default, but we have run oral, skin, soil, sheep rumen and poultry samples. Collection and processing are tuned to your sample type.</div></details>
-      <details><summary>Can you analyse sequencing data I already have?</summary><div class="ans">Yes. If you have raw shotgun FASTQ reads, we can run the full downstream pipeline with no sequencing required. We confirm your platform first.</div></details>
-      <details><summary>Who owns the data, and is it confidential?</summary><div class="ans">You do. Your raw and processed data remain yours to keep, held confidentially, and we work under NDA where required.</div></details>
+    <div class="head c rv"><p class="eyebrow">Frequently asked</p><h2 style="color:#0B0F10">The questions researchers ask first.</h2></div>
+    <div class="faq rv" style="border-color:#d3d8d0">
+      <details style="border-color:#d3d8d0"><summary style="color:#0B0F10">Why long-read shotgun instead of 16S?</summary><p style="color:#4a524e">16S stops at genus and can't resolve function; our long-read shotgun metagenomics reaches species level and gives you functional pathways and the resistome.</p></details>
+      <details style="border-color:#d3d8d0"><summary style="color:#0B0F10">Why run the full six-method differential suite?</summary><p style="color:#4a524e">Because a single method is a reviewer's easiest objection. We deliver all six methods' complete results and flag what's robust across them, and you set the thresholds.</p></details>
+      <details style="border-color:#d3d8d0"><summary style="color:#0B0F10">How long does a study take?</summary><p style="color:#4a524e">Typically 2 to 3 weeks from sample receipt to delivered figures and tables. Cohorts are sequenced together at study end to reduce batch effects.</p></details>
+      <details style="border-color:#d3d8d0"><summary style="color:#0B0F10">How do samples ship, do they need cold chain?</summary><p style="color:#4a524e">No. Our barcoded kits stabilise samples at room temperature for up to 15 days, so batches ship together at ambient temperature.</p></details>
+      <details style="border-color:#d3d8d0"><summary style="color:#0B0F10">Who owns the data and results?</summary><p style="color:#4a524e">You do. DPDP- and GDPR-aligned; your samples, sequences and IP are never repurposed.</p></details>
+      <details style="border-color:#d3d8d0"><summary style="color:#0B0F10">Are you accredited?</summary><p style="color:#4a524e">NABL (ISO 15189:2022), ISO/IEC 17025:2017 and NABH, the only microbiome company in Asia accredited across these standards. Certificate numbers on request.</p></details>
     </div>
   </div>
 </section>
 
 <!-- CONTACT -->
-<section class="sec dark contact" id="contact">
-  <div class="wrap contact-grid">
-    <div class="reveal">
-      <div class="eyebrow">Get in touch</div>
-      <h2 class="big" style="margin-top:12px;">Tell us about your study.</h2>
-      <p class="lede">Share your study design and we will scope turnaround, sample requirements and the right modules.</p>
-      <div class="ln">✉  hello@bugspeaks.com</div>
-      <div class="ln">✆  +91 97390 99468</div>
-      <div class="ln" style="margin-top:20px;color:#8b97ab;">Leucine Rich Bio Pvt. Ltd. · JP Nagar, Bengaluru</div>
+<section class="contact" id="contact">
+  <div class="wrap cgrid">
+    <div class="rv">
+      <p class="eyebrow">Start a study</p>
+      <h2>Tell us about your study.</h2>
+      <p class="lede" style="margin-top:12px">Two or three sentences is enough to start. We'll come back with a scoping call and a fixed quote.</p>
+      <div class="direct">
+        <span><b>Email</b>&nbsp; info@leucinerichbio.com</span>
+        <span><b>Phone</b>&nbsp; +91 97390 99468</span>
+        <span><b>Lab</b>&nbsp; No. 33, 2nd Floor, HSG Anush, JP Nagar 4th Phase, Bengaluru 560078</span>
+      </div>
     </div>
-    <form class="reveal" onsubmit="return false;">
-      <div class="field"><label>Name</label><input type="text" name="name"></div>
-      <div class="field"><label>Institution / Organisation</label><input type="text" name="org"></div>
-      <div class="field"><label>Email</label><input type="email" name="email"></div>
-      <div class="field"><label>Study type</label><select><option>Select…</option><option>Academic / research</option><option>CRO / clinical trial</option><option>Nutraceutical / wellness</option><option>Pharma / biotech</option></select></div>
-      <div class="field"><label>Message — study design, sample count, timeline</label><textarea></textarea></div>
-      <button class="btn btn-primary" type="submit" style="width:100%;justify-content:center;">Request scoping call</button>
+    <form onsubmit="event.preventDefault();this.querySelector('.formnote').textContent='Demo form, connect to your CRM / Formspree before launch.'">
+      <div class="two">
+        <div class="fld"><label>Name</label><input type="text" required placeholder="Your name"></div>
+        <div class="fld"><label>Organisation</label><input type="text" required placeholder="Where you work"></div>
+      </div>
+      <div class="fld"><label>Work email</label><input type="email" required placeholder="you@org.com"></div>
+      <div class="fld"><label>Study type</label><select required>
+        <option value="">Select…</option><option>Nutraceutical / probiotic</option><option>Academic / clinical research</option><option>Pharma / biotech</option><option>Agri / vet / environmental</option><option>Other</option>
+      </select></div>
+      <div class="fld"><label>Tell us about your study</label><textarea rows="3" placeholder="Sample type, approx. count, timeline"></textarea></div>
+      <button class="btn btn-primary" type="submit" style="justify-content:center">Book a scoping call</button>
+      <p class="formnote">We reply within two business days. Your details stay confidential.</p>
     </form>
   </div>
 </section>
 
 <footer>
-  <div class="wrap grid">
-    <div>
-      <a class="logo" href="#" style="font-size:19px;" aria-label="BugSpeaks"><img src="data:image/png;base64,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" alt="BugSpeaks" class="logo-img" style="height:22px" onerror="this.style.display='none';this.nextElementSibling.style.display='inline'"><span class="logo-text" style="display:none">Bug<b>Speaks</b></span></a>
-      <p style="margin-top:12px;max-width:38ch;">Leucine Rich Bio Pvt. Ltd. — metagenomics research services. South Asia's first microbiome company, established 2014.</p>
+  <canvas class="fcanvas" id="fcanvas"></canvas>
+  <div class="wrap">
+    <div class="fgrid">
+      <div class="fbrand">
+        <img src="https://www.bugspeaks.com/static/images/icons/logowhite.png" alt="BugSpeaks" onerror="this.replaceWith(Object.assign(document.createElement('b'),{textContent:'BugSpeaks®',style:'font-family:var(--display);font-weight:700;color:#fff;font-size:1.1rem;display:block;margin-bottom:10px'}))">
+        <p>Microbiome research services. South Asia's first microbiome company, est. 2014. A service of Leucine Rich Bio Pvt. Ltd.</p>
+      </div>
+      <div><h4>Research</h4><a href="#method">The method</a><a href="#workflow">End-to-end studies</a><a href="#analysis">Analysis modules</a><a href="#accred">Accreditation</a></div>
+      <div><h4>Company</h4><a href="#team">Team</a><a href="#pubs">Publications</a><a href="https://www.bugspeaks.com/blog/" target="_blank" rel="noopener">Blog</a><a href="#conference">World of Microbiome</a><a href="#recognition">Press</a></div>
+      <div><h4>Connect</h4><a href="#contact">Book a scoping call</a><a href="mailto:info@leucinerichbio.com">info@leucinerichbio.com</a><a href="https://www.bugspeaks.com" target="_blank" rel="noopener">bugspeaks.com (consumer)</a><a href="https://www.leucinerichbio.com" target="_blank" rel="noopener">leucinerichbio.com</a></div>
     </div>
-    <div><h4>Explore</h4><a href="#workflow">How it works</a><a href="#approach">Consensus</a><a href="#modules">Modules</a><a href="#publications">Publications</a></div>
-    <div><h4>Contact</h4><a href="#contact">Book a scoping call</a><a href="mailto:hello@bugspeaks.com">hello@bugspeaks.com</a><span>2nd Floor, HSG Anush, 33,<br>15th Main Road, JP Nagar 4th Phase,<br>Bangalore 560078</span></div>
+    <div class="fbot"><span>© 2026 Leucine Rich Bio Pvt. Ltd. · JP Nagar 4th Phase, Bengaluru 560078</span><span>NABL (ISO 15189) · ISO/IEC 17025 · NABH</span></div>
   </div>
 </footer>
 
 <script>
+const RM = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* logo marquee (real logos where available, wordmark fallback, duplicated for seamless scroll) */
 (function(){
-  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-  /* scroll reveal */
-  var io = new IntersectionObserver(function(entries){
-    entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
-  }, {threshold:0.12});
-  document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
-
-  /* stat counters */
-  var counted=false;
-  function runCounts(){
-    if(counted) return; counted=true;
-    document.querySelectorAll('[data-count]').forEach(function(el){
-      var target=parseInt(el.getAttribute('data-count'),10), start=null, dur=1400;
-      if(reduce){ el.textContent=target; return; }
-      function tick(ts){ if(!start)start=ts; var p=Math.min((ts-start)/dur,1);
-        el.textContent=Math.floor(p*target); if(p<1) requestAnimationFrame(tick); else el.textContent=target; }
-      requestAnimationFrame(tick);
+  const clients=[
+    {n:'Ultrahuman',u:'https://cdn.prod.website-files.com/622a0bff6151d22d7cab707a/63cf008e0cd6a4cd1385ddb4_Logotype%20horizontal%20Dark.png'},
+    {n:'IIT Kanpur',u:'https://upload.wikimedia.org/wikipedia/en/a/a3/IIT_Kanpur_Logo.svg'},
+    {n:'Indus Biotech',u:'https://indusbiotech.com/wp-content/uploads/2024/04/indus-logo.png'},
+    {n:'Advanced Enzymes',u:'https://www.advancedenzymes.com/wp-content/uploads/2018/02/enzyme-logo.png'},
+    {n:'Madras Diabetes Research Foundation',u:'https://mdrf.in/wp-content/uploads/2026/02/mdrf-logo_new.png'},
+    {n:'JSS AHER, Mysuru',u:'https://jssaherstoragenew.blob.core.windows.net/jssuudstorage/sdimages/jssnewlogo.jpg'},
+    {n:'The Good Bug',u:'https://thegoodbug.com/cdn/shop/files/TGB_Logo_1_60191926-31a9-40fe-82fc-d57664b5c2f0.svg'},
+    {n:'St John’s Research Institute'},
+    {n:'Central Ayurveda Research Institute'},
+    {n:'NovoBliss'},
+    {n:'Optima Life Sciences'},
+    {n:'TN Medical College'}
+  ];
+  const row=document.getElementById('logorow');
+  function build(){
+    clients.forEach(c=>{
+      const span=document.createElement('span');
+      if(c.u){const img=document.createElement('img');img.src=c.u;img.alt=c.n;img.loading='lazy';img.onerror=()=>{span.textContent=c.n;};span.appendChild(img);}
+      else span.textContent=c.n;
+      row.appendChild(span);
     });
   }
-  var sio=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting) runCounts(); }); },{threshold:0.4});
-  var statEl=document.querySelector('.stats'); if(statEl) sio.observe(statEl);
+  build();build();
+})();
 
-  /* hero network canvas */
-  var c=document.getElementById('net'); if(!c) return;
-  var ctx=c.getContext('2d'), W,H,nodes=[], DPR=Math.min(window.devicePixelRatio||1,2);
-  var COLORS=['#6fae2f','#2f8f9d','#d99a3b','#8fa0b8'];
-  function resize(){ var r=c.parentElement.getBoundingClientRect(); W=r.width; H=r.height; c.width=W*DPR; c.height=H*DPR; ctx.setTransform(DPR,0,0,DPR,0,0); }
-  function init(){ resize(); var n=Math.round(Math.min(52,Math.max(26,W/26))); nodes=[]; for(var i=0;i<n;i++){ nodes.push({ x:Math.random()*W, y:Math.random()*H, vx:(Math.random()-.5)*0.22, vy:(Math.random()-.5)*0.22, r:1.6+Math.random()*2.6, col:COLORS[i%COLORS.length] }); } }
-  function frame(){
-    ctx.clearRect(0,0,W,H);
-    for(var i=0;i<nodes.length;i++){ var a=nodes[i];
-      for(var j=i+1;j<nodes.length;j++){ var b=nodes[j]; var dx=a.x-b.x, dy=a.y-b.y, d=Math.sqrt(dx*dx+dy*dy);
-        if(d<138){ ctx.strokeStyle='rgba(120,150,180,'+(0.16*(1-d/138))+')'; ctx.lineWidth=1; ctx.beginPath(); ctx.moveTo(a.x,a.y); ctx.lineTo(b.x,b.y); ctx.stroke(); } }
-    }
-    for(var k=0;k<nodes.length;k++){ var p=nodes[k];
-      if(!reduce){ p.x+=p.vx; p.y+=p.vy; if(p.x<0||p.x>W)p.vx*=-1; if(p.y<0||p.y>H)p.vy*=-1; }
-      ctx.beginPath(); ctx.fillStyle=p.col; ctx.globalAlpha=.85; ctx.arc(p.x,p.y,p.r,0,6.283); ctx.fill(); ctx.globalAlpha=1;
-    }
-    if(!reduce) requestAnimationFrame(frame);
+/* headline power-on resolve */
+(function(){
+  if(RM)return; const el=document.getElementById('headline'); if(!el)return; const nodes=[];
+  (function walk(n){n.childNodes.forEach(c=>{if(c.nodeType===3){const f=document.createDocumentFragment();c.textContent.split('').forEach(ch=>{const s=document.createElement('span');s.textContent=ch;if(ch.trim())s.dataset.f=ch;f.appendChild(s);nodes.push(s);});c.replaceWith(f);}else if(c.nodeType===1)walk(c);});})(el);
+  const ch='ACGT#%*<>/=+';
+  nodes.forEach((s,i)=>{if(!s.dataset.f)return;let n=0;const iv=setInterval(()=>{s.textContent=ch[Math.floor(Math.random()*ch.length)];if(n++>2+(i%4)){clearInterval(iv);s.textContent=s.dataset.f;}},45);});
+})();
+
+/* counters */
+(function(){
+  const fmt=n=>n.toLocaleString('en-US');
+  function run(el){const t=+el.dataset.count;if(RM){el.textContent=fmt(t);return;}let s=null;const d=1300;(function step(ts){s=s||ts;const p=Math.min(1,(ts-s)/d);el.textContent=fmt(Math.floor((1-Math.pow(1-p,3))*t));if(p<1)requestAnimationFrame(step);else el.textContent=fmt(t);})(performance.now());}
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){run(e.target);io.unobserve(e.target);}}),{threshold:.5});
+  document.querySelectorAll('[data-count]').forEach(el=>io.observe(el));
+})();
+
+/* reveal */
+(function(){
+  const els=document.querySelectorAll('.rv'); if(RM){els.forEach(e=>e.classList.add('in'));return;}
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}}),{threshold:.1,rootMargin:'0px 0px -40px 0px'});
+  els.forEach(e=>io.observe(e)); setTimeout(()=>els.forEach(e=>e.classList.add('in')),2600);
+})();
+
+/* hero nanopore trace */
+(function(){
+  const cv=document.getElementById('squiggle');if(!cv)return;const ctx=cv.getContext('2d');
+  const stage=cv.parentElement,dpr=Math.min(2,window.devicePixelRatio||1),step=2;
+  function size(){const r=stage.getBoundingClientRect();cv.width=Math.max(1,Math.round(r.width*dpr));cv.height=Math.max(1,Math.round(r.height*dpr));ctx.setTransform(dpr,0,0,dpr,0,0);}
+  size();window.addEventListener('resize',size);
+  const W=()=>cv.width/dpr,H=()=>cv.height/dpr;
+  let s=[],level=0.5,dwell=0;
+  const g=()=>(Math.random()+Math.random()+Math.random()-1.5)/1.5;
+  function nxt(){if(dwell<=0){level=0.5+(Math.random()-0.5)*0.9;dwell=2+((Math.random()*16)|0);}dwell--;return Math.max(0.05,Math.min(0.95,level+g()*0.05));}
+  const need=()=>Math.ceil(W()/step)+4;
+  for(let i=0;i<need();i++)s.push(nxt());
+  function draw(){const w=W(),h=H();ctx.clearRect(0,0,w,h);const top=h*0.26,bh=h*0.48;
+    ctx.strokeStyle='rgba(28,100,66,.07)';ctx.lineWidth=1;for(let y=top;y<=top+bh+0.5;y+=bh/5){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(w,y);ctx.stroke();}
+    if(!RM){s.push(nxt());s.push(nxt());}while(s.length>need())s.shift();while(s.length<need())s.push(nxt());
+    ctx.strokeStyle='rgba(22,105,66,.62)';ctx.lineWidth=1.9;ctx.lineJoin='round';ctx.shadowColor='rgba(30,138,92,.35)';ctx.shadowBlur=7;ctx.beginPath();
+    s.forEach((v,i)=>{const x=i*step,y=top+(1-v)*bh;i?ctx.lineTo(x,y):ctx.moveTo(x,y);});ctx.stroke();ctx.shadowBlur=0;
+    if(!RM)requestAnimationFrame(draw);}
+  draw();
+})();
+
+/* footer ambient trace */
+(function(){
+  if(RM)return;const cv=document.getElementById('fcanvas');if(!cv)return;const ctx=cv.getContext('2d');
+  function size(){cv.width=cv.offsetWidth;cv.height=cv.offsetHeight;}size();window.addEventListener('resize',size);
+  let pts=[],y=cv.height/2,t=cv.height/2,hold=0;
+  function draw(){const w=cv.width,h=cv.height;ctx.clearRect(0,0,w,h);if(hold<=0){t=h*0.3+Math.random()*h*0.4;hold=4+((Math.random()*14)|0);}y+=(t-y)*0.12;hold--;pts.push(y);if(pts.length>w/3+2)pts.shift();ctx.strokeStyle='#5FD6A8';ctx.lineWidth=1.3;ctx.beginPath();pts.forEach((py,i)=>{const px=i*3;i?ctx.lineTo(px,py):ctx.moveTo(px,py);});ctx.stroke();requestAnimationFrame(draw);}draw();
+})();
+
+/* CONSENSUS BENCH (6 taxa) */
+(function(){
+  const methods=['MW/KW','t/ANOVA','edgeR','DESeq2','MaAsLin2','LEfSe'];
+  const TAXA=[
+    {n:'Faecalibacterium prausnitzii',p:[0.002,0.008,0.001,0.004,0.020,0.006],fc:-2.1},
+    {n:'Akkermansia muciniphila',p:[0.010,0.030,0.008,0.012,0.070,0.020],fc:1.6},
+    {n:'Roseburia intestinalis',p:[0.003,0.010,0.002,0.006,0.015,0.009],fc:-1.8},
+    {n:'Bifidobacterium adolescentis',p:[0.020,0.090,0.030,0.080,0.120,0.030],fc:1.0},
+    {n:'Prevotella copri',p:[0.040,0.120,0.060,0.090,0.030,0.150],fc:-0.7},
+    {n:'Bacteroides uniformis',p:[0.080,0.200,0.110,0.140,0.090,0.300],fc:0.4}
+  ];
+  const q=p=>Math.min(0.6,+(p*1.35).toFixed(4));
+  const body=document.getElementById('consBody');
+  const pdial=document.getElementById('pdial'),qdial=document.getElementById('qdial'),adial=document.getElementById('adial');
+  const pval=document.getElementById('pval'),qval=document.getElementById('qval'),aval=document.getElementById('aval');
+  const robustCount=document.getElementById('robustCount'),toggle=document.getElementById('modeToggle'),tip=document.getElementById('tip');
+  let consensusOnly=false;const sVal=v=>(v/1000);
+  TAXA.forEach((t,ti)=>{const tr=document.createElement('tr');let c='<td class="taxon">'+t.n+'</td>';t.p.forEach((p,mi)=>{c+='<td class="cell" data-t="'+ti+'" data-m="'+mi+'"><span class="chip"></span></td>';});c+='<td class="robust" data-role="rb"></td>';tr.innerHTML=c;body.appendChild(tr);});
+  function recompute(){
+    const pT=sVal(+pdial.value),qT=sVal(+qdial.value),aT=+adial.value;
+    pval.textContent=pT.toFixed(3);qval.textContent=qT.toFixed(3);aval.textContent=aT;let robust=0;
+    body.querySelectorAll('tr').forEach((tr,ti)=>{const t=TAXA[ti];let pass=0;
+      tr.querySelectorAll('.cell').forEach((td,mi)=>{const p=t.p[mi],ok=p<=pT&&q(p)<=qT;td.querySelector('.chip').classList.toggle('pass',ok);if(ok)pass++;});
+      const isR=pass>=aT;if(isR)robust++;tr.classList.toggle('isrobust',isR);tr.classList.toggle('dimmed',consensusOnly&&!isR);
+      tr.querySelector('[data-role=rb]').textContent=isR?('ROBUST '+pass+'/6'):(pass+'/6');});
+    robustCount.innerHTML='<b>'+robust+'</b> of '+TAXA.length+' taxa robust at p ≤ '+pT.toFixed(3)+', FDR ≤ '+qT.toFixed(3)+', thresholds are yours.';
   }
-  window.addEventListener('resize', function(){ init(); if(reduce) frame(); });
-  init(); frame();
+  [pdial,qdial,adial].forEach(d=>d.addEventListener('input',recompute));
+  toggle.addEventListener('click',()=>{consensusOnly=!consensusOnly;toggle.textContent=consensusOnly?'Show all methods':'Show consensus only';toggle.style.color=consensusOnly?'var(--assay)':'';toggle.style.borderColor=consensusOnly?'var(--assay)':'';recompute();});
+  body.addEventListener('mousemove',e=>{const td=e.target.closest('.cell');if(!td){tip.classList.remove('on');return;}const t=TAXA[+td.dataset.t],mi=+td.dataset.m,p=t.p[mi];tip.innerHTML='<b>'+methods[mi]+'</b> · '+t.n.split(' ')[0]+'<br>log₂FC '+t.fc+' · p '+p+' · FDR '+q(p);tip.style.left=(e.clientX+14)+'px';tip.style.top=(e.clientY+14)+'px';tip.classList.add('on');});
+  body.addEventListener('mouseleave',()=>tip.classList.remove('on'));
+  recompute();
+})();
+
+/* FIGURE CAROUSEL */
+(function(){
+  const track=document.getElementById('vtrack');if(!track)return;
+  const slides=track.children,n=slides.length;const labels=['Composition','Alpha diversity','Beta diversity','Core microbiome','Heatmaps','Differential abundance'];
+  const dots=document.getElementById('vdots'),vnum=document.getElementById('vnum'),vlabel=document.getElementById('vlabel');
+  let i=0;
+  for(let k=0;k<n;k++){const b=document.createElement('button');b.setAttribute('aria-label','Figure '+(k+1));b.addEventListener('click',()=>go(k));dots.appendChild(b);}
+  function go(k){i=(k+n)%n;track.style.transform='translateX('+(-i*100)+'%)';vnum.textContent=String(i+1).padStart(2,'0');vlabel.textContent=labels[i];[...dots.children].forEach((d,x)=>d.classList.toggle('on',x===i));}
+  document.getElementById('vprev').addEventListener('click',()=>go(i-1));
+  document.getElementById('vnext').addEventListener('click',()=>go(i+1));
+  go(0);
 })();
 </script>
 </body>

@@ -180,12 +180,12 @@
   .alsoinc span{font-family:var(--mono);font-size:.8rem;color:var(--assay);border:1px solid var(--line);background:var(--panel);padding:8px 12px;border-radius:2px}
   .repnote{margin-top:16px;font-family:var(--sans);font-size:.88rem;line-height:1.6;color:var(--etched);max-width:74ch;text-align:justify;hyphens:auto}
 
-  /* entry points */
-  .entry{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:6px;overflow:hidden}
-  .entry .e{background:var(--panel);padding:18px 16px}
-  .entry .e .en{font-family:var(--mono);font-size:.68rem;color:var(--amber);letter-spacing:.06em}
-  .entry .e h4{color:var(--readout);font-size:.98rem;margin:9px 0 6px;font-family:var(--display);font-weight:600}
-  .entry .e p{font-size:.82rem;color:var(--body)}
+  /* pipeline entry */
+  .pipe{display:flex;flex-wrap:wrap;align-items:stretch;gap:8px;margin-top:8px}
+  .pstage{flex:1 1 0;min-width:130px;background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:20px 12px;text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px}
+  .pstage .pt{font-family:var(--display);font-weight:600;color:var(--readout);font-size:1rem}
+  .pstage .ps{font-family:var(--mono);font-size:.66rem;color:var(--etched);text-transform:uppercase;letter-spacing:.03em}
+  .parrow{display:flex;align-items:center;color:var(--amber);font-size:1.3rem;flex:0 0 auto}
   .entry-note{margin-top:16px;font-family:var(--sans);font-size:.9rem;line-height:1.6;color:var(--etched);text-align:justify;hyphens:auto}
   .entry-note b{color:var(--assay);font-weight:500}
 
@@ -296,7 +296,8 @@
     .modrow .fig{border-right:0;border-bottom:1px solid var(--line)}
     .modrow.rev .fig{order:0;border-left:0}
     .modrow.rev .txt{order:0}
-    .entry{grid-template-columns:1fr 1fr}
+    .pipe{flex-direction:column}
+    .parrow{transform:rotate(90deg);align-self:center}
   }
   @media(max-width:560px){
     .prob,.labgrid,.team,.arack,.trust,.fgrid,.founders,.two,.entry{grid-template-columns:1fr}
@@ -553,14 +554,20 @@
   <section>
     <div class="wrap">
       <div class="head rv"><p class="eyebrow">Start where you are</p><h2>You can join the pipeline at any stage.</h2><p class="lede">You do not have to start from the sample. Whatever you already have, we pick up from there.</p></div>
-      <div class="entry rv">
-        <div class="e"><div class="en">Entry A</div><h4>Samples</h4><p>You have samples. We handle everything from extraction onward.</p></div>
-        <div class="e"><div class="en">Entry B</div><h4>Extracted DNA</h4><p>You have DNA. We start at sequencing.</p></div>
-        <div class="e"><div class="en">Entry C</div><h4>Sequence data</h4><p>You have raw reads. We start at analysis.</p></div>
-        <div class="e"><div class="en">Entry D</div><h4>Analysis output</h4><p>You have results. We start at interpretation.</p></div>
-        <div class="e"><div class="en">Entry E</div><h4>Full study</h4><p>Sample to publication, all of it with us.</p></div>
+      <div class="pipe rv">
+        <div class="pstage"><span class="pt">Collection</span><span class="ps">planning a study</span></div>
+        <div class="parrow">&rarr;</div>
+        <div class="pstage"><span class="pt">DNA extraction</span><span class="ps">you have samples</span></div>
+        <div class="parrow">&rarr;</div>
+        <div class="pstage"><span class="pt">Sequencing</span><span class="ps">you have DNA</span></div>
+        <div class="parrow">&rarr;</div>
+        <div class="pstage"><span class="pt">Analysis</span><span class="ps">you have reads</span></div>
+        <div class="parrow">&rarr;</div>
+        <div class="pstage"><span class="pt">Interpretation</span><span class="ps">you have results</span></div>
+        <div class="parrow">&rarr;</div>
+        <div class="pstage"><span class="pt">Publication</span><span class="ps">to the finish</span></div>
       </div>
-      <p class="entry-note rv">Not sure where you fit? <b>Tell us what you have at the scoping call</b> and we will map it out.</p>
+      <p class="entry-note rv">Enter at any point. Send us what you already have, whether that is samples, extracted DNA, sequence data or results, and we carry it through to the end. <b>Tell us what you have at the scoping call.</b></p>
     </div>
   </section>
 

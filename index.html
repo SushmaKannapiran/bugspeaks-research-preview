@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>BugSpeaks | Accredited Microbiome Metagenomics for Research</title>
-<meta name="description" content="BugSpeaks runs your microbiome study end to end: long-read shotgun metagenomics to species level, the full six-method differential-abundance suite plus a consensus layer, and report-ready figures. NABL (ISO 15189) · ISO/IEC 17025 · NABH accredited." />
+<title>BugSpeaks Research | Microbiome metagenomics for research and clinical studies</title>
+<meta name="description" content="Long-read shotgun metagenomics to species level, run in-house from sample to interpretation, from an accredited laboratory in Bengaluru. NABL, NABH, ISO 9001 and ISO/IEC 17025 accredited." />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=Fraunces:ital,opsz,wght@0,9..144,400;1,9..144,500&family=IBM+Plex+Mono:wght@400;500;600&family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -41,6 +41,7 @@
   .paper .lede{color:#4a524e}
   .mono{font-family:var(--mono)}
   .num{font-variant-numeric:tabular-nums}
+  .lede,.hero .sub,.stage .sd,.privacy p,.head p,.prob p,.modrow .txt p,details p{text-align:justify;hyphens:auto}
 
   .btn{display:inline-flex;align-items:center;gap:.5em;font-family:var(--mono);font-weight:500;font-size:.85rem;letter-spacing:.02em;
     padding:.85em 1.3em;border-radius:2px;border:1px solid transparent;cursor:pointer;transition:.18s var(--ease);text-transform:uppercase}
@@ -51,29 +52,25 @@
   .paper .btn-ghost{color:#0B0F10;border-color:#c9cec6}
   .paper .btn-ghost:hover{border-color:#0B0F10}
 
-  /* header */
-  header.nav{position:sticky;top:0;z-index:60;background:rgba(247,242,229,.9);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
-  .nav-in{display:flex;align-items:center;gap:22px;height:64px}
+  /* header + tabs */
+  header.nav{position:sticky;top:0;z-index:60;background:rgba(247,242,229,.94);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+  .nav-in{display:flex;align-items:center;gap:22px;height:60px}
   .brand{display:flex;align-items:center;gap:10px;margin-right:auto;text-decoration:none}
-  .brand img{height:26px;width:auto}
+  .brand img{height:28px;width:auto}
   .brandtxt{font-family:var(--display);font-weight:700;color:var(--readout);font-size:1.15rem}
   .brandtag{font-family:var(--mono);font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;color:var(--etched);border-left:1px solid var(--line);padding-left:10px}
-  nav.links{display:flex;gap:20px}
-  nav.links a{color:var(--body);font-family:var(--mono);font-size:.78rem;letter-spacing:.03em;text-transform:uppercase}
-  nav.links a:hover{color:var(--assay)}
-  .nav-cta{display:flex;align-items:center;gap:12px}
-  .menu-btn{display:none;background:none;border:0;color:var(--readout);cursor:pointer;padding:6px}
+  .tabbar-wrap{border-top:1px solid var(--line);overflow-x:auto;scrollbar-width:none}
+  .tabbar-wrap::-webkit-scrollbar{display:none}
+  .tabbar{display:flex;gap:2px;height:46px;align-items:stretch}
+  .tabbtn{font-family:var(--mono);font-size:.74rem;letter-spacing:.05em;text-transform:uppercase;color:var(--body);background:none;border:0;border-bottom:2px solid transparent;padding:0 14px;cursor:pointer;white-space:nowrap;transition:.15s}
+  .tabbtn:hover{color:var(--assay)}
+  .tabbtn.active{color:var(--readout);border-bottom-color:var(--amber)}
   @keyframes hum{0%,100%{opacity:1}50%{opacity:.35}}
-
-  .ticker{background:#0a1211;border-bottom:1px solid var(--line);overflow:hidden;white-space:nowrap}
-  .ticker .track{display:inline-block;padding:7px 0;font-family:var(--mono);font-size:.72rem;letter-spacing:.08em;color:var(--amber);animation:tick 44s linear infinite}
-  .ticker .track span{padding-inline:20px}
-  .ticker .track b{color:var(--assay);font-weight:500}
-  @keyframes tick{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+  .tabpanel[hidden]{display:none!important}
 
   /* hero */
   .hero{border-bottom:1px solid var(--line)}
-  .hero-stage{position:relative;min-height:clamp(520px,74vh,720px);display:flex;align-items:center;overflow:hidden}
+  .hero-stage{position:relative;min-height:clamp(480px,66vh,640px);display:flex;align-items:center;overflow:hidden}
   .hero-bg{position:absolute;inset:0;width:100%;height:100%;z-index:0;opacity:1;display:block}
   .hero-fade{position:absolute;inset:0;z-index:1;pointer-events:none;background:
     linear-gradient(90deg,var(--chassis) 8%,rgba(247,242,229,.5) 48%,rgba(247,242,229,0) 100%),
@@ -85,7 +82,7 @@
   .hero-corner b::before{content:"● ";animation:hum 1.6s infinite}
   .hero h1{font-size:clamp(1.9rem,4.2vw,3.5rem);letter-spacing:-.02em;line-height:1.05;color:var(--readout);max-width:20ch}
   .hero h1 .amberword{color:var(--assay)}
-  .hero .sub{font-size:clamp(1.02rem,1.35vw,1.2rem);color:var(--body);max-width:46ch;margin-top:22px}
+  .hero .sub{font-size:clamp(1.02rem,1.35vw,1.2rem);color:var(--body);max-width:48ch;margin-top:22px}
   .hero-cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
   .hero .plate{font-family:var(--mono);font-size:.72rem;color:var(--etched);letter-spacing:.05em;margin-top:26px}
   .hero .plate b{color:var(--assay);font-weight:500}
@@ -94,146 +91,117 @@
   .trust .cell{background:var(--chassis);padding:18px}
   .trust .v{font-family:var(--display);font-weight:600;font-size:clamp(1.3rem,2vw,1.7rem);color:var(--readout);line-height:1}
   .trust .v .u{color:var(--assay)}
+  .trust .v sup{color:var(--amber);font-size:.6em}
   .trust .l{font-family:var(--mono);font-size:.66rem;letter-spacing:.06em;color:var(--etched);text-transform:uppercase;margin-top:8px}
+  .tatnote{font-family:var(--sans);font-size:.9rem;line-height:1.6;color:var(--etched);padding:16px 0 0;max-width:74ch;text-align:justify;hyphens:auto}
+  .tatnote b{color:var(--assay);font-weight:500}
 
-  /* accreditation (moved up) */
+  .head{max-width:70ch;display:flex;flex-direction:column;gap:14px;margin-bottom:36px;align-items:flex-start;text-align:left}
+
+  /* founders */
+  .founders{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  .fvid{position:relative;border:1px solid var(--line);border-radius:8px;overflow:hidden;background:#0e1516;aspect-ratio:16/9}
+  .fvid img{width:100%;height:100%;object-fit:cover;object-position:center 22%;filter:grayscale(.25) brightness(.82)}
+  .fvid .play{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:56px;height:56px;border-radius:50%;background:rgba(240,135,47,.94);display:flex;align-items:center;justify-content:center}
+  .fvid .play svg{width:22px;height:22px;fill:#2a1400;margin-left:3px}
+  .fvid .cap{position:absolute;left:14px;bottom:12px;font-family:var(--mono);font-size:.72rem;color:#d8e0d6}
+  .fvid .cap b{color:#EDE7D6;display:block;font-size:.86rem;font-family:var(--display);font-weight:600}
+  .fvid .soon{position:absolute;top:12px;right:12px;font-family:var(--mono);font-size:.58rem;letter-spacing:.08em;text-transform:uppercase;color:#EDE7D6;background:rgba(0,0,0,.42);border:1px solid rgba(255,255,255,.22);padding:4px 8px;border-radius:2px}
+
+  /* accreditation */
   .accred{background:var(--panel)}
   .arack{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
   .acard{background:var(--chassis);border:1px solid var(--line);border-radius:6px;padding:20px 18px;position:relative;overflow:hidden}
   .acard::after{content:"";position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--assay),transparent)}
-  .acard .badge{height:38px;width:auto;margin-bottom:12px;opacity:.95}
-  .acard .badge-sp{height:46px}
-  .acard .std{font-family:var(--display);font-weight:600;color:#fff;font-size:1.05rem}
+  .acard .badge{height:36px;width:auto;margin-bottom:12px;opacity:.95}
+  .acard .std{font-family:var(--display);font-weight:600;color:var(--readout);font-size:1.05rem}
   .acard .body{font-size:.86rem;color:var(--body);margin:8px 0 14px;min-height:2.6em}
-  .acard .meta{font-family:var(--mono);font-size:.72rem;color:var(--etched);line-height:1.7;border-top:1px solid var(--line);padding-top:10px}
+  .acard .meta{font-family:var(--mono);font-size:.74rem;color:var(--etched);border-top:1px solid var(--line);padding-top:10px}
   .acard .meta b{color:var(--assay);font-weight:500}
-  .acard.pending .meta b{color:var(--amber)}
-  .acred-note{margin-top:18px;font-family:var(--mono);font-size:.76rem;color:var(--etched)}
+  .acred-note{margin-top:18px;font-family:var(--sans);font-size:.9rem;line-height:1.6;color:var(--etched);max-width:74ch;text-align:justify;hyphens:auto}
   .acred-note b{color:var(--assay);font-weight:500}
 
+  /* stages */
+  .stages{border:1px solid var(--line);border-radius:8px;overflow:hidden;background:var(--panel)}
+  .stage{display:grid;grid-template-columns:56px 210px 1fr;gap:24px;padding:24px 26px;border-top:1px solid var(--line);align-items:start}
+  .stage:first-child{border-top:0}
+  .stage .sn{font-family:var(--mono);font-size:1.1rem;color:var(--assay)}
+  .stage .st{font-family:var(--display);font-weight:600;color:var(--readout);font-size:1.12rem;line-height:1.15}
+  .stage .sd{color:var(--body);font-size:.95rem}
+  .stage .adv{font-family:var(--mono);font-size:.74rem;color:var(--etched);margin-top:9px}
+  .stage .adv b{color:var(--assay);font-weight:500}
+
+  /* who we serve */
+  .sampletags{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}
+  .sampletags span{font-family:var(--mono);font-size:.82rem;color:var(--assay);border:1px solid var(--line-pap);background:#fff;padding:10px 15px;border-radius:2px;transition:.15s}
+  .sampletags span:hover{border-color:var(--assay);background:#F4FBF7}
+
   /* marquee */
+  .projstat{display:flex;flex-wrap:wrap;align-items:baseline;gap:14px;margin-bottom:8px}
+  .projstat .b{font-family:var(--display);font-weight:700;font-size:clamp(1.8rem,3vw,2.4rem);color:#0B0F10;line-height:1}
+  .projstat .l{font-family:var(--mono);font-size:.8rem;color:#5c6b64}
   .marquee{overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent)}
-  .marquee .row{display:flex;gap:0;width:max-content;animation:scrollx 40s linear infinite;align-items:center}
+  .marquee .row{display:flex;gap:0;width:max-content;animation:scrollx 62s linear infinite;align-items:center}
   .marquee:hover .row{animation-play-state:paused}
-  .marquee .row span{font-family:var(--display);font-weight:600;font-size:1.1rem;color:#8a938c;padding-inline:34px;white-space:nowrap;transition:.2s;display:flex;align-items:center;gap:34px;min-height:44px}
+  .marquee .row span{font-family:var(--display);font-weight:600;font-size:1.05rem;color:#8a938c;padding-inline:30px;white-space:nowrap;transition:.2s;display:flex;align-items:center;gap:30px;min-height:44px}
   .marquee .row span::after{content:"";width:5px;height:5px;border-radius:50%;background:#c7ccc4}
-  .marquee .row img{height:30px;width:auto;max-width:150px;object-fit:contain;transition:.25s;filter:grayscale(1);opacity:.55}
-  .marquee:hover .row img{opacity:.72}
-  .marquee .row img:hover{filter:none;opacity:1}
+  .marquee .row span:hover{color:#2b8a72}
+  .marquee .row img{height:38px;width:auto;max-width:160px;object-fit:contain;opacity:.95;transition:.25s}
+  .marquee .row span:hover img{opacity:1}
   @keyframes scrollx{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 
-  .head{max-width:70ch;display:flex;flex-direction:column;gap:14px;margin-bottom:36px;align-items:flex-start;text-align:left}
-  .head.c{align-items:flex-start;text-align:left}
+  /* CTA band */
+  .ctaband{background:#12362A;border-radius:10px;padding:clamp(28px,4vw,44px);display:flex;flex-wrap:wrap;gap:22px;align-items:center;justify-content:space-between}
+  .ctaband h3{color:#fff;font-size:clamp(1.3rem,2.4vw,1.8rem);max-width:24ch}
+  .ctaband p{color:#8FA595;font-size:.92rem;margin-top:8px;max-width:44ch}
 
-  /* problem */
+  /* why it matters */
   .prob{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:6px;overflow:hidden}
   .prob .c{background:var(--panel);padding:24px 22px}
   .prob .n{font-family:var(--mono);font-size:.72rem;color:var(--amber);letter-spacing:.1em}
   .prob h3{margin:10px 0 8px;color:var(--readout)}
   .prob p{font-size:.94rem;color:var(--body)}
-  .kicker{margin-top:22px;font-size:1.05rem;color:var(--readout);max-width:72ch}
-  .kicker b{color:var(--assay);font-weight:600}
 
-  /* consensus bench */
-  .methods-row{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 22px}
-  .methods-row span{font-family:var(--mono);font-size:.76rem;color:var(--assay);border:1px solid var(--line);background:#fff;padding:7px 11px;border-radius:2px}
-  .bench{background:var(--panel);border:1px solid var(--line);border-radius:8px;overflow:hidden}
-  .bench-top{display:flex;flex-wrap:wrap;gap:20px;justify-content:space-between;align-items:flex-end;padding:20px 22px;border-bottom:1px solid var(--line)}
-  .dials{display:flex;gap:24px;flex-wrap:wrap}
-  .dial{display:flex;flex-direction:column;gap:7px}
-  .dial label{font-family:var(--mono);font-size:.7rem;letter-spacing:.05em;text-transform:uppercase;color:var(--etched)}
-  .dial .val{color:var(--assay)}
-  .dial input[type=range]{-webkit-appearance:none;appearance:none;width:148px;height:3px;background:var(--line);border-radius:3px;outline:none}
-  .dial input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;height:16px;border-radius:50%;background:var(--assay);cursor:pointer;box-shadow:0 0 8px rgba(79,197,140,.5);border:2px solid #04120c}
-  .dial input[type=range]::-moz-range-thumb{width:16px;height:16px;border-radius:50%;background:var(--assay);cursor:pointer;border:2px solid #04120c}
-  .toggle{font-family:var(--mono);font-size:.72rem;letter-spacing:.04em;text-transform:uppercase;color:var(--body);background:transparent;border:1px solid var(--line);border-radius:2px;padding:9px 13px;cursor:pointer}
-  .toggle:hover{border-color:var(--assay);color:var(--assay)}
-  .bench-scroll{overflow-x:auto}
-  table.cons{border-collapse:collapse;width:100%;min-width:720px;font-size:.86rem}
-  table.cons th,table.cons td{padding:12px 10px;text-align:center;border-bottom:1px solid var(--line)}
-  table.cons thead th{font-family:var(--mono);font-size:.66rem;letter-spacing:.03em;text-transform:uppercase;color:var(--etched);font-weight:500}
-  table.cons th.taxon,table.cons td.taxon{text-align:left;font-family:var(--serif);font-style:italic;color:var(--readout);white-space:nowrap;padding-left:22px}
-  .chip{display:inline-block;width:15px;height:15px;border-radius:3px;background:#1e2a2c;transition:.2s var(--ease)}
-  .chip.pass{background:var(--assay);box-shadow:0 0 8px rgba(79,197,140,.45)}
-  td.cell{position:relative}
-  .robust{font-family:var(--mono);font-size:.72rem;color:var(--etched);white-space:nowrap}
-  tr.isrobust{background:rgba(79,197,140,.05)}
-  tr.isrobust .taxon{color:#fff;box-shadow:inset 3px 0 0 var(--assay)}
-  tr.isrobust .robust{color:var(--assay);font-weight:500}
-  tr.dimmed{opacity:.28}
-  .bench-foot{padding:15px 22px;border-top:1px solid var(--line);font-family:var(--mono);font-size:.8rem;color:var(--body);display:flex;flex-wrap:wrap;gap:8px 18px;justify-content:space-between;align-items:center}
-  .bench-foot b{color:var(--assay);font-weight:500}
-  .cons-quote{margin-top:28px;max-width:64ch}
-  .cons-quote .q{font-family:var(--display);font-weight:600;font-size:clamp(1.3rem,2.2vw,1.8rem);color:var(--readout);line-height:1.15}
-  .cons-quote .a{margin-top:10px;color:var(--body)}
-  .tooltip{position:fixed;z-index:99;pointer-events:none;background:#123226;border:1px solid var(--assay);border-radius:3px;padding:8px 10px;font-family:var(--mono);font-size:.7rem;color:#EDE7D6;opacity:0;transition:opacity .12s;max-width:240px}
-  .tooltip.on{opacity:1}
-  .tooltip b{color:#5FD6A8}
+  /* modules alternating */
+  .modrows{display:flex;flex-direction:column;gap:16px}
+  .modrow{display:grid;grid-template-columns:1.05fr 1fr;border:1px solid var(--line);border-radius:8px;overflow:hidden;background:var(--panel)}
+  .modrow .fig{background:#fff;display:flex;align-items:center;justify-content:center;padding:22px;border-right:1px solid var(--line);min-height:260px}
+  .modrow .fig img{max-height:280px;width:100%;object-fit:contain}
+  .modrow .txt{padding:28px 30px;display:flex;flex-direction:column;justify-content:center;gap:11px}
+  .modrow .txt .k{font-family:var(--mono);font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;color:var(--assay)}
+  .modrow .txt h3{color:var(--readout)}
+  .modrow .txt p{font-size:.94rem;color:var(--body)}
+  .modrow .txt .stat{font-family:var(--mono);font-size:.74rem;color:var(--etched);border-top:1px solid var(--line);padding-top:11px}
+  .modrow .txt .stat b{color:var(--assay);font-weight:500}
+  .modrow.rev .fig{order:2;border-right:0;border-left:1px solid var(--line)}
+  .modrow.rev .txt{order:1}
+  .alsoinc{margin-top:22px;display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+  .alsoinc .lbl{font-family:var(--mono);font-size:.72rem;text-transform:uppercase;letter-spacing:.06em;color:var(--etched)}
+  .alsoinc span{font-family:var(--mono);font-size:.8rem;color:var(--assay);border:1px solid var(--line);background:var(--panel);padding:8px 12px;border-radius:2px}
+  .repnote{margin-top:16px;font-family:var(--sans);font-size:.88rem;line-height:1.6;color:var(--etched);max-width:74ch;text-align:justify;hyphens:auto}
 
-  /* who we serve (compact) */
-  .servegrid{display:grid;grid-template-columns:repeat(4,1fr);gap:26px}
-  .si{border-top:1px solid #c9cec6;padding-top:15px}
-  .si .t{font-family:var(--mono);font-size:.68rem;letter-spacing:.07em;text-transform:uppercase;color:#2b8a72;display:block;margin-bottom:9px}
-  .si p{font-size:.9rem;color:#4a524e;line-height:1.55}
-  .sampletags{display:flex;flex-wrap:wrap;gap:10px}
-  .sampletags span{font-family:var(--mono);font-size:.82rem;color:var(--assay);border:1px solid var(--line-pap);background:#fff;padding:10px 15px;border-radius:2px;transition:.15s}
-  .sampletags span:hover{border-color:var(--assay);background:#F4FBF7}
+  /* entry points */
+  .entry{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:6px;overflow:hidden}
+  .entry .e{background:var(--panel);padding:18px 16px}
+  .entry .e .en{font-family:var(--mono);font-size:.68rem;color:var(--amber);letter-spacing:.06em}
+  .entry .e h4{color:var(--readout);font-size:.98rem;margin:9px 0 6px;font-family:var(--display);font-weight:600}
+  .entry .e p{font-size:.82rem;color:var(--body)}
+  .entry-note{margin-top:16px;font-family:var(--sans);font-size:.9rem;line-height:1.6;color:var(--etched);text-align:justify;hyphens:auto}
+  .entry-note b{color:var(--assay);font-weight:500}
 
-  /* workflow */
-  .flow{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:6px;overflow:hidden}
-  .flow .s{background:var(--panel);padding:24px 22px;display:flex;flex-direction:column;gap:9px}
-  .flow .s .n{font-family:var(--mono);font-size:.72rem;color:var(--assay);letter-spacing:.06em}
-  .flow .s h3{color:var(--readout)}
-  .flow .s p{font-size:.9rem;color:var(--body)}
-  .flow-foot{margin-top:20px;font-family:var(--mono);font-size:.82rem;color:var(--etched);display:flex;flex-wrap:wrap;gap:8px 24px}
-  .flow-foot b{color:var(--assay);font-weight:500}
+  /* lab */
+  .labgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+  .labc{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:20px}
+  .labc .lk{font-family:var(--mono);font-size:.66rem;letter-spacing:.07em;text-transform:uppercase;color:var(--assay);display:block;margin-bottom:10px}
+  .labc h3{color:var(--readout);font-size:1.02rem;margin-bottom:7px}
+  .labc p{font-size:.85rem;color:var(--body)}
 
-  /* modules */
-  .mods{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:38px}
-  .mod{background:var(--panel);border:1px solid var(--line);border-radius:5px;padding:16px;transition:.2s var(--ease)}
-  .mod:hover{border-color:var(--assay);background:var(--panel2)}
-  .mod .mn{font-family:var(--mono);font-size:.68rem;color:var(--amber);letter-spacing:.06em}
-  .mod h3{font-size:1rem;color:var(--readout);margin:7px 0 5px}
-  .mod p{font-size:.83rem;color:var(--body)}
-
-  /* figure carousel */
-  .viewer{border:1px solid var(--line);border-radius:8px;background:var(--panel);overflow:hidden}
-  .viewer-top{display:flex;justify-content:space-between;align-items:center;padding:14px 18px;border-bottom:1px solid var(--line);font-family:var(--mono);font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;color:var(--etched)}
-  .viewer-top .live{color:var(--assay)}
-  .viewer-top .live::before{content:"● ";animation:hum 1.6s infinite}
-  .vp{position:relative;overflow:hidden}
-  .vtrack{display:flex;transition:transform .5s var(--ease)}
-  .slide{min-width:100%;display:grid;grid-template-columns:1.35fr 1fr;gap:0}
-  .slide .screen{background:#fff;padding:22px;display:flex;align-items:center;justify-content:center;border-right:1px solid var(--line)}
-  .slide .screen img{max-height:340px;width:100%;height:auto;object-fit:contain}
-  .slide .meta{padding:28px 30px;display:flex;flex-direction:column;justify-content:center;gap:12px}
-  .slide .meta .k{font-family:var(--mono);font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;color:var(--assay)}
-  .slide .meta h3{color:var(--readout);font-size:1.35rem}
-  .slide .meta p{font-size:.92rem;color:var(--body)}
-  .slide .meta .stat{font-family:var(--mono);font-size:.76rem;color:var(--etched);border-top:1px solid var(--line);padding-top:12px}
-  .slide .meta .stat b{color:var(--assay);font-weight:500}
-  .viewer-nav{display:flex;justify-content:space-between;align-items:center;padding:14px 18px;border-top:1px solid var(--line)}
-  .dots{display:flex;gap:7px}
-  .dots button{width:8px;height:8px;border-radius:50%;border:0;background:var(--line);cursor:pointer;padding:0;transition:.2s}
-  .dots button.on{background:var(--assay);box-shadow:0 0 8px rgba(79,197,140,.5)}
-  .arrows{display:flex;gap:8px}
-  .arrows button{width:38px;height:38px;border:1px solid var(--line);background:transparent;color:var(--readout);border-radius:3px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.15s}
-  .arrows button:hover{border-color:var(--assay);color:var(--assay)}
-  .vcount{font-family:var(--mono);font-size:.76rem;color:var(--etched)}
-  .vcount b{color:var(--assay);font-weight:500}
-  .repnote{margin-top:14px;font-family:var(--mono);font-size:.72rem;color:var(--etched)}
-
-  /* case studies */
-  .cases{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-  .case{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:22px;display:flex;flex-direction:column;gap:11px}
-  .case .seg{font-family:var(--mono);font-size:.68rem;letter-spacing:.06em;text-transform:uppercase;color:var(--assay)}
-  .case h3{color:var(--readout);font-size:1.1rem}
-  .case p{font-size:.88rem;color:var(--body)}
-  .case .r{margin-top:auto;padding-top:11px;border-top:1px solid var(--line);font-family:var(--mono);font-size:.72rem;color:var(--etched)}
+  /* privacy */
+  .privacy{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:24px;max-width:820px}
+  .privacy h3{color:var(--readout);margin-bottom:12px}
+  .privacy p{font-size:.92rem;color:var(--body);margin-bottom:10px}
 
   /* publications */
-  .pubbar{display:flex;flex-wrap:wrap;gap:26px;margin-bottom:26px;font-family:var(--mono);font-size:.78rem;color:#5c6b64}
-  .pubbar b{font-family:var(--display);font-size:1.5rem;color:#0B0F10;display:block;font-weight:700}
   .pubgroup{margin-bottom:26px}
   .pubgroup h4{font-family:var(--mono);font-size:.72rem;letter-spacing:.07em;text-transform:uppercase;color:#2b8a72;margin:0 0 4px;font-weight:500}
   .pub{display:grid;grid-template-columns:44px 1fr auto auto;gap:16px;padding:15px 8px;border-bottom:1px solid var(--line-pap);align-items:baseline;transition:.15s;position:relative}
@@ -245,6 +213,7 @@
   .pub .ti .col{color:#2b8a72}
   .pub .yr{font-family:var(--mono);font-size:.82rem;color:#2b8a72;font-weight:500}
   .pub .go{font-family:var(--mono);font-size:.9rem;color:#2b8a72}
+  .pubgroup.lead .pub{background:#fbfdfb}
 
   /* recognition */
   .rec-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(24px,4vw,48px);align-items:start}
@@ -252,10 +221,6 @@
   .award{border:1px solid var(--line);background:var(--panel);border-radius:5px;padding:15px 18px;display:flex;gap:14px;align-items:center}
   .award .yr{font-family:var(--mono);color:var(--amber);font-size:.82rem;flex:none;width:44px}
   .award .t{color:var(--readout);font-size:.95rem}
-  .recstat{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:22px;margin-bottom:16px}
-  .recstat .big{font-family:var(--display);font-weight:700;font-size:clamp(2rem,3.4vw,2.8rem);color:var(--assay);line-height:1}
-  .recstat p{font-size:.86rem;color:var(--body);margin-top:8px}
-  .recstat .src{font-family:var(--mono);font-size:.68rem;color:var(--etched);margin-top:6px}
   .presslabel{font-family:var(--mono);font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;color:var(--etched);margin-bottom:8px}
   .presslist{display:flex;flex-direction:column}
   .presslist a{padding:12px 0;border-bottom:1px solid var(--line);font-size:.9rem;color:var(--body);display:flex;gap:12px;align-items:baseline;transition:.15s}
@@ -265,23 +230,19 @@
 
   /* conference */
   .conf{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(26px,4vw,48px);align-items:center}
-  .conf .live-band{font-family:var(--mono);font-size:.72rem;letter-spacing:.09em;text-transform:uppercase;color:var(--assay);border:1px solid var(--line);border-radius:2px;padding:8px 12px;display:inline-block;margin-bottom:16px}
-  .conf .live-band::before{content:"● LIVE  ";color:var(--assay)}
   .conf .stats{display:flex;gap:24px;margin:20px 0;flex-wrap:wrap}
   .conf .stats .v{font-family:var(--display);font-weight:600;font-size:1.7rem;color:var(--readout)}
   .conf .stats .l{font-family:var(--mono);font-size:.66rem;color:var(--etched);text-transform:uppercase;margin-top:2px}
   .conf .imgwrap{border:1px solid var(--line);border-radius:6px;overflow:hidden;position:relative}
-  .conf .imgwrap img{width:100%;height:300px;object-fit:cover}
-  .conf .imgwrap .cap{position:absolute;bottom:0;left:0;right:0;padding:12px 14px;background:linear-gradient(transparent,rgba(11,15,16,.9));font-family:var(--mono);font-size:.7rem;color:var(--readout)}
+  .conf .imgwrap img{width:100%;height:320px;object-fit:cover}
+  .conf .imgwrap .cap{position:absolute;bottom:0;left:0;right:0;padding:12px 14px;background:linear-gradient(transparent,rgba(11,15,16,.9));font-family:var(--mono);font-size:.7rem;color:#EDE7D6}
 
   /* team */
   .team{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
   .person{background:var(--panel);border:1px solid var(--line);border-radius:6px;overflow:hidden;transition:.2s var(--ease)}
   .person:hover{transform:translateY(-3px);border-color:var(--assay)}
-  .person .ph{aspect-ratio:1/1;overflow:hidden;background:#0e1516;position:relative}
+  .person .ph{aspect-ratio:1/1;overflow:hidden;background:#0e1516}
   .person .ph img{width:100%;height:100%;object-fit:cover;filter:grayscale(.3) contrast(1.02)}
-  .person .ph .led{position:absolute;top:12px;right:12px;width:8px;height:8px;border-radius:50%;background:var(--assay);box-shadow:0 0 8px var(--assay);opacity:0;transition:.2s}
-  .person:hover .ph .led{opacity:1}
   .person .b{padding:15px 16px 17px}
   .person .nm{font-family:var(--display);font-weight:600;color:var(--readout);font-size:1rem}
   .person .rl{font-family:var(--mono);font-size:.66rem;color:var(--assay);text-transform:uppercase;letter-spacing:.03em;margin:6px 0 8px}
@@ -289,79 +250,56 @@
   .person .li{display:inline-flex;align-items:center;gap:5px;margin-top:11px;font-family:var(--mono);font-size:.64rem;letter-spacing:.05em;text-transform:uppercase;color:var(--assay)}
   .person .li:hover{color:var(--amber)}
   .person .li svg{width:13px;height:13px;fill:currentColor}
-  .teamphoto{margin:0 0 22px;border:1px solid var(--line);border-radius:8px;overflow:hidden;background:#fff}
-  .teamphoto img{width:100%;height:auto;max-height:420px;object-fit:cover;object-position:center 30%;display:block}
-  .teamphoto figcaption{font-family:var(--mono);font-size:.7rem;color:var(--etched);padding:11px 16px;border-top:1px solid var(--line)}
-  /* lab */
-  .labgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
-  .labc{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:20px}
-  .labc .lk{font-family:var(--mono);font-size:.66rem;letter-spacing:.07em;text-transform:uppercase;color:var(--assay);display:block;margin-bottom:10px}
-  .labc h3{color:var(--readout);font-size:1.04rem;margin-bottom:7px}
-  .labc p{font-size:.85rem;color:var(--body)}
-  .labfeat{display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:stretch}
-  .labimg{margin:0;border:1px solid var(--line);border-radius:8px;overflow:hidden;background:#fff;display:flex;flex-direction:column}
-  .labimg img{width:100%;flex:1;min-height:220px;max-height:360px;object-fit:contain;background:#fff;padding:22px}
-  .labimg figcaption{font-family:var(--mono);font-size:.7rem;color:var(--etched);padding:11px 16px;border-top:1px solid var(--line)}
-  .labgrid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-
-  /* privacy */
-  .privacy{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:24px;max-width:760px}
-  .privacy h3{color:var(--readout);margin-bottom:12px}
-  .privacy p{font-size:.92rem;color:var(--body)}
 
   /* faq */
-  .faq{max-width:840px;margin-inline:auto;border-top:1px solid var(--line)}
+  .faq{max-width:860px;border-top:1px solid var(--line)}
   details{border-bottom:1px solid var(--line)}
-  summary{cursor:pointer;list-style:none;padding:19px 4px;font-family:var(--mono);font-size:.96rem;color:var(--readout);display:flex;justify-content:space-between;gap:18px;align-items:center}
+  summary{cursor:pointer;list-style:none;padding:19px 4px;font-family:var(--mono);font-size:.94rem;color:var(--readout);display:flex;justify-content:space-between;gap:18px;align-items:center}
   summary::-webkit-details-marker{display:none}
   summary::after{content:"+";color:var(--assay);font-size:1.3rem}
-  details[open] summary::after{content:"-"}
-  details p{padding:0 4px 20px;color:var(--body);font-size:.96rem;max-width:74ch}
+  details[open] summary::after{content:"\2212"}
+  details p{padding:0 4px 20px;color:var(--body);font-size:.94rem;max-width:78ch}
 
   /* contact */
-  .contact{border-top:1px solid var(--line)}
   .cgrid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(26px,5vw,56px);align-items:start}
   .cgrid .direct{margin-top:24px;font-family:var(--mono);font-size:.84rem;color:var(--body);display:flex;flex-direction:column;gap:9px}
   .cgrid .direct b{color:var(--assay);font-weight:500}
   form{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:24px;display:flex;flex-direction:column;gap:14px}
   .fld{display:flex;flex-direction:column;gap:6px}
   .fld label{font-family:var(--mono);font-size:.66rem;letter-spacing:.06em;text-transform:uppercase;color:var(--etched)}
-  .fld input,.fld select,.fld textarea{font-family:var(--sans);font-size:.94rem;padding:11px 12px;border:1px solid var(--line);border-radius:3px;background:#0d1314;color:var(--readout);width:100%}
-  .fld input:focus,.fld select:focus,.fld textarea:focus{outline:none;border-color:var(--assay);box-shadow:0 0 0 3px rgba(79,197,140,.14);caret-color:var(--amber)}
+  .fld input,.fld select,.fld textarea{font-family:var(--sans);font-size:.94rem;padding:11px 12px;border:1px solid var(--line);border-radius:3px;background:#fff;color:var(--readout);width:100%}
+  .fld input:focus,.fld select:focus,.fld textarea:focus{outline:none;border-color:var(--assay);box-shadow:0 0 0 3px rgba(30,138,92,.14)}
   .two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-  .formnote{font-family:var(--mono);font-size:.68rem;color:var(--etched)}
+  .formnote{font-family:var(--sans);font-size:.82rem;line-height:1.55;color:var(--etched);text-align:justify;hyphens:auto}
 
   footer{background:#12362A;border-top:1px solid #2b5641;padding-block:48px 26px;position:relative;overflow:hidden}
   .fcanvas{position:absolute;inset:0;opacity:.14;pointer-events:none}
   .fgrid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:32px;position:relative;z-index:1}
   footer h4{font-family:var(--mono);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:#8FA595;margin:0 0 12px;font-weight:500}
-  footer a{color:#CBD8CD;display:block;padding:4px 0;font-size:.85rem}
+  footer a{color:#CBD8CD;display:block;padding:4px 0;font-size:.85rem;background:none;border:0;text-align:left;font-family:inherit;cursor:pointer}
   footer a:hover{color:#5FD6A8}
   .fbrand img{height:26px;margin-bottom:10px}
   .fbrand p{color:#8FA595;font-size:.8rem;max-width:34ch}
   .fbot{border-top:1px solid #2b5641;margin-top:32px;padding-top:18px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;font-family:var(--mono);font-size:.72rem;color:#7d9285;position:relative;z-index:1}
-
-  .draft{background:#1a1405;color:var(--amber);font-family:var(--mono);font-size:.72rem;text-align:center;padding:8px 16px;letter-spacing:.02em;border-bottom:1px solid #2a2410}
 
   .rv{opacity:0;transform:translateY(12px);transition:opacity .6s var(--ease),transform .6s var(--ease)}
   .rv.in{opacity:1;transform:none}
   @media(prefers-reduced-motion:reduce){*{animation:none!important;scroll-behavior:auto!important;transition:none!important}.rv{opacity:1;transform:none}}
 
   @media(max-width:940px){
-    .conf,.cgrid,.rec-grid,.labfeat{grid-template-columns:1fr}
-    .prob,.flow,.mods,.cases,.servegrid,.labgrid{grid-template-columns:1fr 1fr}
+    .conf,.cgrid,.rec-grid{grid-template-columns:1fr}
+    .prob,.labgrid,.team,.trust,.fgrid,.founders{grid-template-columns:1fr 1fr}
     .arack{grid-template-columns:1fr 1fr}
-    .team{grid-template-columns:1fr 1fr}
-    .trust{grid-template-columns:1fr 1fr}
-    .fgrid{grid-template-columns:1fr 1fr}
-    .slide{grid-template-columns:1fr}
-    .slide .screen{border-right:0;border-bottom:1px solid var(--line)}
-    nav.links{display:none}.menu-btn{display:block}
+    .stage{grid-template-columns:1fr}
+    .stage .sn{display:inline}
+    .modrow{grid-template-columns:1fr}
+    .modrow .fig{border-right:0;border-bottom:1px solid var(--line)}
+    .modrow.rev .fig{order:0;border-left:0}
+    .modrow.rev .txt{order:0}
+    .entry{grid-template-columns:1fr 1fr}
   }
   @media(max-width:560px){
-    .prob,.flow,.mods,.cases,.servegrid,.labgrid,.labgrid2,.two,.team,.arack{grid-template-columns:1fr}
-    .fgrid{grid-template-columns:1fr}
-    .slide .screen img{max-height:250px}
+    .prob,.labgrid,.team,.arack,.trust,.fgrid,.founders,.two,.entry{grid-template-columns:1fr}
     body{font-size:16px}
   }
 </style>
@@ -370,419 +308,505 @@
 
 <header class="nav">
   <div class="wrap nav-in">
-    <a class="brand" href="#top">
-      <img src="https://www.bugspeaks.com/static/images/icons/bugspeaks-logo.jpg" alt="BugSpeaks" style="height:30px" onerror="this.replaceWith(Object.assign(document.createElement('b'),{textContent:'BugSpeaks®',className:'brandtxt'}))">
+    <a class="brand" href="#top" data-tab="overview">
+      <img src="assets/bugspeaks-logo.jpg" alt="BugSpeaks" onerror="this.replaceWith(Object.assign(document.createElement('b'),{textContent:'BugSpeaks',className:'brandtxt'}))">
       <span class="brandtag">Research</span>
     </a>
-    <nav class="links">
-      <a href="#accred">Accreditation</a>
-      <a href="#method">The method</a>
-      <a href="#serve">Who we serve</a>
-      <a href="#analysis">Analysis</a>
-      <a href="#pubs">Publications</a>
-      <a href="#team">Team</a>
-    </nav>
-    <div class="nav-cta">
-      <a class="btn btn-primary" href="#contact">Book a scoping call</a>
-      <button class="menu-btn" aria-label="Menu" onclick="document.querySelector('nav.links').style.display='flex'">
-        <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
-      </button>
+    <a class="btn btn-primary" href="#contact">Book a scoping call</a>
+  </div>
+  <div class="wrap tabbar-wrap">
+    <div class="tabbar" role="tablist">
+      <button class="tabbtn active" data-tab="overview">Overview</button>
+      <button class="tabbtn" data-tab="analysis">Analysis</button>
+      <button class="tabbtn" data-tab="process">How we work</button>
+      <button class="tabbtn" data-tab="pubs">Publications</button>
+      <button class="tabbtn" data-tab="team">Team</button>
+      <button class="tabbtn" data-tab="contact">Contact</button>
     </div>
   </div>
 </header>
 
-<!-- HERO -->
-<section class="hero">
-  <div class="hero-stage">
-    <canvas id="squiggle" class="hero-bg" aria-hidden="true"></canvas>
-    <div class="hero-fade"></div>
-    <div class="hero-corner"><b>Long-read</b> · shotgun metagenomics · species-level</div>
-    <div class="wrap hero-inner">
-      <div class="hero-col">
-        <p class="eyebrow">BugSpeaks · microbiome research services · est. 2014</p>
-        <h1 id="headline" style="margin-top:16px">Microbiome metagenomics for research and clinical studies.</h1>
-        <p class="sub">Long-read shotgun sequencing to species level, the full suite of differential-abundance methods, and report-ready figures, all from one accredited lab.</p>
-        <div class="hero-cta">
-          <a class="btn btn-primary" href="#contact">Book a scoping call</a>
-          <a class="btn btn-ghost" href="#contact">Download a sample report</a>
-        </div>
-        <p class="plate"><b>BugSpeaks®</b> · long-read shotgun metagenomics · South Asia's first microbiome lab</p>
-      </div>
-    </div>
-  </div>
-  <div class="wrap"><div class="trust">
-    <div class="cell"><div class="v">Est. 2014</div><div class="l">South Asia's first microbiome lab</div></div>
-    <div class="cell"><div class="v"><span class="num" data-count="4">0</span></div><div class="l">Independent accreditations</div></div>
-    <div class="cell"><div class="v">~<span class="num" data-count="250000">0</span></div><div class="l">Genome reference database</div></div>
-    <div class="cell"><div class="v">2 to 3 wks</div><div class="l">Typical turnaround</div></div>
-  </div></div>
-</section>
+<main>
 
-<!-- ACCREDITATION (moved up) -->
-<section class="accred" id="accred">
-  <div class="wrap">
-    <div class="head rv"><p class="eyebrow">Accreditation, with the numbers to prove it</p><h2>The only microbiome lab in Asia accredited on all four.</h2></div>
-    <div class="arack rv">
-      <div class="acard">
-        <img class="badge" src="https://sushmakannapiran.github.io/bugspeaks-research-preview/assets/nabl.png" alt="NABL" onerror="this.style.display='none'">
-        <div class="std">NABL</div>
-        <div class="body">ISO 15189:2022, medical testing lab accreditation.</div>
-        <div class="meta">Cert <b>MC-7516</b><br>Valid to <b>Jul 2029</b><br>Field: Medical testing</div>
-      </div>
-      <div class="acard">
-        <div class="badge-sp" aria-hidden="true"></div>
-        <div class="std">ISO/IEC 17025:2017</div>
-        <div class="body">Competence of testing &amp; calibration laboratories.</div>
-        <div class="meta">Cert <b>IEC-LR-2024-0949</b><br>Valid to <b>Dec 2027</b><br>Issued by AQSC / UGAC</div>
-      </div>
-      <div class="acard">
-        <img class="badge" src="https://sushmakannapiran.github.io/bugspeaks-research-preview/assets/nabh.png" alt="NABH" onerror="this.style.display='none'">
-        <div class="std">NABH</div>
-        <div class="body">Medical laboratory, microbiology (QCI, ISQua).</div>
-        <div class="meta">Cert <b>MLP-2024-0246</b><br>Valid to <b>Nov 2026</b><br>Field: Microbiology</div>
-      </div>
-      <div class="acard">
-        <div class="badge-sp" aria-hidden="true"></div>
-        <div class="std">ISO 9001:2015</div>
-        <div class="body">Quality management system.</div>
-        <div class="meta">Cert <b>305022012143Q</b><br>Issued by QRO</div>
-      </div>
-    </div>
-    <p class="acred-note rv">First laboratory in India's microbiome space to earn <b>NABL</b> accreditation. Certificates available on request.</p>
-  </div>
-</section>
+<!-- ============ OVERVIEW ============ -->
+<div class="tabpanel" id="tab-overview">
 
-<!-- LOGOS MARQUEE -->
-<section class="paper" style="padding-block:44px" aria-label="Clients">
-  <div class="wrap" style="margin-bottom:22px">
-    <p class="eyebrow rv">Research institutes, hospitals &amp; brands who've run studies with us</p>
-  </div>
-  <div class="marquee">
-    <div class="row" id="logorow"></div>
-  </div>
-</section>
-
-<!-- PROBLEM -->
-<section id="problem">
-  <div class="wrap">
-    <div class="head rv"><p class="eyebrow">Method</p><h2>Three factors that determine whether microbiome findings replicate.</h2></div>
-    <div class="prob rv">
-      <div class="c"><div class="n">01</div><h3>Sequencing resolution</h3><p>16S amplicon sequencing resolves communities to genus level. Species identification and functional profiling require shotgun metagenomics.</p></div>
-      <div class="c"><div class="n">02</div><h3>Statistical method</h3><p>Differential-abundance methods often disagree. A taxon significant under one method may not hold under another, so single-method results are difficult to defend.</p></div>
-      <div class="c"><div class="n">03</div><h3>Chain of custody</h3><p>When sequencing, analysis and figures are split across vendors, no single party is accountable for the study and sources of variation are harder to control.</p></div>
-    </div>
-    <p class="kicker rv">Species-level resolution, statistics that hold across methods, and a single accredited lab responsible for the whole study.</p>
-  </div>
-</section>
-
-<!-- METHOD / CONSENSUS -->
-<section id="method">
-  <div class="wrap">
-    <div class="head rv">
-      <p class="eyebrow">Differential abundance</p>
-      <h2>Six methods, reported in full, with a consensus layer.</h2>
-      <p class="lede">Each of the six differential-abundance methods is run and its complete output is delivered. A consensus layer identifies the taxa found significant across methods, at the p-value and FDR thresholds you set.</p>
-    </div>
-    <div class="methods-row rv">
-      <span>Mann-Whitney / Kruskal-Wallis</span><span>t-test / ANOVA</span><span>edgeR</span><span>DESeq2</span><span>MaAsLin2</span><span>LEfSe</span>
-    </div>
-    <div class="bench rv">
-      <div class="bench-top">
-        <div class="dials">
-          <div class="dial"><label>p ≤ <span class="val mono" id="pval">0.050</span></label><input type="range" id="pdial" min="1" max="100" value="50"></div>
-          <div class="dial"><label>FDR ≤ <span class="val mono" id="qval">0.050</span></label><input type="range" id="qdial" min="1" max="100" value="50"></div>
-          <div class="dial"><label>Agreement ≥ <span class="val mono" id="aval">3</span> / 6</label><input type="range" id="adial" min="1" max="6" value="3"></div>
-        </div>
-        <button class="toggle" id="modeToggle">Show all methods</button>
-      </div>
-      <div class="bench-scroll">
-        <table class="cons"><thead><tr>
-          <th class="taxon">Taxon</th><th>MW / KW</th><th>t / ANOVA</th><th>edgeR</th><th>DESeq2</th><th>MaAsLin2</th><th>LEfSe</th><th>Consensus</th>
-        </tr></thead><tbody id="consBody"></tbody></table>
-      </div>
-      <div class="bench-foot"><span id="robustCount"></span><span>drag the dials, the consensus recomputes live · nothing is hidden</span></div>
-    </div>
-    <div class="cons-quote rv">
-      <p class="q">The consensus is an overlay, not a black box.</p>
-      <p class="a">Full per-method result tables are delivered alongside it, and every figure is traceable to the method that produced it.</p>
-    </div>
-  </div>
-  <div class="tooltip" id="tip"></div>
-</section>
-
-<!-- WHO WE SERVE -->
-<section class="paper" id="serve" style="padding-block:clamp(38px,4vw,58px)">
-  <div class="wrap">
-    <div class="head rv" style="margin-bottom:0;max-width:64ch"><p class="eyebrow">Scope</p><h2>Human, animal and environmental microbiomes.</h2><p class="lede" style="margin-top:4px">If a sample carries a microbiome, we can sequence and analyse it, from study design through interpretation, under one accredited roof.</p></div>
-  </div>
-</section>
-
-<!-- WORKFLOW -->
-<section id="workflow">
-  <div class="wrap">
-    <div class="head rv"><p class="eyebrow">How it works</p><h2>One accredited lab, end to end.</h2><p class="lede">Your study, your design. We handle sequencing and analysis, with one chain of custody and one accountable team.</p></div>
-    <div class="flow rv">
-      <div class="s"><span class="n">Step 1 · Scope</span><h3>Plan the run with you</h3><p>We advise on sample type, sequencing depth and the analysis plan. The study design and hypothesis stay yours.</p></div>
-      <div class="s"><span class="n">Step 2 · Collect</span><h3>RT-stable logistics</h3><p>Barcoded kits, room-temperature-stable for 15 days, so no cold chain or dry ice is needed.</p></div>
-      <div class="s"><span class="n">Step 3 · Sequence</span><h3>Long-read shotgun</h3><p>Long-read shotgun metagenomic sequencing, resolved to species level.</p></div>
-      <div class="s"><span class="n">Step 4 · Analyse</span><h3>Full suite and consensus</h3><p>All six differential-abundance methods and the consensus layer, against our ~250k-genome database.</p></div>
-      <div class="s"><span class="n">Step 5 · Deliver</span><h3>Report you can interrogate</h3><p>Figures, per-method tables and a report traceable back to the underlying method, in 2 to 3 weeks.</p></div>
-      <div class="s"><span class="n">Step 6 · Support</span><h3>Through your analysis</h3><p>We answer questions on the methods and data as you write up and respond to reviewers.</p></div>
-    </div>
-    <div class="flow-foot rv"><span><b>2 to 3 week</b> turnaround</span><span><b>RT-stable</b> shipping</span><span><b>One</b> point of contact</span></div>
-  </div>
-</section>
-
-<!-- ANALYSIS: modules + figure carousel -->
-<section id="analysis">
-  <div class="wrap">
-    <div class="head rv"><p class="eyebrow">The analysis</p><h2>Every module in your report, in the order you read it.</h2></div>
-    <div class="mods rv">
-      <div class="mod"><div class="mn">01</div><h3>Composition</h3><p>Relative abundance, phylum to species.</p></div>
-      <div class="mod"><div class="mn">02</div><h3>Alpha diversity</h3><p>Within-sample diversity, with significance testing.</p></div>
-      <div class="mod"><div class="mn">03</div><h3>Beta diversity</h3><p>Between-group community structure by ordination.</p></div>
-      <div class="mod"><div class="mn">04</div><h3>Core microbiome</h3><p>Prevalence-based core across your cohort.</p></div>
-      <div class="mod"><div class="mn">05</div><h3>Heatmaps</h3><p>Clustered abundance across samples.</p></div>
-      <div class="mod"><div class="mn">06</div><h3>Differential abundance</h3><p>The full six-method suite, every method's output.</p></div>
-      <div class="mod"><div class="mn">07</div><h3>Consensus</h3><p>Robust taxa across methods; thresholds you set.</p></div>
-      <div class="mod"><div class="mn">08</div><h3>Correlation &amp; networks</h3><p>Taxon and metadata co-occurrence.</p></div>
-      <div class="mod"><div class="mn">09</div><h3>KEGG pathways</h3><p>Functional potential from the metagenome.</p></div>
-      <div class="mod"><div class="mn">10</div><h3>Resistome / AMR</h3><p>Antimicrobial-resistance gene profiling.</p></div>
-    </div>
-
-    <div class="viewer rv">
-      <div class="viewer-top"><span class="live">Report viewer</span><span id="vlabel">Composition</span></div>
-      <div class="vp"><div class="vtrack" id="vtrack">
-        <div class="slide"><div class="screen"><img src="assets/plots/composition-stackedbar.png" alt="Composition stacked bar"></div><div class="meta"><span class="k">Module 01 · Composition</span><h3>Taxonomic composition</h3><p>Relative abundance from phylum down to species, per sample and per group.</p><div class="stat">Family-level relative abundance · <b>representative output</b></div></div></div>
-        <div class="slide"><div class="screen"><img src="assets/plots/alpha-diversity-shannon.png" alt="Shannon alpha diversity boxplot"></div><div class="meta"><span class="k">Module 02 · Alpha diversity</span><h3>Within-sample diversity</h3><p>Diversity indices compared between groups, with significance testing.</p><div class="stat">Shannon · Mann-Whitney <b>p = 0.011768</b> · representative</div></div></div>
-        <div class="slide"><div class="screen"><img src="assets/plots/beta-diversity-pcoa.png" alt="Beta diversity PCoA ordination"></div><div class="meta"><span class="k">Module 03 · Beta diversity</span><h3>Between-group structure</h3><p>Ordination of community composition, tested for group separation.</p><div class="stat">PCoA · PERMANOVA <b>F = 3.22, p = 0.025</b> · representative</div></div></div>
-        <div class="slide"><div class="screen"><img src="assets/plots/core-microbiome-heatmap.png" alt="Core microbiome prevalence heatmap"></div><div class="meta"><span class="k">Module 04 · Core microbiome</span><h3>Prevalence-based core</h3><p>Which taxa are consistently present across your cohort, by detection threshold.</p><div class="stat">Prevalence across thresholds · <b>representative output</b></div></div></div>
-        <div class="slide"><div class="screen"><img src="assets/plots/differential-heatmap.png" alt="Clustered species heatmap"></div><div class="meta"><span class="k">Module 05 · Heatmaps</span><h3>Clustered abundance</h3><p>Species × sample clustering, split by study group.</p><div class="stat">Clustered species heatmap · <b>representative output</b></div></div></div>
-        <div class="slide"><div class="screen"><img src="assets/plots/volcano-plot.png" alt="Volcano plot"></div><div class="meta"><span class="k">Module 06 · Differential abundance</span><h3>What moved, and by how much</h3><p>Effect size against significance, per method, before the consensus layer.</p><div class="stat">Volcano · log₂FC vs −log₁₀FDR · <b>representative output</b></div></div></div>
-      </div></div>
-      <div class="viewer-nav">
-        <div class="dots" id="vdots"></div>
-        <div style="display:flex;align-items:center;gap:16px">
-          <span class="vcount"><b id="vnum">01</b> / 06</span>
-          <div class="arrows"><button id="vprev" aria-label="Previous"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button><button id="vnext" aria-label="Next"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button></div>
+  <section class="hero" style="padding-block:0">
+    <div class="hero-stage">
+      <canvas id="squiggle" class="hero-bg" aria-hidden="true"></canvas>
+      <div class="hero-fade"></div>
+      <div class="hero-corner"><b>Long-read</b> · shotgun metagenomics · species level</div>
+      <div class="wrap hero-inner">
+        <div class="hero-col">
+          <p class="eyebrow">BugSpeaks Research · Leucine Rich Bio · est. 2014</p>
+          <h1 id="headline" style="margin-top:16px">Microbiome metagenomics for research and clinical studies.</h1>
+          <p class="sub">We sequence and analyse microbiome samples to species level and interpret the results, in-house, from an accredited laboratory in Bengaluru.</p>
+          <div class="hero-cta">
+            <a class="btn btn-primary" href="#contact">Book a scoping call</a>
+            <a class="btn btn-ghost" href="#contact">Request the scope document</a>
+          </div>
+          <p class="plate"><b>Leucine Rich Bio</b> · long-read shotgun metagenomics · Bengaluru</p>
         </div>
       </div>
     </div>
-    <p class="repnote rv">Figures shown are representative outputs from the BugSpeaks report, not any single client's data.</p>
-  </div>
-</section>
-
-<!-- CASE STUDIES -->
-<section id="cases">
-  <div class="wrap">
-    <div class="head rv"><p class="eyebrow">Case studies</p><h2>Sequenced, analysed &amp; delivered end to end.</h2></div>
-    <div class="cases rv">
-      <div class="case"><span class="seg">Clinical · RCT · published</span><h3>Personalised-nutrition RCT</h3><p>A randomised, controlled proof-of-concept: microbiome-based personalised nutrition improved hyperglycaemia, blood pressure and inflammation markers, sequenced and analysed in-house.</p><div class="r">→ Published in PeerJ, 2024</div></div>
-      <div class="case"><span class="seg">Clinical · cohort · MDRF</span><h3>Diabetes nutrition supplement</h3><p>Metagenomic gut-health readouts on a diabetes-specific nutrition intervention, in collaboration with the Madras Diabetes Research Foundation (Dr. V. Mohan).</p><div class="r">→ Food &amp; Nutrition Sciences, 2025</div></div>
-      <div class="case"><span class="seg">Industry · efficacy</span><h3>Nutraceutical efficacy study</h3><p>Before/after shotgun profiling with consensus differential abundance for a listed enzymes &amp; probiotics manufacturer.</p><div class="r">→ Named case pending client sign-off</div></div>
+    <div class="wrap"><div class="trust">
+      <div class="cell"><div class="v">Est. 2014</div><div class="l">First microbiome lab in South Asia</div></div>
+      <div class="cell"><div class="v"><span class="num" data-count="40">0</span>+</div><div class="l">Research projects</div></div>
+      <div class="cell"><div class="v">~<span class="num" data-count="250000">0</span></div><div class="l">Genome reference database</div></div>
+      <div class="cell"><div class="v">2 to 3 wks<sup>*</sup></div><div class="l">Typical turnaround</div></div>
     </div>
-  </div>
-</section>
-
-<!-- PUBLICATIONS -->
-<section class="paper" id="pubs">
-  <div class="wrap">
-    <div class="head rv"><p class="eyebrow">Publications &amp; clinical validation</p><h2>Our science is on the record.</h2><p class="lede">Peer-reviewed work led by our team and with partners including Tata Memorial and MDRF. Every paper links out.</p></div>
-    <div class="rv">
-      <div class="pubgroup">
-        <h4>Led by our team</h4>
-        <a class="pub" href="https://peerj.com/articles/17583/" target="_blank" rel="noopener"><span class="idx">[01]</span><span class="ti">Microbiota-based personalized nutrition improves hyperglycaemia and hypertension parameters and reduces inflammation, a randomized, controlled proof-of-concept study<span class="j">PeerJ</span></span><span class="yr">2024</span><span class="go">↗</span></a>
-        <a class="pub" href="https://doi.org/10.3389/fnins.2021.831193" target="_blank" rel="noopener"><span class="idx">[02]</span><span class="ti">Impending mental-health issues during COVID-19, a case for personalized nutrition based on the gut microbiota<span class="j">Frontiers in Neuroscience</span></span><span class="yr">2022</span><span class="go">↗</span></a>
-        <a class="pub" href="https://doi.org/10.1016/j.virusres.2020.198018" target="_blank" rel="noopener"><span class="idx">[03]</span><span class="ti">Gut microbiota and COVID-19, possible link and implications<span class="j">Virus Research</span></span><span class="yr">2020</span><span class="go">↗</span></a>
-      </div>
-      <div class="pubgroup">
-        <h4>In collaboration with leading institutions</h4>
-        <a class="pub" href="https://ascopubs.org/doi/10.1200/OA-25-00194" target="_blank" rel="noopener"><span class="idx">[04]</span><span class="ti">Translational implications of microbiome testing methodologies in lung cancer <span class="col">· with Tata Memorial Hospital</span><span class="j">JCO Oncology Advances</span></span><span class="yr">2026</span><span class="go">↗</span></a>
-        <a class="pub" href="https://www.frontiersin.org/journals/epigenetics-and-epigenomics/articles/10.3389/freae.2026.1857307/full" target="_blank" rel="noopener"><span class="idx">[05]</span><span class="ti">The microbiome and its impact on the epigenome in cancer <span class="col">· with Tata Memorial Hospital</span><span class="j">Frontiers in Epigenetics &amp; Epigenomics</span></span><span class="yr">2026</span><span class="go">↗</span></a>
-        <a class="pub" href="https://doi.org/10.4236/fns.2025.168056" target="_blank" rel="noopener"><span class="idx">[06]</span><span class="ti">Efficacy of a diabetes-specific nutrition supplement on CGM outcomes in adults with type 2 diabetes <span class="col">· with MDRF (Dr. V. Mohan)</span><span class="j">Food and Nutrition Sciences</span></span><span class="yr">2025</span><span class="go">↗</span></a>
-        <a class="pub" href="https://link.springer.com/article/10.1007/s42452-024-05815-3" target="_blank" rel="noopener"><span class="idx">[07]</span><span class="ti">Metabolomics and gut metagenomics of healthy adults on whey protein with an enzymes-probiotics blend<span class="j">Discover Applied Sciences</span></span><span class="yr">2024</span><span class="go">↗</span></a>
-        <a class="pub" href="https://www.frontiersin.org/journals/nutrition/articles/10.3389/fnut.2024.1307734/full" target="_blank" rel="noopener"><span class="idx">[08]</span><span class="ti">Study of amino-acid absorption and gut microbiome on pea protein with an enzymes-probiotics supplement<span class="j">Frontiers in Nutrition</span></span><span class="yr">2024</span><span class="go">↗</span></a>
-      </div>
+    <p class="tatnote"><b>*</b> Turnaround is counted from the day the last sample of a study reaches the lab, and depends on sample count. A study of roughly 96 samples with 3 to 5 group comparisons is usually 2 to 3 weeks. Exact timelines are set at the scoping call.</p>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- RECOGNITION -->
-<section id="recognition">
-  <div class="wrap">
-    <div class="head rv"><p class="eyebrow">Recognition &amp; press</p><h2>Backed by awards, and covered by the national press.</h2></div>
-    <div class="rec-grid rv">
-      <div class="awards">
-        <div class="award"><span class="yr">2021</span><span class="t">National Startup Award, Health &amp; Wellness (Startup India)</span></div>
-        <div class="award"><span class="yr">2022</span><span class="t">Great Companies Global Business Award</span></div>
-        <div class="award"><span class="yr">2024</span><span class="t">First microbiome lab in India to earn NABL accreditation</span></div>
-        <div class="award"><span class="yr">2014</span><span class="t">South Asia's first microbiome company</span></div>
-      </div>
-      <div>
-        <p class="presslabel">Selected coverage</p>
-        <div class="presslist">
-          <a href="https://yourstory.com/2026/02/leucine-rich-bio-microbiome-science-to-personalise-preventive-healthcare" target="_blank" rel="noopener"><span class="po">YourStory</span> Using microbiome science to personalise preventive healthcare <span class="pg">↗</span></a>
-          <a href="https://thebetterindia.com/275359/bugspeak-microbiome-startup-test-kit-gut-health-diabetes-health-check-bengaluru/" target="_blank" rel="noopener"><span class="po">The Better India</span> A kit that "listens to your gut" for diabetes &amp; BP risk <span class="pg">↗</span></a>
-          <a href="https://www.siliconindia.com/news/leucine-rich-bio-launches-enhanced-bugspeaks-2026-report-nwid-53215.html" target="_blank" rel="noopener"><span class="po">SiliconIndia</span> The enhanced BugSpeaks 2026 report <span class="pg">↗</span></a>
+  <!-- founders -->
+  <section id="founders">
+    <div class="wrap">
+      <div class="head rv"><p class="eyebrow">The founders</p><h2>A short word from the founders.</h2><p class="lede">Kumar Sankaran and Dr. Debojyoti Dhar on what we do and who we do it for. Filming shortly.</p></div>
+      <div class="founders rv">
+        <div class="fvid">
+          <img src="assets/kumar.png" alt="Kumar Sankaran" onerror="this.style.opacity=.15">
+          <span class="soon">Video coming soon</span>
+          <div class="play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+          <div class="cap"><b>Kumar Sankaran</b>Founder &amp; CEO</div>
         </div>
-        <a class="btn btn-ghost" href="https://www.bugspeaks.com/blog/" target="_blank" rel="noopener" style="margin-top:18px">Read the blog →</a>
+        <div class="fvid">
+          <img src="assets/deb.png" alt="Dr. Debojyoti Dhar" onerror="this.style.opacity=.15">
+          <span class="soon">Video coming soon</span>
+          <div class="play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+          <div class="cap"><b>Dr. Debojyoti Dhar</b>Co-founder &amp; Director, R&amp;D</div>
+        </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- CONFERENCE -->
-<section class="paper" id="conference">
-  <div class="wrap conf">
-    <div class="rv">
-      <span class="live-band" style="border-color:#c9cec6;color:#2b8a72">World of Microbiome™ · 3rd edition</span>
-      <h2>We convene the field.</h2>
-      <p class="lede" style="margin-top:14px">Our flagship conference brings the microbiome community together, researchers, clinicians and industry, with speakers from IIT Roorkee, Unilever and beyond.</p>
-      <div class="stats">
-        <div><div class="v" style="color:#0B0F10"><span class="num" data-count="100">0</span>+</div><div class="l" style="color:#5c6b64">Clinical partners</div></div>
-        <div><div class="v" style="color:#0B0F10"><span class="num" data-count="50">0</span>+</div><div class="l" style="color:#5c6b64">Industry partners</div></div>
-        <div><div class="v" style="color:#0B0F10"><span class="num" data-count="15">0</span>+</div><div class="l" style="color:#5c6b64">Countries</div></div>
+  <!-- accreditation -->
+  <section class="accred" id="accred">
+    <div class="wrap">
+      <div class="head rv"><p class="eyebrow">Accreditation</p><h2>Four independent accreditations, with the certificate numbers.</h2></div>
+      <div class="arack rv">
+        <div class="acard">
+          <img class="badge" src="assets/nabl.png" alt="NABL" onerror="this.style.display='none'">
+          <div class="std">NABL</div>
+          <div class="body">ISO 15189:2022, medical testing laboratory.</div>
+          <div class="meta">Certificate <b>MC-7516</b></div>
+        </div>
+        <div class="acard">
+          <img class="badge" src="assets/nabh.png" alt="NABH" onerror="this.style.display='none'">
+          <div class="std">NABH</div>
+          <div class="body">Medical laboratory, microbiology.</div>
+          <div class="meta">Certificate <b>MLP-2024-0246</b></div>
+        </div>
+        <div class="acard">
+          <div class="std" style="margin-top:6px">ISO 9001:2015</div>
+          <div class="body">Quality management system.</div>
+          <div class="meta">Certificate <b>305022012143Q</b></div>
+        </div>
+        <div class="acard">
+          <div class="std" style="margin-top:6px">ISO/IEC 17025:2017</div>
+          <div class="body">Testing and calibration laboratories.</div>
+          <div class="meta">Certificate <b>IEC-LR-2024-0949</b></div>
+        </div>
       </div>
-      <p class="mono" style="font-size:.82rem;color:#4a524e">21 August 2026 · Bengaluru</p>
-      <div style="margin-top:20px"><a class="btn btn-ghost" href="https://womicrobiome.com" target="_blank" rel="noopener">Visit womicrobiome.com →</a></div>
+      <p class="acred-note rv">First laboratory in India's microbiome space to hold <b>NABL</b> accreditation. Copies of certificates are available on request.</p>
     </div>
-    <div class="imgwrap rv">
-      <img src="https://sushmakannapiran.github.io/bugspeaks-research-preview/assets/wom.jpg" alt="World of Microbiome conference, Bengaluru">
-      <div class="cap">World of Microbiome™ · Bengaluru</div>
-    </div>
-  </div>
-</section>
+  </section>
 
-<!-- TEAM (order: Kumar, Deb, Prabhath, Gopal) -->
-<section id="team">
-  <div class="wrap">
-    <div class="head rv"><p class="eyebrow">The team</p><h2>The scientists behind your study.</h2></div>
-    <figure class="teamphoto rv"><img src="https://www.bugspeaks.com/static/images/about-us/team.jpg" alt="The Leucine Rich Bio team" loading="lazy" onerror="this.style.display='none'"><figcaption>The Leucine Rich Bio team, celebrating ten years at World of Microbiome.</figcaption></figure>
-    <div class="team rv">
-      <div class="person"><div class="ph"><span class="led"></span><img src="https://sushmakannapiran.github.io/bugspeaks-research-preview/assets/kumar.png" alt="Kumar Sankaran" onerror="this.style.display='none'"></div><div class="b"><div class="nm">Kumar Sankaran</div><div class="rl">Founder &amp; CEO</div><div class="bio">Leads BugSpeaks' mission to make species-level microbiome science accessible and defensible.</div><a class="li" href="https://www.linkedin.com/in/kumarsank/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M4.98 3.5A2.5 2.5 0 0 0 2.5 6a2.5 2.5 0 0 0 2.48 2.5A2.5 2.5 0 0 0 7.5 6 2.5 2.5 0 0 0 4.98 3.5zM3 8.98h4V21H3zM9 8.98h3.8v1.64h.05c.53-.95 1.83-1.95 3.77-1.95 4.03 0 4.78 2.5 4.78 5.75V21h-4v-5.3c0-1.26-.02-2.9-1.77-2.9-1.77 0-2.04 1.38-2.04 2.8V21H9z"/></svg>LinkedIn</a></div></div>
-      <div class="person"><div class="ph"><span class="led"></span><img src="https://sushmakannapiran.github.io/bugspeaks-research-preview/assets/deb.png" alt="Dr. Debojyoti Dhar" onerror="this.style.display='none'"></div><div class="b"><div class="nm">Dr. Debojyoti Dhar</div><div class="rl">Co-founder · Director, R&amp;D</div><div class="bio">PhD, IISc; postdoctoral research, UMass. Drives the research and publication programme.</div><a class="li" href="https://www.linkedin.com/in/drdebojyotidhar/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M4.98 3.5A2.5 2.5 0 0 0 2.5 6a2.5 2.5 0 0 0 2.48 2.5A2.5 2.5 0 0 0 7.5 6 2.5 2.5 0 0 0 4.98 3.5zM3 8.98h4V21H3zM9 8.98h3.8v1.64h.05c.53-.95 1.83-1.95 3.77-1.95 4.03 0 4.78 2.5 4.78 5.75V21h-4v-5.3c0-1.26-.02-2.9-1.77-2.9-1.77 0-2.04 1.38-2.04 2.8V21H9z"/></svg>LinkedIn</a></div></div>
-      <div class="person"><div class="ph"><span class="led"></span><img src="https://sushmakannapiran.github.io/bugspeaks-research-preview/assets/prabhath.png" alt="Prabhath M. Kamath" onerror="this.style.display='none'"></div><div class="b"><div class="nm">Prabhath M. Kamath</div><div class="rl">Co-founder · Chief Product Officer</div><div class="bio">Leads product, turning metagenomic analysis into reports researchers can actually use.</div><a class="li" href="https://www.linkedin.com/in/prabhath-healthcare/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M4.98 3.5A2.5 2.5 0 0 0 2.5 6a2.5 2.5 0 0 0 2.48 2.5A2.5 2.5 0 0 0 7.5 6 2.5 2.5 0 0 0 4.98 3.5zM3 8.98h4V21H3zM9 8.98h3.8v1.64h.05c.53-.95 1.83-1.95 3.77-1.95 4.03 0 4.78 2.5 4.78 5.75V21h-4v-5.3c0-1.26-.02-2.9-1.77-2.9-1.77 0-2.04 1.38-2.04 2.8V21H9z"/></svg>LinkedIn</a></div></div>
-      <div class="person"><div class="ph"><span class="led"></span><img src="https://sushmakannapiran.github.io/bugspeaks-research-preview/assets/gopal.jpg" alt="Dr. Gopalakrishna Kallapura" onerror="this.style.display='none'"></div><div class="b"><div class="nm">Dr. Gopalakrishna Kallapura</div><div class="rl">Scientific Lead</div><div class="bio">PhD, University of Arkansas. Leads the microbiome research domain and clinical studies.</div><a class="li" href="https://www.linkedin.com/in/gopala-kallapura/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M4.98 3.5A2.5 2.5 0 0 0 2.5 6a2.5 2.5 0 0 0 2.48 2.5A2.5 2.5 0 0 0 7.5 6 2.5 2.5 0 0 0 4.98 3.5zM3 8.98h4V21H3zM9 8.98h3.8v1.64h.05c.53-.95 1.83-1.95 3.77-1.95 4.03 0 4.78 2.5 4.78 5.75V21h-4v-5.3c0-1.26-.02-2.9-1.77-2.9-1.77 0-2.04 1.38-2.04 2.8V21H9z"/></svg>LinkedIn</a></div></div>
-    </div>
-  </div>
-</section>
-
-<!-- LAB -->
-<section id="lab">
-  <div class="wrap">
-    <div class="head rv"><p class="eyebrow">Inside the lab</p><h2>Run in-house, end to end.</h2><p class="lede">No outsourcing, sequencing, extraction and QC happen under one accredited roof.</p></div>
-    <div class="labgrid rv">
-      <div class="labc"><span class="lk">Sequencing</span><h3>Long-read shotgun metagenomics</h3><p>Resolved to species level, run in-house.</p></div>
-      <div class="labc"><span class="lk">Extraction</span><h3>Automated DNA extraction</h3><p>Consistent, high-yield DNA from stool, skin, oral, soil and animal samples.</p></div>
-      <div class="labc"><span class="lk">Quality control</span><h3>Fluorometric &amp; spectrophotometric QC</h3><p>Every elute is checked for yield and purity before sequencing.</p></div>
-      <div class="labc"><span class="lk">Analysis</span><h3>In-house pipeline · ~250k genomes</h3><p>Taxonomic classification and the full analysis suite, run in-house.</p></div>
-    </div>
-  </div>
-</section>
-
-<!-- PRIVACY -->
-<section id="privacy">
-  <div class="wrap">
-    <div class="head rv"><p class="eyebrow">Confidentiality</p><h2>Your data, your IP.</h2></div>
-    <div class="privacy rv">
-      <h3>How we handle your samples and data</h3>
-      <p>Your samples, sequences and results remain yours. We work under NDA, in line with India's DPDP Act and GDPR, with confidentiality and chain of custody maintained end to end. Nothing is repurposed, the study is yours.</p>
-    </div>
-  </div>
-</section>
-
-<!-- FAQ -->
-<section class="paper" id="faq">
-  <div class="wrap">
-    <div class="head c rv"><p class="eyebrow">Frequently asked</p><h2 style="color:#0B0F10">The questions researchers ask first.</h2></div>
-    <div class="faq rv" style="border-color:#d3d8d0">
-      <details style="border-color:#d3d8d0"><summary style="color:#0B0F10">Why long-read shotgun instead of 16S?</summary><p style="color:#4a524e">16S stops at genus and can't resolve function; our long-read shotgun metagenomics reaches species level and gives you functional pathways and the resistome.</p></details>
-      <details style="border-color:#d3d8d0"><summary style="color:#0B0F10">Why run the full six-method differential suite?</summary><p style="color:#4a524e">Because a single method is a reviewer's easiest objection. We deliver all six methods' complete results and flag what's robust across them, and you set the thresholds.</p></details>
-      <details style="border-color:#d3d8d0"><summary style="color:#0B0F10">How long does a study take?</summary><p style="color:#4a524e">Typically 2 to 3 weeks from sample receipt to delivered figures and tables. Cohorts are sequenced together at study end to reduce batch effects.</p></details>
-      <details style="border-color:#d3d8d0"><summary style="color:#0B0F10">How do samples ship, do they need cold chain?</summary><p style="color:#4a524e">No. Our barcoded kits stabilise samples at room temperature for up to 15 days, so batches ship together at ambient temperature.</p></details>
-      <details style="border-color:#d3d8d0"><summary style="color:#0B0F10">Who owns the data and results?</summary><p style="color:#4a524e">You do. DPDP- and GDPR-aligned; your samples, sequences and IP are never repurposed.</p></details>
-      <details style="border-color:#d3d8d0"><summary style="color:#0B0F10">Are you accredited?</summary><p style="color:#4a524e">NABL (ISO 15189:2022), ISO/IEC 17025:2017 and NABH, the only microbiome company in Asia accredited across these standards. Certificate numbers on request.</p></details>
-    </div>
-  </div>
-</section>
-
-<!-- CONTACT -->
-<section class="contact" id="contact">
-  <div class="wrap cgrid">
-    <div class="rv">
-      <p class="eyebrow">Start a study</p>
-      <h2>Tell us about your study.</h2>
-      <p class="lede" style="margin-top:12px">Two or three sentences is enough to start. We'll come back with a scoping call and a fixed quote.</p>
-      <div class="direct">
-        <span><b>Email</b>&nbsp; info@leucinerichbio.com</span>
-        <span><b>Phone</b>&nbsp; +91 97390 99468</span>
-        <span><b>Lab</b>&nbsp; No. 33, 2nd Floor, HSG Anush, JP Nagar 4th Phase, Bengaluru 560078</span>
+  <!-- 5 vertical stages -->
+  <section id="stages">
+    <div class="wrap">
+      <div class="head rv"><p class="eyebrow">How a study runs with us</p><h2>One accredited lab, from the sample to publication.</h2><p class="lede">You keep the study design. We handle each stage in-house and stay involved through to your paper. The advantage at every stage is that one team is accountable for all of it.</p></div>
+      <div class="stages rv">
+        <div class="stage">
+          <div class="sn">01</div>
+          <div class="st">Onboarding and samples</div>
+          <div>
+            <div class="sd">You send samples, or we help you collect them with room-temperature kits, so there is no cold chain to manage. You do not have to generate any data yourself.</div>
+            <div class="adv">Key point: <b>every sample is tracked on a dashboard</b>, so you can see where each one is.</div>
+          </div>
+        </div>
+        <div class="stage">
+          <div class="sn">02</div>
+          <div class="st">Extraction and sequencing</div>
+          <div>
+            <div class="sd">DNA extraction and long-read shotgun sequencing, run in-house. Reads are classified against an in-house reference of about 250,000 genomes.</div>
+            <div class="adv">Key point: <b>species-level resolution</b>, and strain level where the data allows.</div>
+          </div>
+        </div>
+        <div class="stage">
+          <div class="sn">03</div>
+          <div class="st">Analysis</div>
+          <div>
+            <div class="sd">Five to six kinds of analysis on every study: composition, alpha and beta diversity, core microbiome, differential abundance across several methods, and function.</div>
+            <div class="adv">Key point: <b>the full analysis suite</b>, not a single test, so findings hold up to review.</div>
+          </div>
+        </div>
+        <div class="stage">
+          <div class="sn">04</div>
+          <div class="st">Interpretation</div>
+          <div>
+            <div class="sd">We read the results against your question and write up what they mean. You do not receive a folder of files to work through on your own.</div>
+            <div class="adv">Key point: <b>results are interpreted</b>, not just delivered.</div>
+          </div>
+        </div>
+        <div class="stage">
+          <div class="sn">05</div>
+          <div class="st">Publication</div>
+          <div>
+            <div class="sd">We stay on through analysis revisions, figures and reviewer questions, up to publication.</div>
+            <div class="adv">Key point: <b>support continues</b> after the report is delivered.</div>
+          </div>
+        </div>
       </div>
     </div>
-    <form onsubmit="event.preventDefault();this.querySelector('.formnote').textContent='Demo form, connect to your CRM / Formspree before launch.'">
-      <div class="two">
-        <div class="fld"><label>Name</label><input type="text" required placeholder="Your name"></div>
-        <div class="fld"><label>Organisation</label><input type="text" required placeholder="Where you work"></div>
+  </section>
+
+  <!-- who we serve -->
+  <section class="paper" id="serve">
+    <div class="wrap">
+      <div class="head rv" style="margin-bottom:0"><p class="eyebrow">Who we work with</p><h2>Any sample with a microbial community.</h2><p class="lede" style="margin-top:4px">Everything from human to animal to environmental. If a sample carries a microbiome, we can sequence and analyse it.</p></div>
+      <div class="sampletags rv">
+        <span>Gut / stool</span><span>Oral</span><span>Skin</span><span>Urogenital</span><span>Rumen</span><span>Soil / rhizosphere</span><span>Water</span><span>Poultry / animal</span>
       </div>
-      <div class="fld"><label>Work email</label><input type="email" required placeholder="you@org.com"></div>
-      <div class="fld"><label>Study type</label><select required>
-        <option value="">Select…</option><option>Nutraceutical / probiotic</option><option>Academic / clinical research</option><option>Pharma / biotech</option><option>Agri / vet / environmental</option><option>Other</option>
-      </select></div>
-      <div class="fld"><label>Tell us about your study</label><textarea rows="3" placeholder="Sample type, approx. count, timeline"></textarea></div>
-      <button class="btn btn-primary" type="submit" style="justify-content:center">Book a scoping call</button>
-      <p class="formnote">We reply within two business days. Your details stay confidential.</p>
-    </form>
-  </div>
-</section>
+    </div>
+  </section>
+
+  <!-- partners -->
+  <section id="partners">
+    <div class="wrap" style="margin-bottom:24px">
+      <div class="projstat rv"><span class="b"><span class="num" data-count="40">0</span>+ research projects</span><span class="l">across academia, hospitals and industry, since 2014</span></div>
+      <p class="eyebrow rv">Groups we have run studies with</p>
+    </div>
+    <div class="marquee"><div class="row" id="logorow"></div></div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="ctaband rv">
+        <div>
+          <h3>Tell us about your study.</h3>
+          <p>Two or three sentences is enough to start. We reply within two business days.</p>
+        </div>
+        <a class="btn btn-primary" href="#contact">Book a scoping call</a>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ============ ANALYSIS ============ -->
+<div class="tabpanel" id="tab-analysis" hidden>
+  <section>
+    <div class="wrap">
+      <div class="head rv"><p class="eyebrow">Why the method matters</p><h2>Three things that decide whether microbiome findings hold up.</h2></div>
+      <div class="prob rv">
+        <div class="c"><div class="n">01</div><h3>Sequencing resolution</h3><p>16S amplicon sequencing resolves communities to genus. Species identification and function need shotgun metagenomics.</p></div>
+        <div class="c"><div class="n">02</div><h3>Statistical method</h3><p>Differential-abundance methods often disagree. A taxon significant under one method may not hold under another, so we run several and report each.</p></div>
+        <div class="c"><div class="n">03</div><h3>One accountable lab</h3><p>When sequencing, analysis and figures are split across vendors, no single party is responsible and sources of variation are harder to control.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="paper" id="analysis">
+    <div class="wrap">
+      <div class="head rv"><p class="eyebrow">The analysis</p><h2 style="color:#0B0F10">Every part of the report, with a figure for each.</h2><p class="lede">The figures below are representative outputs from a BugSpeaks report, not any client's data.</p></div>
+      <div class="modrows rv">
+
+        <div class="modrow">
+          <div class="fig"><img src="assets/plots/composition-stackedbar.png" alt="Taxonomic composition stacked bar"></div>
+          <div class="txt"><span class="k">01 · Composition</span><h3>Taxonomic composition</h3><p>Relative abundance from phylum down to species, per sample and per group.</p><div class="stat">Family-level relative abundance · <b>representative output</b></div></div>
+        </div>
+
+        <div class="modrow rev">
+          <div class="fig"><img src="assets/plots/alpha-diversity-shannon.png" alt="Shannon alpha diversity"></div>
+          <div class="txt"><span class="k">02 · Alpha diversity</span><h3>Within-sample diversity</h3><p>Diversity indices compared between groups, with significance testing.</p><div class="stat">Shannon · Mann-Whitney <b>p = 0.0118</b> · representative</div></div>
+        </div>
+
+        <div class="modrow">
+          <div class="fig"><img src="assets/plots/beta-diversity-pcoa.png" alt="Beta diversity PCoA"></div>
+          <div class="txt"><span class="k">03 · Beta diversity</span><h3>Between-group structure</h3><p>Ordination of community composition, tested for group separation.</p><div class="stat">PCoA · tested by PERMANOVA and ANOSIM · <b>representative output</b></div></div>
+        </div>
+
+        <div class="modrow rev">
+          <div class="fig"><img src="assets/plots/core-microbiome-heatmap.png" alt="Core microbiome heatmap"></div>
+          <div class="txt"><span class="k">04 · Core microbiome</span><h3>Prevalence-based core</h3><p>Which taxa are consistently present across your cohort, by detection threshold.</p><div class="stat">Prevalence across thresholds · <b>representative output</b></div></div>
+        </div>
+
+        <div class="modrow">
+          <div class="fig"><img src="assets/plots/differential-heatmap.png" alt="Clustered species heatmap"></div>
+          <div class="txt"><span class="k">05 · Differential abundance</span><h3>What differs between groups</h3><p>Species that separate your groups, tested across several established methods so results are not tied to one.</p><div class="stat">Clustered species heatmap · <b>representative output</b></div></div>
+        </div>
+
+        <div class="modrow rev">
+          <div class="fig"><img src="assets/plots/volcano-plot.png" alt="Volcano plot"></div>
+          <div class="txt"><span class="k">06 · Effect size</span><h3>How much moved, and how strongly</h3><p>Effect size against significance, so large and reliable changes are easy to read off.</p><div class="stat">Volcano, log2 fold-change vs significance · <b>representative</b></div></div>
+        </div>
+
+      </div>
+      <div class="alsoinc rv"><span class="lbl">Also included:</span><span>Functional pathways (KEGG)</span><span>Antimicrobial resistance</span><span>Correlation and co-occurrence networks</span></div>
+      <p class="repnote rv">Every method's full result table is delivered alongside the figures. Nothing is summarised away.</p>
+    </div>
+  </section>
+</div>
+
+<!-- ============ HOW WE WORK ============ -->
+<div class="tabpanel" id="tab-process" hidden>
+  <section>
+    <div class="wrap">
+      <div class="head rv"><p class="eyebrow">Start where you are</p><h2>You can join the pipeline at any stage.</h2><p class="lede">You do not have to start from the sample. Whatever you already have, we pick up from there.</p></div>
+      <div class="entry rv">
+        <div class="e"><div class="en">Entry A</div><h4>Samples</h4><p>You have samples. We handle everything from extraction onward.</p></div>
+        <div class="e"><div class="en">Entry B</div><h4>Extracted DNA</h4><p>You have DNA. We start at sequencing.</p></div>
+        <div class="e"><div class="en">Entry C</div><h4>Sequence data</h4><p>You have raw reads. We start at analysis.</p></div>
+        <div class="e"><div class="en">Entry D</div><h4>Analysis output</h4><p>You have results. We start at interpretation.</p></div>
+        <div class="e"><div class="en">Entry E</div><h4>Full study</h4><p>Sample to publication, all of it with us.</p></div>
+      </div>
+      <p class="entry-note rv">Not sure where you fit? <b>Tell us what you have at the scoping call</b> and we will map it out.</p>
+    </div>
+  </section>
+
+  <section class="paper" id="lab">
+    <div class="wrap">
+      <div class="head rv"><p class="eyebrow">Inside the lab</p><h2 style="color:#0B0F10">Run in-house, end to end.</h2><p class="lede">Sequencing, extraction and QC happen under one accredited roof, so there is no handoff between vendors.</p></div>
+      <div class="labgrid rv">
+        <div class="labc"><span class="lk">Sequencing</span><h3>Long-read shotgun metagenomics</h3><p>Whole-metagenome long-read sequencing, resolved to species level.</p></div>
+        <div class="labc"><span class="lk">DNA extraction</span><h3>Automated magnetic-bead extraction</h3><p>Genomic DNA extracted from stool and other sample types on an automated magnetic-bead platform.</p></div>
+        <div class="labc"><span class="lk">Quantification &amp; QC</span><h3>Fluorometric and spectrophotometric QC</h3><p>DNA is quantified on a Qubit fluorometer and checked for purity on a NanoDrop spectrophotometer; reads are then quality-filtered and host sequences removed.</p></div>
+        <div class="labc"><span class="lk">Analysis</span><h3>In-house MetaRich pipeline</h3><p>Host-read removal against the human genome, then Kraken2 classification against a curated NCBI RefSeq reference.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="privacy">
+    <div class="wrap">
+      <div class="head rv"><p class="eyebrow">Data and confidentiality</p><h2>Your samples, data and IP stay yours.</h2></div>
+      <div class="privacy rv">
+        <p>Your samples, sequence data and results remain your property. We work under an NDA, and the terms of handling, data retention and deletion are set out in the MOU signed before any samples move.</p>
+        <p>Handling is aligned with India's DPDP Act and with GDPR. Access is restricted, chain of custody is kept end to end, and nothing is reused for any other purpose. Retention and deletion can be defined to your requirement and discussed at the scoping call.</p>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ============ PUBLICATIONS ============ -->
+<div class="tabpanel" id="tab-pubs" hidden>
+  <section class="paper" id="pubs">
+    <div class="wrap">
+      <div class="head rv"><p class="eyebrow">Publications</p><h2 style="color:#0B0F10">Peer-reviewed, on the record.</h2><p class="lede">Work led by our team, and studies run with partners including Tata Memorial and MDRF. Every paper links out.</p></div>
+      <div class="rv">
+        <div class="pubgroup lead">
+          <h4>Led by our team</h4>
+          <a class="pub" href="https://peerj.com/articles/17583/" target="_blank" rel="noopener"><span class="idx">[01]</span><span class="ti">Microbiota-based personalized nutrition improves hyperglycaemia and hypertension parameters and reduces inflammation, a randomized controlled proof-of-concept study<span class="j">PeerJ</span></span><span class="yr">2024</span><span class="go">&#8599;</span></a>
+          <a class="pub" href="https://doi.org/10.3389/fnins.2021.831193" target="_blank" rel="noopener"><span class="idx">[02]</span><span class="ti">Impending mental-health issues during COVID-19, a case for personalized nutrition based on the gut microbiota<span class="j">Frontiers in Neuroscience</span></span><span class="yr">2022</span><span class="go">&#8599;</span></a>
+          <a class="pub" href="https://doi.org/10.1016/j.virusres.2020.198018" target="_blank" rel="noopener"><span class="idx">[03]</span><span class="ti">Gut microbiota and COVID-19, possible link and implications<span class="j">Virus Research</span></span><span class="yr">2020</span><span class="go">&#8599;</span></a>
+        </div>
+        <div class="pubgroup">
+          <h4>With partner institutions</h4>
+          <a class="pub" href="https://ascopubs.org/doi/10.1200/OA-25-00194" target="_blank" rel="noopener"><span class="idx">[04]</span><span class="ti">Translational implications of microbiome testing methodologies in lung cancer <span class="col">· with Tata Memorial Hospital</span><span class="j">JCO Oncology Advances</span></span><span class="yr">2026</span><span class="go">&#8599;</span></a>
+          <a class="pub" href="https://www.frontiersin.org/journals/epigenetics-and-epigenomics/articles/10.3389/freae.2026.1857307/full" target="_blank" rel="noopener"><span class="idx">[05]</span><span class="ti">The microbiome and its impact on the epigenome in cancer <span class="col">· with Tata Memorial Hospital</span><span class="j">Frontiers in Epigenetics &amp; Epigenomics</span></span><span class="yr">2026</span><span class="go">&#8599;</span></a>
+          <a class="pub" href="https://doi.org/10.4236/fns.2025.168056" target="_blank" rel="noopener"><span class="idx">[06]</span><span class="ti">Efficacy of a diabetes-specific nutrition supplement on CGM outcomes in adults with type 2 diabetes <span class="col">· with MDRF</span><span class="j">Food and Nutrition Sciences</span></span><span class="yr">2025</span><span class="go">&#8599;</span></a>
+          <a class="pub" href="https://link.springer.com/article/10.1007/s42452-024-05815-3" target="_blank" rel="noopener"><span class="idx">[07]</span><span class="ti">Metabolomics and gut metagenomics of healthy adults on whey protein with an enzymes-probiotics blend <span class="col">· with Advanced Enzymes</span><span class="j">Discover Applied Sciences</span></span><span class="yr">2024</span><span class="go">&#8599;</span></a>
+          <a class="pub" href="https://www.frontiersin.org/journals/nutrition/articles/10.3389/fnut.2024.1307734/full" target="_blank" rel="noopener"><span class="idx">[08]</span><span class="ti">Study of amino-acid absorption and gut microbiome on pea protein with an enzymes-probiotics supplement <span class="col">· with Advanced Enzymes</span><span class="j">Frontiers in Nutrition</span></span><span class="yr">2024</span><span class="go">&#8599;</span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="recognition">
+    <div class="wrap">
+      <div class="head rv"><p class="eyebrow">Recognition and press</p><h2>Awards, and national coverage.</h2></div>
+      <div class="rec-grid rv">
+        <div class="awards">
+          <div class="award"><span class="yr">2021</span><span class="t">National Startup Award, Health &amp; Wellness (Startup India)</span></div>
+          <div class="award"><span class="yr">2022</span><span class="t">Great Companies Global Business Award</span></div>
+          <div class="award"><span class="yr">2024</span><span class="t">First microbiome lab in India to earn NABL accreditation</span></div>
+          <div class="award"><span class="yr">2014</span><span class="t">First microbiome company in South Asia</span></div>
+        </div>
+        <div>
+          <p class="presslabel">Selected coverage</p>
+          <div class="presslist">
+            <a href="https://yourstory.com/2026/02/leucine-rich-bio-microbiome-science-to-personalise-preventive-healthcare" target="_blank" rel="noopener"><span class="po">YourStory</span> Using microbiome science to personalise preventive healthcare <span class="pg">&#8599;</span></a>
+            <a href="https://thebetterindia.com/275359/bugspeak-microbiome-startup-test-kit-gut-health-diabetes-health-check-bengaluru/" target="_blank" rel="noopener"><span class="po">The Better India</span> A kit that listens to your gut for diabetes and BP risk <span class="pg">&#8599;</span></a>
+            <a href="https://www.siliconindia.com/news/leucine-rich-bio-launches-enhanced-bugspeaks-2026-report-nwid-53215.html" target="_blank" rel="noopener"><span class="po">SiliconIndia</span> The enhanced BugSpeaks 2026 report <span class="pg">&#8599;</span></a>
+          </div>
+          <a class="btn btn-ghost" href="https://www.bugspeaks.com/blog/" target="_blank" rel="noopener" style="margin-top:18px">Read the blog</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="paper" id="conference">
+    <div class="wrap conf">
+      <div class="rv">
+        <p class="eyebrow" style="color:#2b8a72">World of Microbiome · 3rd edition</p>
+        <h2 style="color:#0B0F10;margin-top:12px">We host the field's conference.</h2>
+        <p class="lede" style="margin-top:14px">Our conference brings the microbiome community together: researchers, clinicians and industry, with speakers from India and abroad.</p>
+        <div class="stats">
+          <div><div class="v" style="color:#0B0F10"><span class="num" data-count="100">0</span>+</div><div class="l" style="color:#5c6b64">Clinical partners</div></div>
+          <div><div class="v" style="color:#0B0F10"><span class="num" data-count="50">0</span>+</div><div class="l" style="color:#5c6b64">Industry partners</div></div>
+          <div><div class="v" style="color:#0B0F10"><span class="num" data-count="15">0</span>+</div><div class="l" style="color:#5c6b64">Countries</div></div>
+        </div>
+        <p class="mono" style="font-size:.82rem;color:#4a524e">21 August 2026 · Bengaluru</p>
+        <div style="margin-top:20px"><a class="btn btn-ghost" href="https://womicrobiome.com" target="_blank" rel="noopener">Visit womicrobiome.com</a></div>
+      </div>
+      <div class="imgwrap rv">
+        <img src="assets/wom.jpg" alt="Kumar Sankaran addressing the World of Microbiome conference">
+        <div class="cap">World of Microbiome · Bengaluru</div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ============ TEAM ============ -->
+<div class="tabpanel" id="tab-team" hidden>
+  <section id="team">
+    <div class="wrap">
+      <div class="head rv"><p class="eyebrow">The team</p><h2>The scientists behind your study.</h2></div>
+      <div class="team rv">
+        <div class="person"><div class="ph"><img src="assets/kumar.png" alt="Kumar Sankaran" onerror="this.style.display='none'"></div><div class="b"><div class="nm">Kumar Sankaran</div><div class="rl">Founder &amp; CEO</div><div class="bio">Leads the company and its work to make species-level microbiome science usable for research and clinical studies.</div><a class="li" href="https://www.linkedin.com/in/kumarsank/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M4.98 3.5A2.5 2.5 0 0 0 2.5 6a2.5 2.5 0 0 0 2.48 2.5A2.5 2.5 0 0 0 7.5 6 2.5 2.5 0 0 0 4.98 3.5zM3 8.98h4V21H3zM9 8.98h3.8v1.64h.05c.53-.95 1.83-1.95 3.77-1.95 4.03 0 4.78 2.5 4.78 5.75V21h-4v-5.3c0-1.26-.02-2.9-1.77-2.9-1.77 0-2.04 1.38-2.04 2.8V21H9z"/></svg>LinkedIn</a></div></div>
+        <div class="person"><div class="ph"><img src="assets/deb.png" alt="Dr. Debojyoti Dhar" onerror="this.style.display='none'"></div><div class="b"><div class="nm">Dr. Debojyoti Dhar</div><div class="rl">Co-founder · Director, R&amp;D</div><div class="bio">PhD, IISc; postdoctoral research, UMass. Leads the research and publication programme.</div><a class="li" href="https://www.linkedin.com/in/drdebojyotidhar/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M4.98 3.5A2.5 2.5 0 0 0 2.5 6a2.5 2.5 0 0 0 2.48 2.5A2.5 2.5 0 0 0 7.5 6 2.5 2.5 0 0 0 4.98 3.5zM3 8.98h4V21H3zM9 8.98h3.8v1.64h.05c.53-.95 1.83-1.95 3.77-1.95 4.03 0 4.78 2.5 4.78 5.75V21h-4v-5.3c0-1.26-.02-2.9-1.77-2.9-1.77 0-2.04 1.38-2.04 2.8V21H9z"/></svg>LinkedIn</a></div></div>
+        <div class="person"><div class="ph"><img src="assets/prabhath.png" alt="Prabhath M. Kamath" onerror="this.style.display='none'"></div><div class="b"><div class="nm">Prabhath M. Kamath</div><div class="rl">Co-founder · Chief Product Officer</div><div class="bio">Leads product, turning metagenomic analysis into reports researchers can use.</div><a class="li" href="https://www.linkedin.com/in/prabhath-healthcare/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M4.98 3.5A2.5 2.5 0 0 0 2.5 6a2.5 2.5 0 0 0 2.48 2.5A2.5 2.5 0 0 0 7.5 6 2.5 2.5 0 0 0 4.98 3.5zM3 8.98h4V21H3zM9 8.98h3.8v1.64h.05c.53-.95 1.83-1.95 3.77-1.95 4.03 0 4.78 2.5 4.78 5.75V21h-4v-5.3c0-1.26-.02-2.9-1.77-2.9-1.77 0-2.04 1.38-2.04 2.8V21H9z"/></svg>LinkedIn</a></div></div>
+        <div class="person"><div class="ph"><img src="assets/gopal.jpg" alt="Dr. Gopalakrishna Kallapura" onerror="this.style.display='none'"></div><div class="b"><div class="nm">Dr. Gopalakrishna Kallapura</div><div class="rl">Chief Scientific Officer</div><div class="bio">PhD, University of Arkansas. Leads the microbiome research domain and clinical studies.</div><a class="li" href="https://www.linkedin.com/in/gopala-kallapura/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M4.98 3.5A2.5 2.5 0 0 0 2.5 6a2.5 2.5 0 0 0 2.48 2.5A2.5 2.5 0 0 0 7.5 6 2.5 2.5 0 0 0 4.98 3.5zM3 8.98h4V21H3zM9 8.98h3.8v1.64h.05c.53-.95 1.83-1.95 3.77-1.95 4.03 0 4.78 2.5 4.78 5.75V21h-4v-5.3c0-1.26-.02-2.9-1.77-2.9-1.77 0-2.04 1.38-2.04 2.8V21H9z"/></svg>LinkedIn</a></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="paper" id="faq">
+    <div class="wrap">
+      <div class="head rv"><p class="eyebrow">Frequently asked</p><h2 style="color:#0B0F10">The questions researchers ask first.</h2></div>
+      <div class="faq rv" style="border-color:#d3d8d0">
+        <details style="border-color:#d3d8d0"><summary style="color:#0B0F10">Can you analyse data we have already sequenced?</summary><p style="color:#4a524e">Yes. You can start at any stage. Send raw reads and we run the full analysis and interpretation. If you already have samples or extracted DNA, we pick up from there instead.</p></details>
+        <details style="border-color:#d3d8d0"><summary style="color:#0B0F10">Do we have to start from the sample?</summary><p style="color:#4a524e">No. You can join at samples, extracted DNA, sequence data or analysis output. We continue from whatever you already have.</p></details>
+        <details style="border-color:#d3d8d0"><summary style="color:#0B0F10">Why long-read shotgun instead of 16S?</summary><p style="color:#4a524e">16S stops at genus and does not resolve function. Long-read shotgun metagenomics reaches species level and gives functional pathways and the resistome.</p></details>
+        <details style="border-color:#d3d8d0"><summary style="color:#0B0F10">How long does a study take?</summary><p style="color:#4a524e">Usually 2 to 3 weeks from receipt of the last sample, depending on sample count and the analyses requested. Cohorts are sequenced together to reduce batch effects.</p></details>
+        <details style="border-color:#d3d8d0"><summary style="color:#0B0F10">How do samples ship, do they need cold chain?</summary><p style="color:#4a524e">No. Samples are collected into a nucleic-acid preservative that keeps them stable at room temperature, so batches ship together without a cold chain.</p></details>
+        <details style="border-color:#d3d8d0"><summary style="color:#0B0F10">Who owns the data and results?</summary><p style="color:#4a524e">You do. Handling is aligned with the DPDP Act and GDPR, under an NDA and MOU. Your samples, sequences and IP are never reused.</p></details>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ============ CONTACT ============ -->
+<div class="tabpanel" id="tab-contact" hidden>
+  <section class="contact" id="contact">
+    <div class="wrap cgrid">
+      <div class="rv">
+        <p class="eyebrow">Start a study</p>
+        <h2>Tell us about your study.</h2>
+        <p class="lede" style="margin-top:12px">Two or three sentences is enough to start. We come back with a scoping call and a fixed quote.</p>
+        <div class="direct">
+          <span><b>Email</b>&nbsp; info@leucinerichbio.com</span>
+          <span><b>Phone</b>&nbsp; +91 97390 99468</span>
+          <span><b>Lab</b>&nbsp; No. 33, 2nd Floor, HSG Anush, JP Nagar 4th Phase, Bengaluru 560078</span>
+          <span><b>Read</b>&nbsp; <a href="https://www.bugspeaks.com/blog/" target="_blank" rel="noopener">research notes and talks on the blog</a></span>
+        </div>
+      </div>
+      <form onsubmit="event.preventDefault();this.querySelector('.formnote').textContent='Demo form. Connect to your CRM or Formspree before launch.'">
+        <div class="two">
+          <div class="fld"><label>Name</label><input type="text" required placeholder="Your name"></div>
+          <div class="fld"><label>Organisation</label><input type="text" required placeholder="Where you work"></div>
+        </div>
+        <div class="fld"><label>Work email</label><input type="email" required placeholder="you@org.com"></div>
+        <div class="fld"><label>Study type</label><select required>
+          <option value="">Select</option><option>Academic / clinical research</option><option>Nutraceutical / probiotic</option><option>Pharma / biotech</option><option>Agri / vet / environmental</option><option>Other</option>
+        </select></div>
+        <div class="fld"><label>What do you already have?</label><select>
+          <option value="">Select</option><option>Samples</option><option>Extracted DNA</option><option>Sequence data</option><option>Analysis output</option><option>Nothing yet, planning the study</option>
+        </select></div>
+        <div class="fld"><label>Tell us about your study</label><textarea rows="3" placeholder="Sample type, approximate count, timeline"></textarea></div>
+        <button class="btn btn-primary" type="submit" style="justify-content:center">Book a scoping call</button>
+        <p class="formnote">We reply within two business days. Your details stay confidential.</p>
+      </form>
+    </div>
+  </section>
+</div>
+
+</main>
 
 <footer>
   <canvas class="fcanvas" id="fcanvas"></canvas>
   <div class="wrap">
     <div class="fgrid">
       <div class="fbrand">
-        <img src="https://www.bugspeaks.com/static/images/icons/logowhite.png" alt="BugSpeaks" onerror="this.replaceWith(Object.assign(document.createElement('b'),{textContent:'BugSpeaks®',style:'font-family:var(--display);font-weight:700;color:#fff;font-size:1.1rem;display:block;margin-bottom:10px'}))">
-        <p>Microbiome research services. South Asia's first microbiome company, est. 2014. A service of Leucine Rich Bio Pvt. Ltd.</p>
+        <img src="assets/logowhite.png" alt="BugSpeaks" onerror="this.replaceWith(Object.assign(document.createElement('b'),{textContent:'BugSpeaks Research',style:'font-family:var(--display);font-weight:700;color:#fff;font-size:1.05rem;display:block;margin-bottom:10px'}))">
+        <p>Microbiome research services from Leucine Rich Bio Pvt. Ltd. First microbiome company in South Asia, est. 2014.</p>
       </div>
-      <div><h4>Research</h4><a href="#method">The method</a><a href="#workflow">End-to-end studies</a><a href="#analysis">Analysis modules</a><a href="#accred">Accreditation</a></div>
-      <div><h4>Company</h4><a href="#team">Team</a><a href="#pubs">Publications</a><a href="https://www.bugspeaks.com/blog/" target="_blank" rel="noopener">Blog</a><a href="#conference">World of Microbiome</a><a href="#recognition">Press</a></div>
-      <div><h4>Connect</h4><a href="#contact">Book a scoping call</a><a href="mailto:info@leucinerichbio.com">info@leucinerichbio.com</a><a href="https://www.bugspeaks.com" target="_blank" rel="noopener">bugspeaks.com (consumer)</a><a href="https://www.leucinerichbio.com" target="_blank" rel="noopener">leucinerichbio.com</a></div>
+      <div><h4>Research</h4><a data-tab="analysis">Analysis</a><a data-tab="process">How we work</a><a data-tab="overview" data-to="accred">Accreditation</a><a data-tab="process" data-to="privacy">Data privacy</a></div>
+      <div><h4>Company</h4><a data-tab="team">Team</a><a data-tab="pubs">Publications</a><a data-tab="pubs" data-to="conference">World of Microbiome</a><a href="https://www.bugspeaks.com/blog/" target="_blank" rel="noopener">Blog</a></div>
+      <div><h4>Contact</h4><a data-tab="contact">Book a scoping call</a><a href="mailto:info@leucinerichbio.com">info@leucinerichbio.com</a><a href="https://www.leucinerichbio.com" target="_blank" rel="noopener">leucinerichbio.com</a></div>
     </div>
-    <div class="fbot"><span>© 2026 Leucine Rich Bio Pvt. Ltd. · JP Nagar 4th Phase, Bengaluru 560078</span><span>NABL (ISO 15189) · ISO/IEC 17025 · NABH</span></div>
+    <div class="fbot"><span>© 2026 Leucine Rich Bio Pvt. Ltd. · JP Nagar 4th Phase, Bengaluru 560078</span><span>NABL · NABH · ISO 9001 · ISO/IEC 17025</span></div>
   </div>
 </footer>
 
 <script>
 const RM = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-/* logo marquee (real logos where available, wordmark fallback, duplicated for seamless scroll) */
+/* ---------- TABS ---------- */
 (function(){
-  const clients=[
-    {n:'Ultrahuman',u:'https://cdn.prod.website-files.com/622a0bff6151d22d7cab707a/63cf008e0cd6a4cd1385ddb4_Logotype%20horizontal%20Dark.png'},
-    {n:'IIT Kanpur',u:'https://upload.wikimedia.org/wikipedia/en/a/a3/IIT_Kanpur_Logo.svg'},
-    {n:'Indus Biotech',u:'https://indusbiotech.com/wp-content/uploads/2024/04/indus-logo.png'},
-    {n:'Advanced Enzymes',u:'https://www.advancedenzymes.com/wp-content/uploads/2018/02/enzyme-logo.png'},
-    {n:'Madras Diabetes Research Foundation',u:'https://mdrf.in/wp-content/uploads/2026/02/mdrf-logo_new.png'},
-    {n:'JSS AHER, Mysuru',u:'https://jssaherstoragenew.blob.core.windows.net/jssuudstorage/sdimages/jssnewlogo.jpg'},
-    {n:'The Good Bug',u:'https://thegoodbug.com/cdn/shop/files/TGB_Logo_1_60191926-31a9-40fe-82fc-d57664b5c2f0.svg'},
-    {n:'St John’s Research Institute'},
-    {n:'Central Ayurveda Research Institute'},
-    {n:'NovoBliss'},
-    {n:'Optima Life Sciences'},
-    {n:'TN Medical College'}
+  const panels=[...document.querySelectorAll('.tabpanel')];
+  const btns=[...document.querySelectorAll('.tabbtn')];
+  function reveal(panel){panel.querySelectorAll('.rv').forEach(e=>e.classList.add('in'));
+    panel.querySelectorAll('[data-count]').forEach(runCounter);}
+  window.showTab=function(key,toId){
+    panels.forEach(p=>p.hidden=(p.id!=='tab-'+key));
+    btns.forEach(b=>b.classList.toggle('active',b.dataset.tab===key));
+    const panel=document.getElementById('tab-'+key); if(panel)reveal(panel);
+    if(toId){const t=document.getElementById(toId);if(t){requestAnimationFrame(()=>t.scrollIntoView({behavior:'smooth',block:'start'}));return;}}
+    window.scrollTo({top:0,behavior:'auto'});
+  };
+  btns.forEach(b=>b.addEventListener('click',()=>showTab(b.dataset.tab)));
+  // any element with data-tab (brand, footer links)
+  document.querySelectorAll('[data-tab]:not(.tabbtn)').forEach(el=>{
+    el.addEventListener('click',e=>{e.preventDefault();showTab(el.dataset.tab,el.dataset.to);});
+  });
+  // in-page anchor links (#contact etc.) route to the right tab
+  document.addEventListener('click',e=>{
+    const a=e.target.closest('a[href^="#"]'); if(!a)return;
+    const id=a.getAttribute('href').slice(1); if(!id||id==='top')return;
+    const target=document.getElementById(id); if(!target)return;
+    const panel=target.closest('.tabpanel'); if(!panel)return;
+    e.preventDefault(); showTab(panel.id.replace('tab-',''),id);
+  });
+})();
+
+/* ---------- counters ---------- */
+function runCounter(el){
+  if(el.dataset.done)return; el.dataset.done='1';
+  const t=+el.dataset.count, fmt=n=>n.toLocaleString('en-US');
+  if(RM){el.textContent=fmt(t);return;}
+  let s=null,d=1200;
+  (function step(ts){s=s||ts;const p=Math.min(1,(ts-s)/d);el.textContent=fmt(Math.floor((1-Math.pow(1-p,3))*t));if(p<1)requestAnimationFrame(step);else el.textContent=fmt(t);})(performance.now());
+}
+
+/* ---------- reveal ---------- */
+(function(){
+  const els=document.querySelectorAll('.rv');
+  if(RM){els.forEach(e=>e.classList.add('in'));return;}
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}}),{threshold:.1,rootMargin:'0px 0px -40px 0px'});
+  els.forEach(e=>io.observe(e));
+  setTimeout(()=>els.forEach(e=>e.classList.add('in')),2600);
+})();
+
+/* ---------- partner marquee (text wordmarks) ---------- */
+(function(){
+  // logo where we have a real file; clean text wordmark otherwise
+  const items=[
+    {n:'Advanced Enzymes',l:'assets/logos/cl_advenzymes.png'},
+    {n:'IIT Kanpur',l:'assets/logos/cl_iitk.png'},
+    {n:'Indus Biotech',l:'assets/logos/cl_indus.png'},
+    {n:'Madras Diabetes Research Foundation',l:'assets/logos/cl_mdrf.png'},
+    {n:'Ultrahuman',l:'assets/logos/cl_ultrahuman.png'},
+    {n:'Twin Health'},{n:'Triomics'},{n:'Optima Life Sciences'},{n:'The Good Bug'},{n:'NovoBliss'},{n:'Proclin Research'},{n:'Mprex Healthcare'},{n:'Butterfly Learnings'},{n:'SciGenomics'},{n:'MetaOmics Labs'},{n:'C-SIX Labs'},{n:'REVY Environmental'},{n:'Xome'},{n:'Agrivet'},{n:'Healing Hands'},{n:'IISc Bengaluru'},{n:'AIIMS'},{n:'Tata Memorial Hospital'},{n:'St John’s Research Institute'},{n:'Narayana Institute of Cardiac Sciences'},{n:'CFTRI Mysuru'},{n:'Central Ayurveda Research Institute'},{n:'JSS AHER, Mysuru'},{n:'TN Medical College'},{n:'Target Institute of Medical Education & Research'},{n:'String Bio / C-CAMP'},{n:'Human Microbiology Institute'}
   ];
-  const row=document.getElementById('logorow');
-  function build(){
-    clients.forEach(c=>{
-      const span=document.createElement('span');
-      if(c.u){const img=document.createElement('img');img.src=c.u;img.alt=c.n;img.loading='lazy';img.onerror=()=>{span.textContent=c.n;};span.appendChild(img);}
-      else span.textContent=c.n;
-      row.appendChild(span);
-    });
-  }
+  const row=document.getElementById('logorow'); if(!row)return;
+  function build(){items.forEach(it=>{const s=document.createElement('span');
+    if(it.l){const img=document.createElement('img');img.src=it.l;img.alt=it.n;img.loading='lazy';img.onerror=()=>{img.remove();s.textContent=it.n;};s.appendChild(img);}
+    else s.textContent=it.n;
+    row.appendChild(s);});}
   build();build();
 })();
 
-/* headline power-on resolve */
+/* ---------- headline resolve ---------- */
 (function(){
   if(RM)return; const el=document.getElementById('headline'); if(!el)return; const nodes=[];
   (function walk(n){n.childNodes.forEach(c=>{if(c.nodeType===3){const f=document.createDocumentFragment();c.textContent.split('').forEach(ch=>{const s=document.createElement('span');s.textContent=ch;if(ch.trim())s.dataset.f=ch;f.appendChild(s);nodes.push(s);});c.replaceWith(f);}else if(c.nodeType===1)walk(c);});})(el);
@@ -790,22 +814,7 @@ const RM = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   nodes.forEach((s,i)=>{if(!s.dataset.f)return;let n=0;const iv=setInterval(()=>{s.textContent=ch[Math.floor(Math.random()*ch.length)];if(n++>2+(i%4)){clearInterval(iv);s.textContent=s.dataset.f;}},45);});
 })();
 
-/* counters */
-(function(){
-  const fmt=n=>n.toLocaleString('en-US');
-  function run(el){const t=+el.dataset.count;if(RM){el.textContent=fmt(t);return;}let s=null;const d=1300;(function step(ts){s=s||ts;const p=Math.min(1,(ts-s)/d);el.textContent=fmt(Math.floor((1-Math.pow(1-p,3))*t));if(p<1)requestAnimationFrame(step);else el.textContent=fmt(t);})(performance.now());}
-  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){run(e.target);io.unobserve(e.target);}}),{threshold:.5});
-  document.querySelectorAll('[data-count]').forEach(el=>io.observe(el));
-})();
-
-/* reveal */
-(function(){
-  const els=document.querySelectorAll('.rv'); if(RM){els.forEach(e=>e.classList.add('in'));return;}
-  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}}),{threshold:.1,rootMargin:'0px 0px -40px 0px'});
-  els.forEach(e=>io.observe(e)); setTimeout(()=>els.forEach(e=>e.classList.add('in')),2600);
-})();
-
-/* hero nanopore trace */
+/* ---------- hero nanopore trace ---------- */
 (function(){
   const cv=document.getElementById('squiggle');if(!cv)return;const ctx=cv.getContext('2d');
   const stage=cv.parentElement,dpr=Math.min(2,window.devicePixelRatio||1),step=2;
@@ -826,7 +835,7 @@ const RM = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   draw();
 })();
 
-/* footer ambient trace */
+/* ---------- footer ambient trace ---------- */
 (function(){
   if(RM)return;const cv=document.getElementById('fcanvas');if(!cv)return;const ctx=cv.getContext('2d');
   function size(){cv.width=cv.offsetWidth;cv.height=cv.offsetHeight;}size();window.addEventListener('resize',size);
@@ -834,52 +843,8 @@ const RM = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   function draw(){const w=cv.width,h=cv.height;ctx.clearRect(0,0,w,h);if(hold<=0){t=h*0.3+Math.random()*h*0.4;hold=4+((Math.random()*14)|0);}y+=(t-y)*0.12;hold--;pts.push(y);if(pts.length>w/3+2)pts.shift();ctx.strokeStyle='#5FD6A8';ctx.lineWidth=1.3;ctx.beginPath();pts.forEach((py,i)=>{const px=i*3;i?ctx.lineTo(px,py):ctx.moveTo(px,py);});ctx.stroke();requestAnimationFrame(draw);}draw();
 })();
 
-/* CONSENSUS BENCH (6 taxa) */
-(function(){
-  const methods=['MW/KW','t/ANOVA','edgeR','DESeq2','MaAsLin2','LEfSe'];
-  const TAXA=[
-    {n:'Faecalibacterium prausnitzii',p:[0.002,0.008,0.001,0.004,0.020,0.006],fc:-2.1},
-    {n:'Akkermansia muciniphila',p:[0.010,0.030,0.008,0.012,0.070,0.020],fc:1.6},
-    {n:'Roseburia intestinalis',p:[0.003,0.010,0.002,0.006,0.015,0.009],fc:-1.8},
-    {n:'Bifidobacterium adolescentis',p:[0.020,0.090,0.030,0.080,0.120,0.030],fc:1.0},
-    {n:'Prevotella copri',p:[0.040,0.120,0.060,0.090,0.030,0.150],fc:-0.7},
-    {n:'Bacteroides uniformis',p:[0.080,0.200,0.110,0.140,0.090,0.300],fc:0.4}
-  ];
-  const q=p=>Math.min(0.6,+(p*1.35).toFixed(4));
-  const body=document.getElementById('consBody');
-  const pdial=document.getElementById('pdial'),qdial=document.getElementById('qdial'),adial=document.getElementById('adial');
-  const pval=document.getElementById('pval'),qval=document.getElementById('qval'),aval=document.getElementById('aval');
-  const robustCount=document.getElementById('robustCount'),toggle=document.getElementById('modeToggle'),tip=document.getElementById('tip');
-  let consensusOnly=false;const sVal=v=>(v/1000);
-  TAXA.forEach((t,ti)=>{const tr=document.createElement('tr');let c='<td class="taxon">'+t.n+'</td>';t.p.forEach((p,mi)=>{c+='<td class="cell" data-t="'+ti+'" data-m="'+mi+'"><span class="chip"></span></td>';});c+='<td class="robust" data-role="rb"></td>';tr.innerHTML=c;body.appendChild(tr);});
-  function recompute(){
-    const pT=sVal(+pdial.value),qT=sVal(+qdial.value),aT=+adial.value;
-    pval.textContent=pT.toFixed(3);qval.textContent=qT.toFixed(3);aval.textContent=aT;let robust=0;
-    body.querySelectorAll('tr').forEach((tr,ti)=>{const t=TAXA[ti];let pass=0;
-      tr.querySelectorAll('.cell').forEach((td,mi)=>{const p=t.p[mi],ok=p<=pT&&q(p)<=qT;td.querySelector('.chip').classList.toggle('pass',ok);if(ok)pass++;});
-      const isR=pass>=aT;if(isR)robust++;tr.classList.toggle('isrobust',isR);tr.classList.toggle('dimmed',consensusOnly&&!isR);
-      tr.querySelector('[data-role=rb]').textContent=isR?('ROBUST '+pass+'/6'):(pass+'/6');});
-    robustCount.innerHTML='<b>'+robust+'</b> of '+TAXA.length+' taxa robust at p ≤ '+pT.toFixed(3)+', FDR ≤ '+qT.toFixed(3)+', thresholds are yours.';
-  }
-  [pdial,qdial,adial].forEach(d=>d.addEventListener('input',recompute));
-  toggle.addEventListener('click',()=>{consensusOnly=!consensusOnly;toggle.textContent=consensusOnly?'Show all methods':'Show consensus only';toggle.style.color=consensusOnly?'var(--assay)':'';toggle.style.borderColor=consensusOnly?'var(--assay)':'';recompute();});
-  body.addEventListener('mousemove',e=>{const td=e.target.closest('.cell');if(!td){tip.classList.remove('on');return;}const t=TAXA[+td.dataset.t],mi=+td.dataset.m,p=t.p[mi];tip.innerHTML='<b>'+methods[mi]+'</b> · '+t.n.split(' ')[0]+'<br>log₂FC '+t.fc+' · p '+p+' · FDR '+q(p);tip.style.left=(e.clientX+14)+'px';tip.style.top=(e.clientY+14)+'px';tip.classList.add('on');});
-  body.addEventListener('mouseleave',()=>tip.classList.remove('on'));
-  recompute();
-})();
-
-/* FIGURE CAROUSEL */
-(function(){
-  const track=document.getElementById('vtrack');if(!track)return;
-  const slides=track.children,n=slides.length;const labels=['Composition','Alpha diversity','Beta diversity','Core microbiome','Heatmaps','Differential abundance'];
-  const dots=document.getElementById('vdots'),vnum=document.getElementById('vnum'),vlabel=document.getElementById('vlabel');
-  let i=0;
-  for(let k=0;k<n;k++){const b=document.createElement('button');b.setAttribute('aria-label','Figure '+(k+1));b.addEventListener('click',()=>go(k));dots.appendChild(b);}
-  function go(k){i=(k+n)%n;track.style.transform='translateX('+(-i*100)+'%)';vnum.textContent=String(i+1).padStart(2,'0');vlabel.textContent=labels[i];[...dots.children].forEach((d,x)=>d.classList.toggle('on',x===i));}
-  document.getElementById('vprev').addEventListener('click',()=>go(i-1));
-  document.getElementById('vnext').addEventListener('click',()=>go(i+1));
-  go(0);
-})();
+/* init overview counters on load */
+document.querySelectorAll('#tab-overview [data-count]').forEach(runCounter);
 </script>
 </body>
 </html>
